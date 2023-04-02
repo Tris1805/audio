@@ -14,21 +14,27 @@
 
 <body>
   <?php
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
-  $dbname = "audiodb";
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "audiodb";
 
-  // Create connection
-  $conn = mysqli_connect($servername, $username, $password, $dbname);
-  // Check connection
-  if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-  }
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
+    // Check connection
+    if (!$conn) {
+      die("Connection failed: " . mysqli_connect_error());
+    }
 
-  // $sql = "SELECT count(id) as total FROM products";
-  $sql = "SELECT * FROM products";
-  $result = mysqli_query($conn, $sql);
+    // $sql = "SELECT count(id) as total FROM products";
+    $item_per_page = 8;
+    $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
+    $offset = ($cur_page - 1) * $item_per_page;
+    $sql = "SELECT * FROM `products`  LIMIT $offset, $item_per_page";
+    $result = mysqli_query($conn, $sql);
+    $tolal_products = mysqli_query($conn, "select * from products");
+    $tolal_products = $tolal_products->num_rows;
+    $totalPages = ceil($tolal_products / $item_per_page);
   ?>
   <div id="app">
     <app-header></app-header>
@@ -120,6 +126,7 @@
               
                 <?php
                   while ($row = mysqli_fetch_assoc($result)) {
+
                       echo '<div class="new-items">';
                       echo '<div @click="onProductClick(product)">';
                       echo '<div class="new-items-img">';
@@ -145,15 +152,21 @@
                     <div class="newprice">{{ formatPrice(product.price) }} đ</div>
                   </div>
                 </div> -->
-                <!-- <ul class="pagination">
-                <li :class="{ disabled: !canPreviousPage }" @click="onPreviousPage()">«</li>
-                <li v-for="page in pages" @click="onPageChange(page)" :class="{ active: page === currentPage }">{{ page }}
-                </li>
-                <li :class="{ disabled: !canNextPage }" @click="onNextPage()">»</li> -->
-
-              
-              </ul>
+                
             </div>
+            <ul class="pagination">
+                  <?php 
+                    
+                    for ( $i = 1; $i <= $totalPages ; $i++) { ?>
+                      <li  class=""><a href="#product-list" data-page="<?= $i ?>"> <?= $i ?></a></li>
+                    <?php }
+                  ?>
+                  <!-- <ul class="pagination">
+                  <li :class="{ disabled: !canPreviousPage }" @click="onPreviousPage()">«</li>
+                  <li v-for="page in pages" @click="onPageChange(page)" :class="{ active: page === currentPage }">{{ page }}
+                  </li>
+                  <li :class="{ disabled: !canNextPage }" @click="onNextPage()">»</li> -->
+                </ul>
           </div>
         </div>
       </div>
@@ -165,5 +178,28 @@
 <script src="utils/commons.js"></script>
 <script src="scripts/components.js"></script>
 <script src="scripts/trangchu.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+		// Bắt sự kiện khi người dùng chọn trang
+		$('body').on('click', '.pagination li a', function(e){
+			e.preventDefault();
+			var page = $(this).attr('data-page');
+			loadData(page);
+		});
+
+		// Hàm tải nội dung mới
+		function loadData(page){
+			$.ajax({
+				url: 'trangchu.php',
+				type: 'POST',
+				data: {page: page},
+				success: function(response){
+					$('#app').html(response);
+				}
+			});
+		}
+	});
+	</script>
 
 </html>
