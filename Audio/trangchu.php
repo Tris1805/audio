@@ -128,9 +128,9 @@
                   while ($row = mysqli_fetch_assoc($result)) {
                       
                       echo '<div class="new-items">';
-                      echo '<div data-id="'. $row['id'] .'" onclick="getProductDetails(this)">';
+                      echo '<div>';
                       echo '<div class="new-items-img">';
-                      echo  sprintf('<img src="%s" style="height: 210px; width: 210px;" />', $row['image']);
+                      echo  sprintf('<a href="chitietsanpham.php?id=%s"><img src="%s" style="height: 210px; width: 210px;" alt=""/></a>',$row['id'],$row['image']);
                       echo '</div>';
                       echo '<div class="new-items-data">';
                       echo '<a class="new-items-data--title" href="#"><p>'. $row['name'] . '</p></a>';
@@ -209,23 +209,4 @@
 		}
 	});
 	</script>
-  <script>
-    function onTypeChange(productType) {
-        // Tạo đối tượng XMLHttpRequest để gửi yêu cầu AJAX
-        var xhttp = new XMLHttpRequest();
-        
-        // Định nghĩa hàm xử lý kết quả trả về
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                // Cập nhật danh sách sản phẩm theo loại
-                document.getElementById("printSearch").innerHTML = this.responseText;
-            }
-        };
-        
-        // Gửi yêu cầu AJAX đến server-side để lấy danh sách sản phẩm
-        xhttp.open("POST", "./php/renderByType.php", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("productType=" + productType);
-    }
-</script>
 </html>

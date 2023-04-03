@@ -17,6 +17,13 @@
   </head>
   <body>
   <?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "audiodb";
+
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
     // Lấy giá trị của biến productType từ yêu cầu AJAX
     $productId = $_GET['id'];
 
@@ -37,14 +44,14 @@
             ?>
         <div class="item-detail">
           <div class="item-detail-img">
-            <img src="<?php $row['image'] ?>" alt="" />
+            <img src="<?php echo $row['image'] ?>" alt="" />
           </div>
           <div class="item-detail-info">
-            <h2 class="title"><?php $row['name'] ?></h2>
+            <h2 class="title"><?php echo $row['name'] ?></h2>
             <h6 class="brand-name">
-              THƯƠNG HIỆU <a href="#"><?php $row['brand'] ?></a>
+              THƯƠNG HIỆU <a href="#"><?php echo $row['brand'] ?></a>
             </h6>
-            <span class="item-price"><?php $row['price'] ?></span>
+            <span class="item-price"><?php echo number_format($row['price'], 0, '', ',')  ?>đ</span>
             <div class="guarantee">
               <div class="guarantee-img">
                 <img src="assets/images/icons/icon-shield.svg" alt="" />
@@ -55,7 +62,21 @@
             <br />
             <div class="more-detail" style="text-align:justify;">
               <ul>
-                <li> <?php $row['description'] ?></li>
+              <?php 
+                $string = $row['descriptions'];
+                $array = explode(',', $string);
+
+                // Loại bỏ dấu ngoặc kép trong từng phần tử mảng
+                foreach ($array as &$item) {
+                  $item = str_replace('"', '', $item);
+                }
+                foreach($array as $desc){
+                ?>
+                <li><?php echo $desc ?> </li>
+              <?php  }
+              
+              ?>
+                
               </ul>
               <?php }?>
             </div>
@@ -63,17 +84,8 @@
         </div>
       </div>
       <app-footer></app-footer>
-      <!-- <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"
-      ></script>
     </div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"
-    ></script> -->
+      
   </body>
   <script src="utils/data.js"></script>
   <script src="utils/commons.js"></script>
