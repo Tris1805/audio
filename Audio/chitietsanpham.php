@@ -16,38 +16,54 @@
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
+  <?php
+    // Lấy giá trị của biến productType từ yêu cầu AJAX
+    $productId = $_GET['id'];
+
+    // Truy vấn CSDL để lấy danh sách sản phẩm tương ứng với productType
+    $sql = "SELECT * FROM products WHERE id = '$productId'";
+    $result = mysqli_query($conn, $sql);
+
+    // Hiển thị danh sách sản phẩm dưới dạng HTML
+    
+  ?>
     <div id="app">
       <app-header></app-header>
 
       <div class="main-container">
+        <?php 
+          if (mysqli_num_rows($result) > 0) { 
+            $row = mysqli_fetch_assoc($result);
+            ?>
         <div class="item-detail">
           <div class="item-detail-img">
-            <img :src="product.image" alt="" />
+            <img src="<?php $row['image'] ?>" alt="" />
           </div>
           <div class="item-detail-info">
-            <h2 class="title">{{ product.name }}</h2>
+            <h2 class="title"><?php $row['name'] ?></h2>
             <h6 class="brand-name">
-              THƯƠNG HIỆU <a href="#">{{ product.brand }}</a>
+              THƯƠNG HIỆU <a href="#"><?php $row['brand'] ?></a>
             </h6>
-            <span class="item-price">{{ formatPrice(product.price) }}</span>
+            <span class="item-price"><?php $row['price'] ?></span>
             <div class="guarantee">
               <div class="guarantee-img">
                 <img src="assets/images/icons/icon-shield.svg" alt="" />
               </div>
               <div class="guarantee-time">Bảo hành 12 tháng.</div>
             </div>
-            <div class="buy-btn" @click="onAddToCart()">THÊM VÀO GIỎ HÀNG</div>
+            <div class="buy-btn" >THÊM VÀO GIỎ HÀNG</div>
             <br />
             <div class="more-detail" style="text-align:justify;">
               <ul>
-                <li v-for="item in product.descriptions">{{ item }}</li>
+                <li> <?php $row['description'] ?></li>
               </ul>
+              <?php }?>
             </div>
           </div>
         </div>
       </div>
       <app-footer></app-footer>
-      <script
+      <!-- <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"
@@ -57,7 +73,7 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
-    ></script>
+    ></script> -->
   </body>
   <script src="utils/data.js"></script>
   <script src="utils/commons.js"></script>

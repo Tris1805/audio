@@ -8,7 +8,7 @@
   <title>Ikus Audio</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
   <!-- <script src="lib/vue.global.prod.js"></script> -->
 </head>
 
@@ -20,7 +20,11 @@
     $dbname = "audiodb";
 
     // Create connection
+    $type = $_GET["type"];
     $conn = mysqli_connect($servername, $username, $password, $dbname);
+    // Truy vấn cơ sở dữ liệu để lấy danh sách sản phẩm thuộc loại tương ứng
+    // $sql = "SELECT * FROM products WHERE type = '$type'";
+    // $result = mysqli_query($conn, $sql);
     // Check connection
     if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
@@ -30,27 +34,27 @@
     $item_per_page = 8;
     $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
     $offset = ($cur_page - 1) * $item_per_page;
-    $sql = "SELECT * FROM `products`  LIMIT $offset, $item_per_page";
+    $sql = "SELECT * FROM `products` WHERE type = '$type' LIMIT $offset, $item_per_page";
     $result = mysqli_query($conn, $sql);
-    $tolal_products = mysqli_query($conn, "select * from products");
-    $tolal_products = $tolal_products->num_rows;
-    $totalPages = ceil($tolal_products / $item_per_page);
+    // $tolal_products = mysqli_query($conn, "SELECT * FROM products WHERE type = '$type'");
+    // $tolal_products = $tolal_products->num_rows;
+    // $totalPages = ceil($tolal_products / $item_per_page);
   ?>
   <div id="app">
     <app-header></app-header>
     <div class="main-container">
       <div class="main-promo">
-        <img src="assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
+        <img src="../assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
       </div>
       <div class="main-content">
         <!-- <div class="main-tag" onclick="onTypeChange('full-sized')">FULL SIZED</div>
         <div class="main-tag" onclick="onTypeChange('inear')">IN EAR</div>
         <div class="main-tag" onclick="onTypeChange('earbud')">EARBUD</div>
         <div class="main-tag" onclick="onTypeChange('true-wireless')">TRUE WIRELESS</div> -->
-        <div><a href="./php/renderByType.php?type=full-sized" class="main-tag"  id="full-sized-btn" onclick="getProducts('full-sized')">FULL SIZED</a></div>
-        <div><a href="./php/renderByType.php?type=inear" class="main-tag"  id="in-ear-btn" onclick="getProducts('inear')">IN EAR</a></div>
-        <div><a href="./php/renderByType.php?type=earbud" class="main-tag"  id="ear-bud-btn" onclick="getProducts('earbud')">EARBUD</a></div>
-        <div><a href="./php/renderByType.php?type=true-wireless" class="main-tag"  id="true-wireless-btn" onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
+        <div><a href="renderByType.php?type=full-sized" class="main-tag"  id="full-sized-btn" onclick="getProducts('full-sized')">FULL SIZED</a></div>
+        <div><a href="renderByType.php?type=inear" class="main-tag"  id="in-ear-btn" onclick="getProducts('inear')">IN EAR</a></div>
+        <div><a href="renderByType.php?type=earbud" class="main-tag"  id="ear-bud-btn" onclick="getProducts('earbud')">EARBUD</a></div>
+        <div><a href="renderByType.php?type=true-wireless" class="main-tag"  id="true-wireless-btn" onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
       </div>
       <div class="main-content">
         <div class="new-product">
@@ -65,7 +69,7 @@
                   padding: 30px;
                 " v-model="searchKey" />
             <div class="search-icon">
-              <img class="search-icon-img" src="assets/images/icons/search-icon.png" />
+              <img class="search-icon-img" src="../assets/images/icons/search-icon.png" />
             </div>
           </div>
 
@@ -130,7 +134,7 @@
                       echo '<div class="new-items">';
                       echo '<div data-id="'. $row['id'] .'" onclick="getProductDetails(this)">';
                       echo '<div class="new-items-img">';
-                      echo  sprintf('<img src="%s" style="height: 210px; width: 210px;" />', $row['image']);
+                      echo  sprintf('<img src="../%s" style="height: 210px; width: 210px;" />', $row['image']);
                       echo '</div>';
                       echo '<div class="new-items-data">';
                       echo '<a class="new-items-data--title" href="#"><p>'. $row['name'] . '</p></a>';
@@ -154,19 +158,7 @@
                 </div> -->
                 
             </div>
-            <ul class="pagination">
-                  <?php 
-                    
-                    for ( $i = 1; $i <= $totalPages ; $i++) { 
-                      if  ($i != $cur_page){
-                      ?>
-                        <li  class=""><a href="#product-list" data-page="<?= $i ?>"> <?= $i ?></a></li> 
-                      <?php } else { ?>
-                        <li  class=""><a href="#product-list" data-page="<?= $i ?>" class="active"> <?= $i ?></a></li>
-
-                      <?php }?>
-                    <?php }
-                  ?>
+            
                   <!-- <ul class="pagination">
                   <li :class="{ disabled: !canPreviousPage }" @click="onPreviousPage()">«</li>
                   <li v-for="page in pages" @click="onPageChange(page)" :class="{ active: page === currentPage }">{{ page }}
@@ -199,7 +191,7 @@
 		// Hàm tải nội dung mới
 		function loadData(page){
 			$.ajax({
-				url: 'trangchu.php',
+				url: 'renderByType.php',
 				type: 'POST',
 				data: {page: page},
 				success: function(response){
@@ -209,23 +201,6 @@
 		}
 	});
 	</script>
-  <script>
-    function onTypeChange(productType) {
-        // Tạo đối tượng XMLHttpRequest để gửi yêu cầu AJAX
-        var xhttp = new XMLHttpRequest();
-        
-        // Định nghĩa hàm xử lý kết quả trả về
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                // Cập nhật danh sách sản phẩm theo loại
-                document.getElementById("printSearch").innerHTML = this.responseText;
-            }
-        };
-        
-        // Gửi yêu cầu AJAX đến server-side để lấy danh sách sản phẩm
-        xhttp.open("POST", "./php/renderByType.php", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("productType=" + productType);
-    }
+  
 </script>
 </html>
