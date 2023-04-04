@@ -441,12 +441,10 @@ html {
   text-transform: uppercase;
   letter-spacing: 2px;
   transition: background .5s;
-
 }
 
-.login_card_form button:hover{
-  background-color: rgba(0, 0, 0, .85);
-  cursor: pointer;
+.login_card_form .submit-btn:hover{
+  text-decoration: none;
 }
 
 .login_card_social{
