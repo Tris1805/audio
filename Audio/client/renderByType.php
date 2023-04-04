@@ -40,11 +40,11 @@
     // $tolal_products = $tolal_products->num_rows;
     // $totalPages = ceil($tolal_products / $item_per_page);
   ?>
+  <?php include "../components/header.php"; ?>
   <div id="app">
-    <app-header></app-header>
     <div class="main-container">
       <div class="main-promo">
-        <img src="../assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
+        <img src="assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
       </div>
       <div class="main-content">
         <!-- <div class="main-tag" onclick="onTypeChange('full-sized')">FULL SIZED</div>
@@ -132,9 +132,9 @@
                   while ($row = mysqli_fetch_assoc($result)) {
                       
                       echo '<div class="new-items">';
-                      echo '<div data-id="'. $row['id'] .'" onclick="getProductDetails(this)">';
+                      echo '<div>';
                       echo '<div class="new-items-img">';
-                      echo  sprintf('<img src="../%s" style="height: 210px; width: 210px;" />', $row['image']);
+                      echo  sprintf('<a href="chitietsanpham.php?id=%s"><img src="../%s" style="height: 210px; width: 210px;" alt=""/></a>',$row['id'],$row['image']);
                       echo '</div>';
                       echo '<div class="new-items-data">';
                       echo '<a class="new-items-data--title" href="#"><p>'. $row['name'] . '</p></a>';
@@ -164,12 +164,12 @@
                   <li v-for="page in pages" @click="onPageChange(page)" :class="{ active: page === currentPage }">{{ page }}
                   </li>
                   <li :class="{ disabled: !canNextPage }" @click="onNextPage()">»</li> -->
-                </ul>
+                <!-- </ul> -->
           </div>
         </div>
       </div>
     </div>
-    <app-footer></app-footer>
+    <?php include "../components/footer.php"; ?>
   </div>
 </body>
 <script src="utils/data.js"></script>

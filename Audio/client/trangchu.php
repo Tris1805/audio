@@ -8,7 +8,7 @@
   <title>Ikus Audio</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
   <!-- <script src="lib/vue.global.prod.js"></script> -->
 </head>
 
@@ -37,7 +37,8 @@
     $totalPages = ceil($tolal_products / $item_per_page);
   ?>
   <div id="app">
-    <app-header></app-header>
+    <!-- <app-header></app-header> -->
+    <?php include "../components/header.php"; ?>
     <div class="main-container">
       <div class="main-promo">
         <img src="assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
@@ -47,10 +48,10 @@
         <div class="main-tag" onclick="onTypeChange('inear')">IN EAR</div>
         <div class="main-tag" onclick="onTypeChange('earbud')">EARBUD</div>
         <div class="main-tag" onclick="onTypeChange('true-wireless')">TRUE WIRELESS</div> -->
-        <div><a href="./php/renderByType.php?type=full-sized" class="main-tag"  id="full-sized-btn" onclick="getProducts('full-sized')">FULL SIZED</a></div>
-        <div><a href="./php/renderByType.php?type=inear" class="main-tag"  id="in-ear-btn" onclick="getProducts('inear')">IN EAR</a></div>
-        <div><a href="./php/renderByType.php?type=earbud" class="main-tag"  id="ear-bud-btn" onclick="getProducts('earbud')">EARBUD</a></div>
-        <div><a href="./php/renderByType.php?type=true-wireless" class="main-tag"  id="true-wireless-btn" onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
+        <div><a href="renderByType.php?type=full-sized" class="main-tag"  id="full-sized-btn" onclick="getProducts('full-sized')">FULL SIZED</a></div>
+        <div><a href="renderByType.php?type=inear" class="main-tag"  id="in-ear-btn" onclick="getProducts('inear')">IN EAR</a></div>
+        <div><a href="renderByType.php?type=earbud" class="main-tag"  id="ear-bud-btn" onclick="getProducts('earbud')">EARBUD</a></div>
+        <div><a href="renderByType.php?type=true-wireless" class="main-tag"  id="true-wireless-btn" onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
       </div>
       <div class="main-content">
         <div class="new-product">
@@ -115,9 +116,9 @@
               <div class="brand-filter-title">KHOẢNG GIÁ</div>
               <div class="price-container">
                 Chọn khoảng giá mong muốn.
-                <input type="number" name="" id="price-input" v-model="minPrice" />
+                <input type="number" name="" id="price-input" placeholder="0" />
                 <span>-</span>
-                <input type="number" name="" id="price-input" v-model="maxPrice" />
+                <input type="number" name="" id="price-input" placeholder="10000000" />
               </div>
             </div>
           </div>
@@ -130,11 +131,11 @@
                       echo '<div class="new-items">';
                       echo '<div>';
                       echo '<div class="new-items-img">';
-                      echo  sprintf('<a href="chitietsanpham.php?id=%s"><img src="%s" style="height: 210px; width: 210px;" alt=""/></a>',$row['id'],$row['image']);
+                      echo  sprintf('<a href="chitietsanpham.php?id=%s"><img src="../%s" style="height: 210px; width: 210px;" alt=""/></a>',$row['id'],$row['image']);
                       echo '</div>';
                       echo '<div class="new-items-data">';
                       echo '<a class="new-items-data--title" href="#"><p>'. $row['name'] . '</p></a>';
-                      echo sprintf('<div class="newprice">%s</div>', number_format($row['price'], 0, '', ','));
+                      echo sprintf('<div class="newprice">%sđ</div>', number_format($row['price'], 0, '', ','));
                       echo "</div>";
                       echo "</div>";
                       echo "</div>";
@@ -154,30 +155,20 @@
                 </div> -->
                 
             </div>
-            <ul class="pagination">
-                  <?php 
-                    
-                    for ( $i = 1; $i <= $totalPages ; $i++) { 
-                      if  ($i != $cur_page){
-                      ?>
-                        <li  class=""><a href="#product-list" data-page="<?= $i ?>"> <?= $i ?></a></li> 
-                      <?php } else { ?>
-                        <li  class=""><a href="#product-list" data-page="<?= $i ?>" class="active"> <?= $i ?></a></li>
-
-                      <?php }?>
-                    <?php }
-                  ?>
+            <?php include "pagination.php"; ?>
+            
                   <!-- <ul class="pagination">
                   <li :class="{ disabled: !canPreviousPage }" @click="onPreviousPage()">«</li>
                   <li v-for="page in pages" @click="onPageChange(page)" :class="{ active: page === currentPage }">{{ page }}
                   </li>
                   <li :class="{ disabled: !canNextPage }" @click="onNextPage()">»</li> -->
-                </ul>
+              
           </div>
         </div>
       </div>
     </div>
-    <app-footer></app-footer>
+    <?php include "../components/footer.php"; ?>
+    <!-- <app-footer></app-footer> -->
   </div>
 </body>
 <script src="utils/data.js"></script>

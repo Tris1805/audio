@@ -13,7 +13,7 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
   </head>
   <body>
   <?php
@@ -35,7 +35,7 @@
     
   ?>
     <div id="app">
-      <app-header></app-header>
+      <?php include "../components/header.php"; ?>
 
       <div class="main-container">
         <?php 
@@ -44,7 +44,7 @@
             ?>
         <div class="item-detail">
           <div class="item-detail-img">
-            <img src="<?php echo $row['image'] ?>" alt="" />
+            <img src="../<?php echo $row['image'] ?>" alt="" />
           </div>
           <div class="item-detail-info">
             <h2 class="title"><?php echo $row['name'] ?></h2>
@@ -54,7 +54,7 @@
             <span class="item-price"><?php echo number_format($row['price'], 0, '', ',')  ?>đ</span>
             <div class="guarantee">
               <div class="guarantee-img">
-                <img src="assets/images/icons/icon-shield.svg" alt="" />
+                <img src="../assets/images/icons/icon-shield.svg" alt="" />
               </div>
               <div class="guarantee-time">Bảo hành 12 tháng.</div>
             </div>
@@ -83,7 +83,7 @@
           </div>
         </div>
       </div>
-      <app-footer></app-footer>
+      <?php include "../components/footer.php"; ?>
     </div>
       
   </body>

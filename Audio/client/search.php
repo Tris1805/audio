@@ -17,13 +17,13 @@
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
         echo '<div class="new-items">';
-        echo '<div @click="onProductClick(product)">';
+        echo '<div>';
         echo '<div class="new-items-img">';
         echo  sprintf('<img src="%s" style="height: 210px; width: 210px;" />', $row['image']);
         echo '</div>';
         echo '<div class="new-items-data">';
         echo '<a class="new-items-data--title" href=""><p>'. $row['name'] . '</p></a>';
-        echo sprintf('<div class="newprice">%s</div>', number_format($row['price'], 0, '', ','));
+        echo sprintf('<div class="newprice">%sđ</div>', number_format($row['price'], 0, '', ','));
         echo "</div>";
         echo "</div>";
         echo "</div>";                  
