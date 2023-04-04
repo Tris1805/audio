@@ -297,8 +297,8 @@ html {
   margin-top: 100px;
   width: 100%;
   overflow: hidden;
-  /* background: linear-gradient(to right, #333399, #ff00cc);  */
-  background: linear-gradient(to top right, #ccc, white);
+  /* background: linear-gradient(to right, #6262f7, #e25fc8);  */
+  background: linear-gradient(to top right, #b4b2b2, white);
   display: flex;
   align-items: center;
   justify-content: center;
