@@ -119,7 +119,8 @@
                 </div>
                 <a href="./quenmatkhau.php">Forgot password?</a>
               </div>
-              <button type="submit"> <a href="#">Sign in</a></button>
+              <a class="submit-btn" href="#">
+                Sign in</a>
             </form>
 
             <div class="login_card_footer">

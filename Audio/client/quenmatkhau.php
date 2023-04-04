@@ -77,7 +77,8 @@
                 <input type="tel" placeholder="Enter tel" required autofocus>
               </div>
               
-              <button type="submit">Save change</button>
+              <a class="submit-btn" href="#">
+                Save changes</a>
             </form>
 
             

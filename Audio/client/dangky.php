@@ -76,7 +76,8 @@
                 <input type="tel" placeholder="Enter tel" required autofocus>
               </div>
               
-              <button type="submit">Sign up</button>
+              <a class="submit-btn" href="#">
+                Sign up</a>
             </form>
 
             

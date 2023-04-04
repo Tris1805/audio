@@ -429,10 +429,14 @@ html {
   accent-color: black;
 }
 
-.login_card_form button{
+.login_card_form .submit-btn{
   background: black;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 1rem;
+  width: 100%;
   border-radius: 100px;
   text-transform: uppercase;
   letter-spacing: 2px;
