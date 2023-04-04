@@ -41,7 +41,7 @@
     <?php include "../components/header.php"; ?>
     <div class="main-container">
       <div class="main-promo">
-        <img src="assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
+        <img src="../assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
       </div>
       <div class="main-content">
         <!-- <div class="main-tag" onclick="onTypeChange('full-sized')">FULL SIZED</div>
@@ -66,7 +66,7 @@
                   padding: 30px;
                 " v-model="searchKey" />
             <div class="search-icon">
-              <img class="search-icon-img" src="assets/images/icons/search-icon.png" />
+              <img class="search-icon-img" src="../assets/images/icons/search-icon.png" />
             </div>
           </div>
 
