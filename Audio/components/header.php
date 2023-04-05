@@ -10,7 +10,7 @@
 
 
 
-            <div class="navbar-btn login-icon"><a class="navbar-link" href="login_page1.html"><img class="navbar-icon"
+            <div class="navbar-btn login-icon"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
                         src="../assets/images/icons/account.png"></a></div>
             <div class="navbar-btn cart"><a class="navbar-link" href="giohang.html"><img class="navbar-icon"
                         src="../assets/images/icons/shopping-cart.png"></a></div>

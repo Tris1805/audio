@@ -44,18 +44,7 @@
 
     <div class="main-container">
       <div class="main-account-content">
-        <!-- <div class="main-content">
-        <div v-if="isLoggedIn" class="member-content">
-          <div class="member-form login">
-            <span class="member-form-title">XIN CHÀO QUÝ KHÁCH</span>
-            <h2>{{ user.username }}</h2>
-            <div class="login-func">
-              <div class="member-btn" @click="onLogout()">ĐĂNG XUẤT</div>
-              <div class="member-btn" @click="onRebill()">XEM ĐƠN ĐÃ ĐẶT </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <!-- 
       <div v-if="!isLoggedIn" class="main-content">
         <div class="member-content">
           <div class="member-form login">

@@ -5,10 +5,10 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
   <title>Ikus Audio</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-  <link rel="stylesheet" href="../assets/css/style.css" />
   <!-- <script src="lib/vue.global.prod.js"></script> -->
 </head>
 
@@ -90,8 +90,8 @@
               <div class="brand-filter-title">THƯƠNG HIỆU</div>
               <div class="brand-container">
                 <label class="container">
-                  <input type="checkbox" id="Apple" :value="productBrand.APPLE" v-model="checkedBrands" />
-                  <span class="checkmark"></span> APPLE
+                  <button class="brand-chooser">APPLE</button>
+                  <!-- <span class="checkmark"></span> APPLE -->
                 </label>
                 <label class="container">
                   <input type="checkbox" id="" :value="productBrand.FOCAL" v-model="checkedBrands"
