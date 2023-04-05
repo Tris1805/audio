@@ -89,26 +89,20 @@
             <div class="brand-filter">
               <div class="brand-filter-title">THƯƠNG HIỆU</div>
               <div class="brand-container">
-                <label class="container">
+                <label class="container" style="display: flex; justify-content: center;">
                   <button class="brand-chooser">APPLE</button>
-                  <!-- <span class="checkmark"></span> APPLE -->
                 </label>
-                <label class="container">
-                  <input type="checkbox" id="" :value="productBrand.FOCAL" v-model="checkedBrands"
-                    :defaultValue="checked" />
-                  <span class="checkmark"></span> Focal
+                <label class="container" style="display: flex; justify-content: center;">
+                  <button class="brand-chooser">Focal</button>
                 </label>
-                <label class="container">
-                  <input type="checkbox" id="HIFIMAN" :value="productBrand.HIFIMAN" v-model="checkedBrands" />
-                  <span class="checkmark"></span> HiFiMan
+                <label class="container" style="display: flex; justify-content: center;">
+                  <button class="brand-chooser">HiFiMan</button>
                 </label>
-                <label class="container">
-                  <input type="checkbox" id="MOONDROP" :value="productBrand.MOONDROP" v-model="checkedBrands" />
-                  <span class="checkmark"></span> MOONDROP
+                <label class="container" style="display: flex; justify-content: center;">
+                  <button class="brand-chooser">MOONDROP</button>
                 </label>
-                <label class="container">
-                  <input type="checkbox" id="SONY" :value="productBrand.SONY" v-model="checkedBrands" />
-                  <span class="checkmark"></span> SONY
+                <label class="container" style="display: flex; justify-content: center;">
+                  <button class="brand-chooser">SONY</button>
                 </label>
               </div>
             </div>
