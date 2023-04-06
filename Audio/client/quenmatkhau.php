@@ -55,6 +55,15 @@
               <div>Just a few minutes to get back your account
               </div>
             </div>
+
+            <div class="signup_announce">
+            <div class="invalid_username" style="display: none">Invalid Username</div>
+            <div class="wrong_password" style="display: none">Wrong Password Confirmation</div>
+            <div class="invalid_email" style="display: none">Invalid Email</div>
+            <div class="invalid_tel" style="display: none">Invalid Tel</div>
+            <div class="have_blank_field" style="display: none">All The Field Must Be Filled</div>
+            </div>
+
             <form action="" class="login_card_form">
               <div class="form_item">
                 <span class="form_item_icon material-symbols-rounded">search</span>
