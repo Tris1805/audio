@@ -10,32 +10,33 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,300,0,0" />
-
+  <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 
 <body>
   <?php
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
-  $dbname = "audiodb";
-
-  // Create connection
-  $conn = mysqli_connect($servername, $username, $password, $dbname);
-  // Check connection
-  if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-  }
-
-  // $sql = "SELECT count(id) as total FROM products";
-  $item_per_page = 8;
-  $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
-  $offset = ($cur_page - 1) * $item_per_page;
-  $sql = "SELECT * FROM `products`  LIMIT $offset, $item_per_page";
-  $result = mysqli_query($conn, $sql);
-  $tolal_products = mysqli_query($conn, "select * from products");
-  $tolal_products = $tolal_products->num_rows;
-  $totalPages = ceil($tolal_products / $item_per_page);
+    session_start();
+    if (isset($_SESSION["username"]) && isset($_SESSION["password"])) {
+      include '../components/connectDB.php';
+      $username = $_SESSION["username"];
+      $password = $_SESSION["password"];
+      $query = "SELECT * FROM users WHERE name='$username' AND password='$password'";
+      $result = mysqli_query($conn, $query);
+      $user = mysqli_fetch_assoc($result);
+      if(mysqli_num_rows($result) == 1) {
+        header("Location: trangchu.php");
+        exit();
+      } else {
+        $login_err = "Email hoặc mật khẩu không chính xác";
+        echo $login_err;
+      }
+    } else {
+        $username = "";
+        $password = "";
+    }
+    
+  
   ?>
 
   <div id="app">
@@ -92,14 +93,14 @@
               <h1>Sign In</h1>
               <div>Please login to use platform</div>
             </div>
-            <form action="" class="login_card_form">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="login_card_form">
               <div class="form_item">
                 <span class="form_item_icon material-symbols-rounded">search</span>
-                <input type="text" placeholder="Enter Username" required autofocus>
+                <input type="text" placeholder="Enter Username" value="<?php echo $username;?>" required autofocus>
               </div>
               <div class="form_item">
                 <span class="form_item_icon material-symbols-rounded">lock</span>
-                <input type="password" placeholder="Enter Password" required autofocus>
+                <input type="password" placeholder="Enter Password" value="<?php echo $password;?>" required autofocus>
               </div>
               <div class="form_item_other">
                 <div class="checkbox">
@@ -143,10 +144,54 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </div>
+  <!-- <div id="toast"></div> -->
 </body>
-<script src="utils/data.js"></script>
-<script src="utils/commons.js"></script>
-<script src="scripts/components.js"></script>
+
 <script src="scripts/dangnhap.js"></script>
+<!-- <script>
+  function toast({ title = "", message = "", type = "", duration = 3000 }) {
+    const main = document.getElementById("toast");
+    if (main) {
+        const toast = document.createElement("div");
+
+        // Auto remove toast
+        const autoRemoveId = setTimeout(function () {
+        main.removeChild(toast);
+        }, duration + 1000);
+
+        // Remove toast when clicked
+        toast.onclick = function (e) {
+        if (e.target.closest(".toast__close")) {
+            main.removeChild(toast);
+            clearTimeout(autoRemoveId);
+        }
+        };
+
+        const icons = {
+        success: "fas fa-check-circle",
+        error: "fas fa-exclamation-circle"
+        };
+        const icon = icons[type];
+        const delay = (duration / 1000).toFixed(2);
+
+        toast.classList.add("toast", `toast--${type}`);
+        toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
+
+        toast.innerHTML = `
+                        <div class="toast__icon">
+                            <i class="${icon}"></i>
+                        </div>
+                        <div class="toast__body">
+                            <h3 class="toast__title">${title}</h3>
+                            <p class="toast__msg">${message}</p>
+                        </div>
+                        <div class="toast__close">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    `;
+        main.appendChild(toast);
+    }
+}
+</script> -->
 
 </html>

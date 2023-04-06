@@ -15,27 +15,45 @@
 
 <body>
     <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "audiodb";
-
-    // Create connection
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    // $sql = "SELECT count(id) as total FROM products";
-    $item_per_page = 8;
-    $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
-    $offset = ($cur_page - 1) * $item_per_page;
-    $sql = "SELECT * FROM `products`  LIMIT $offset, $item_per_page";
-    $result = mysqli_query($conn, $sql);
-    $tolal_products = mysqli_query($conn, "select * from products");
-    $tolal_products = $tolal_products->num_rows;
-    $totalPages = ceil($tolal_products / $item_per_page);
+    session_start();
+      function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+      }
+      include '../components/connectDB.php';
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $username = test_input($_POST["username"]);
+        $email = test_input($_POST["email"]);
+        $password = test_input($_POST["password"]);
+        $confirm_password = test_input($_POST["re-password"]);
+        $phone_number = test_input($_POST["tel"]);
+      
+        // Kiểm tra mật khẩu dài hơn 8 ký tự và không có dấu cách
+        if (strlen($password) < 8 || strpos($password, ' ') !== false) {
+          $password_err = "Mật khẩu phải chứa ít nhất 8 ký tự và không có dấu cách.";
+        }
+      
+        // Kiểm tra mật khẩu và xác nhận mật khẩu trùng khớp
+        if ($password != $confirm_password) {
+          $confirm_password_err = "Mật khẩu xác nhận không khớp.";
+        }
+        $query = "SELECT * FROM users WHERE name='$username'";
+        $result = mysqli_query($conn, $query);
+        // Nếu không có lỗi, thực hiện đăng ký tài khoản
+        if (empty($password_err) && empty($confirm_password_err) && filter_var($email, FILTER_VALIDATE_EMAIL) && preg_match('/^[0-9]{10}$/', $phone_number) && !$result) {
+          $query = "INSERT INTO users (name, password, email, tel) VALUES ('$username', '$password', '$email', '$phone_number')";
+          if (mysqli_query($conn, $query)) {
+            $_SESSION["username"] = $username;
+            $_SESSION["password"] = $password;
+            header("Location: dangnhap.php");
+            echo '<script>toastr["success"]("Đăng ký thành công", "Thành công!");</script>';
+          } else {
+            echo "Lỗi: " . mysqli_error($conn);
+          }
+        }
+      }
     ?>
 
     <div id="app">
@@ -54,30 +72,30 @@
               <h1>Sign Up</h1>
               <div>Create a new account</div>
             </div>
-            <form action="" class="login_card_form">
-              <div class="form_item">
+            <form action="" method="post" class="login_card_form">
+              <div class="form_item"> 
                 <span class="form_item_icon material-symbols-rounded">search</span>
-                <input type="text" placeholder="Enter Username" required autofocus>
+                <input type="text" placeholder="Enter Username" required autofocus id="username" name="username">
               </div>
               <div class="form_item">
                 <span class="form_item_icon material-symbols-rounded">lock</span>
-                <input type="password" placeholder="Enter Password" required autofocus>
+                <input type="password" placeholder="Enter Password" required autofocus id="password" name="password">
               </div>
               <div class="form_item">
                 <span class="form_item_icon material-symbols-rounded">lock</span>
-                <input type="password" placeholder="Confirm password" required autofocus>
+                <input type="password" placeholder="Confirm password" required autofocus id="re-password" name="re-password">
               </div>
               <div class="form_item">
                 <span class="form_item_icon material-symbols-rounded">mail</span>
-                <input type="email" placeholder="Enter email" required autofocus>
+                <input type="email" placeholder="Enter email" required autofocus id="email" name="email">
               </div>
               <div class="form_item">
                 <span class="form_item_icon material-symbols-rounded">phone</span>
-                <input type="tel" placeholder="Enter tel" required autofocus>
+                <input type="tel" placeholder="Enter tel" required autofocus id="tel" name="tel">
               </div>
               
-              <a class="submit-btn" href="#">
-                Sign up</a>
+              <input class="submit-btn" name="submit" type="submit" value="Sign up"> 
+                
             </form>
 
             
@@ -111,9 +129,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </div>
 </body>
-<script src="utils/data.js"></script>
-<script src="utils/commons.js"></script>
-<script src="scripts/components.js"></script>
-<script src="scripts/dangnhap.js"></script>
+
 
 </html>
