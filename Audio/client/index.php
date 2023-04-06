@@ -91,7 +91,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="more-items"><a href="trangchu.html">XEM TẤT CẢ SẢN PHẨM</a></div>
+                        <div class="more-items"><a href="trangchu.php">XEM TẤT CẢ SẢN PHẨM</a></div>
                     </div>
                 </div>
             </div>
@@ -146,7 +146,7 @@
                         </div>
                         
 
-                        <div class="more-items"><a href="trangchu.html">Xem tất cả sản phẩm</a></div>
+                        <div class="more-items"><a href="trangchu.php">Xem tất cả sản phẩm</a></div>
                     </div>
                 </div>
             </div>
