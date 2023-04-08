@@ -14,37 +14,28 @@
 
 <body>
   <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "audiodb";
+    include '../components/connectDB.php';
 
-    // Create connection
-    $type = $_GET["type"];
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-    // Truy vấn cơ sở dữ liệu để lấy danh sách sản phẩm thuộc loại tương ứng
-    // $sql = "SELECT * FROM products WHERE type = '$type'";
-    // $result = mysqli_query($conn, $sql);
-    // Check connection
     if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
     }
-
+    
     // $sql = "SELECT count(id) as total FROM products";
+    $type = $_GET["type"];
     $item_per_page = 8;
-    $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
+    $cur_page = !empty($_GET['cur_page']) ? $_GET['cur_page'] : 1;
     $offset = ($cur_page - 1) * $item_per_page;
     $sql = "SELECT * FROM `products` WHERE type = '$type' LIMIT $offset, $item_per_page";
     $result = mysqli_query($conn, $sql);
-    // $tolal_products = mysqli_query($conn, "SELECT * FROM products WHERE type = '$type'");
-    // $tolal_products = $tolal_products->num_rows;
-    // $totalPages = ceil($tolal_products / $item_per_page);
+    $tolal_products = mysqli_query($conn, "SELECT * FROM products WHERE type = '$type'");
+    $tolal_products = $tolal_products->num_rows;
+    $totalPages = ceil($tolal_products / $item_per_page);
   ?>
   <?php include "../components/header.php"; ?>
   <div id="app">
     <div class="main-container">
       <div class="main-promo">
-        <img src="assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
+        <img src="../assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
       </div>
       <div class="main-content">
         <!-- <div class="main-tag" onclick="onTypeChange('full-sized')">FULL SIZED</div>
@@ -92,27 +83,21 @@
             <div class="brand-filter">
               <div class="brand-filter-title">THƯƠNG HIỆU</div>
               <div class="brand-container">
-                <label class="container">
-                  <input type="checkbox" id="Apple" :value="productBrand.APPLE" v-model="checkedBrands" />
-                  <span class="checkmark"></span> APPLE
-                </label>
-                <label class="container">
-                  <input type="checkbox" id="" :value="productBrand.FOCAL" v-model="checkedBrands"
-                    :defaultValue="checked" />
-                  <span class="checkmark"></span> Focal
-                </label>
-                <label class="container">
-                  <input type="checkbox" id="HIFIMAN" :value="productBrand.HIFIMAN" v-model="checkedBrands" />
-                  <span class="checkmark"></span> HiFiMan
-                </label>
-                <label class="container">
-                  <input type="checkbox" id="MOONDROP" :value="productBrand.MOONDROP" v-model="checkedBrands" />
-                  <span class="checkmark"></span> MOONDROP
-                </label>
-                <label class="container">
-                  <input type="checkbox" id="SONY" :value="productBrand.SONY" v-model="checkedBrands" />
-                  <span class="checkmark"></span> SONY
-                </label>
+                <label class="container" style="display: flex; justify-content: center;">
+                    <button class="brand-chooser">APPLE</button>
+                  </label>
+                  <label class="container" style="display: flex; justify-content: center;">
+                    <button class="brand-chooser">Focal</button>
+                  </label>
+                  <label class="container" style="display: flex; justify-content: center;">
+                    <button class="brand-chooser">HiFiMan</button>
+                  </label>
+                  <label class="container" style="display: flex; justify-content: center;">
+                    <button class="brand-chooser">MOONDROP</button>
+                  </label>
+                  <label class="container" style="display: flex; justify-content: center;">
+                    <button class="brand-chooser">SONY</button>
+                  </label>
               </div>
             </div>
             <div class="brand-filter price-filter">
@@ -137,14 +122,14 @@
                       echo  sprintf('<a href="chitietsanpham.php?id=%s"><img src="../%s" style="height: 210px; width: 210px;" alt=""/></a>',$row['id'],$row['image']);
                       echo '</div>';
                       echo '<div class="new-items-data">';
-                      echo '<a class="new-items-data--title" href="#"><p>'. $row['name'] . '</p></a>';
+                      echo sprintf( '<a class="new-items-data--title" href="chitietsanpham.php?id=%s"><p>%s</p></a>', $row['id'], $row['name']);
                       echo sprintf('<div class="newprice">%s</div>', number_format($row['price'], 0, '', ','));
                       echo "</div>";
                       echo "</div>";
                       echo "</div>";
                   }
                 ?>
-
+                
                 <!-- <div @click="onProductClick(product)">
                   <div class="new-items-img">
                     <img :src="product.image" style="height: 210px; width: 210px;" />
@@ -158,8 +143,21 @@
                 </div> -->
                 
             </div>
-            
-                  <!-- <ul class="pagination">
+            <ul class="pagination">
+                <?php
+
+                    for ($i = 1; $i <= $totalPages; $i++) {
+                        if ($i != $cur_page) {
+                            ?>
+                            <li class=""><a href="?type=<?= $type ?>&cur_page=<?= $i ?>" > <?= $i ?></a></li>
+                        <?php } else { ?>
+                            <li class=""><a href="?type=<?= $type ?>&cur_page=<?= $i ?>"  class="active"> <?= $i ?></a></li>
+
+                        <?php } ?>
+                    <?php }
+                ?>
+            </ul>
+                <!-- <ul class="pagination">
                   <li :class="{ disabled: !canPreviousPage }" @click="onPreviousPage()">«</li>
                   <li v-for="page in pages" @click="onPageChange(page)" :class="{ active: page === currentPage }">{{ page }}
                   </li>
@@ -179,12 +177,12 @@
 <script src="scripts/trangchu.js"></script>
 <script src="scripts/chitietsanpham.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script>
+<!-- <script>
 	$(document).ready(function(){
 		// Bắt sự kiện khi người dùng chọn trang
 		$('body').on('click', '.pagination li a', function(e){
 			e.preventDefault();
-			var page = $(this).attr('data-page');
+			var page = $(this).attr('cur_page');
 			loadData(page);
 		});
 
@@ -192,7 +190,7 @@
 		function loadData(page){
 			$.ajax({
 				url: 'renderByType.php',
-				type: 'POST',
+				type: 'GET',
 				data: {page: page},
 				success: function(response){
 					$('#app').html(response);
@@ -200,7 +198,7 @@
 			});
 		}
 	});
-	</script>
+	</script> -->
   
 </script>
 </html>

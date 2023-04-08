@@ -14,31 +14,63 @@
 
 <body>
   <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "audiodb";
+  include '../components/connectDB.php';
+  session_start();
+  // Create connection
+  $conn = mysqli_connect($servername, $username, $password, $dbname);
+  // Check connection
+  if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+  }
 
-    // Create connection
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-    // Check connection
-    if (!$conn) {
-      die("Connection failed: " . mysqli_connect_error());
-    }
-
-    // $sql = "SELECT count(id) as total FROM products";
-    $item_per_page = 8;
-    $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
-    $offset = ($cur_page - 1) * $item_per_page;
-    $sql = "SELECT * FROM `products`  LIMIT $offset, $item_per_page";
-    $result = mysqli_query($conn, $sql);
-    $tolal_products = mysqli_query($conn, "select * from products");
-    $tolal_products = $tolal_products->num_rows;
-    $totalPages = ceil($tolal_products / $item_per_page);
+  // $sql = "SELECT count(id) as total FROM products";
+  $item_per_page = 8;
+  $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
+  $offset = ($cur_page - 1) * $item_per_page;
+  $sql = "SELECT * FROM `products`  LIMIT $offset, $item_per_page";
+  $result = mysqli_query($conn, $sql);
+  $tolal_products = mysqli_query($conn, "select * from products");
+  $tolal_products = $tolal_products->num_rows;
+  $totalPages = ceil($tolal_products / $item_per_page);
   ?>
   <div id="app">
     <!-- <app-header></app-header> -->
-    <?php include "../components/header.php"; ?>
+    <div class="header-container">
+      <div class="header-content">
+        <div class="left"><a href="index.php">Ikus Audio</a></div>
+        <div class="middle">
+          <div class="header-menu"><a class="header-menu-title" href="trangchu.php">SẢN PHẨM</a></div>
+
+          <div class="header-menu"><a class="header-menu-title" href="lienhe.html">LIÊN HỆ</a></div>
+        </div>
+        <div class="right">
+
+
+
+
+          <?php
+          if (!empty($_SESSION["cur_user"])) {
+            $cur_user = $_SESSION["cur_user"];
+            ?>
+            <div class="navbar-btn login-icon"><a class="navbar-link" href="#"><img class="navbar-icon"
+                  src="../assets/images/icons/account.png"></a>
+            </div>
+            <span class="username_logged">
+              <?php echo $cur_user['username']; ?>
+            </span>
+
+            <?php
+          } else { ?>
+            <div class="navbar-btn login-icon"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
+                  src="../assets/images/icons/account.png"></a>
+            </div>
+          <?php }
+          ?>
+          <div class="navbar-btn cart"><a class="navbar-link" href="giohang.html"><img class="navbar-icon"
+                src="../assets/images/icons/shopping-cart.png"></a></div>
+        </div>
+      </div>
+    </div>
     <div class="main-container">
       <div class="main-promo">
         <img src="../assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
@@ -48,27 +80,34 @@
         <div class="main-tag" onclick="onTypeChange('inear')">IN EAR</div>
         <div class="main-tag" onclick="onTypeChange('earbud')">EARBUD</div>
         <div class="main-tag" onclick="onTypeChange('true-wireless')">TRUE WIRELESS</div> -->
-        <div><a href="renderByType.php?type=full-sized" class="main-tag"  id="full-sized-btn" onclick="getProducts('full-sized')">FULL SIZED</a></div>
-        <div><a href="renderByType.php?type=inear" class="main-tag"  id="in-ear-btn" onclick="getProducts('inear')">IN EAR</a></div>
-        <div><a href="renderByType.php?type=earbud" class="main-tag"  id="ear-bud-btn" onclick="getProducts('earbud')">EARBUD</a></div>
-        <div><a href="renderByType.php?type=true-wireless" class="main-tag"  id="true-wireless-btn" onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
+        <div><a href="renderByType.php?type=full-sized" class="main-tag" id="full-sized-btn"
+            onclick="getProducts('full-sized')">FULL SIZED</a></div>
+        <div><a href="renderByType.php?type=inear" class="main-tag" id="in-ear-btn" onclick="getProducts('inear')">IN
+            EAR</a></div>
+        <div><a href="renderByType.php?type=earbud" class="main-tag" id="ear-bud-btn"
+            onclick="getProducts('earbud')">EARBUD</a></div>
+        <div><a href="renderByType.php?type=true-wireless" class="main-tag" id="true-wireless-btn"
+            onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
       </div>
       <div class="main-content">
         <div class="new-product">
-          <div class="search-bar">
-            <input id="search-input" type="search" name="s" placeholder="Gõ để tìm kiếm" maxlength="40" style="
-                  border: 1px solid rgb(116, 116, 116);
-                  border-radius: 38px;
-                  border-image: initial;
-                  background: none;
-                  width: 500px;
-                  height: 60px;
-                  padding: 30px;
-                " v-model="searchKey" />
-            <div class="search-icon">
-              <img class="search-icon-img" src="../assets/images/icons/search-icon.png" />
+          <form action="" id="search-form">
+            <div class="search-bar">
+              <input id="search-keyword" type="text" name="search-keyword" placeholder="Gõ để tìm kiếm" maxlength="40"
+                style="
+                    border: 1px solid rgb(116, 116, 116);
+                    border-radius: 38px;
+                    border-image: initial;
+                    background: none;
+                    width: 500px;
+                    height: 60px;
+                    padding: 30px;
+                  " />
+              <div class="search-icon">
+                <img class="search-icon-img" src="../assets/images/icons/search-icon.png" />
+              </div>
             </div>
-          </div>
+          </form>
 
           <div class="sort-container">
             <div class="sort-option">SẮP XẾP THEO:</div>
@@ -118,25 +157,25 @@
           </div>
           <div class="product-list">
             <div class="item-container" id="print-search">
-                
-                <?php
-                  while ($row = mysqli_fetch_assoc($result)) {
-                      
-                      echo '<div class="new-items">';
-                      echo '<div>';
-                      echo '<div class="new-items-img">';
-                      echo  sprintf('<a href="chitietsanpham.php?id=%s"><img src="../%s" style="height: 210px; width: 210px;" alt=""/></a>',$row['id'],$row['image']);
-                      echo '</div>';
-                      echo '<div class="new-items-data">';
-                      echo '<a class="new-items-data--title" href="#"><p>'. $row['name'] . '</p></a>';
-                      echo sprintf('<div class="newprice">%sđ</div>', number_format($row['price'], 0, '', ','));
-                      echo "</div>";
-                      echo "</div>";
-                      echo "</div>";
-                  }
-                ?>
 
-                <!-- <div @click="onProductClick(product)">
+              <?php
+              while ($row = mysqli_fetch_assoc($result)) {
+
+                echo '<div class="new-items">';
+                echo '<div>';
+                echo '<div class="new-items-img">';
+                echo sprintf('<a href="chitietsanpham.php?id=%s"><img src="../%s" style="height: 210px; width: 210px;" alt=""/></a>', $row['id'], $row['image']);
+                echo '</div>';
+                echo '<div class="new-items-data">';
+                echo '<a class="new-items-data--title" href="#"><p>' . $row['name'] . '</p></a>';
+                echo sprintf('<div class="newprice">%sđ</div>', number_format($row['price'], 0, '', ','));
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+              }
+              ?>
+
+              <!-- <div @click="onProductClick(product)">
                   <div class="new-items-img">
                     <img :src="product.image" style="height: 210px; width: 210px;" />
                   </div>
@@ -147,16 +186,16 @@
                     <div class="newprice">{{ formatPrice(product.price) }} đ</div>
                   </div>
                 </div> -->
-                
+
             </div>
             <?php include "pagination.php"; ?>
-            
-                  <!-- <ul class="pagination">
+
+            <!-- <ul class="pagination">
                   <li :class="{ disabled: !canPreviousPage }" @click="onPreviousPage()">«</li>
                   <li v-for="page in pages" @click="onPageChange(page)" :class="{ active: page === currentPage }">{{ page }}
                   </li>
                   <li :class="{ disabled: !canNextPage }" @click="onNextPage()">»</li> -->
-              
+
           </div>
         </div>
       </div>
@@ -173,25 +212,102 @@
 <script src="scripts/chitietsanpham.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
-	$(document).ready(function(){
-		// Bắt sự kiện khi người dùng chọn trang
-		$('body').on('click', '.pagination li a', function(e){
-			e.preventDefault();
-			var page = $(this).attr('data-page');
-			loadData(page);
-		});
+  $(document).ready(function () {
+    // Bắt sự kiện khi người dùng chọn trang
+    $('body').on('click', '.pagination li a', function (e) {
+      e.preventDefault();
+      var page = $(this).attr('data-page');
+      loadData(page);
+    });
 
-		// Hàm tải nội dung mới
-		function loadData(page){
-			$.ajax({
-				url: 'trangchu.php',
-				type: 'POST',
-				data: {page: page},
-				success: function(response){
-					$('#app').html(response);
-				}
-			});
-		}
-	});
-	</script>
+    // Hàm tải nội dung mới
+    function loadData(page) {
+      $.ajax({
+        url: 'trangchu.php',
+        type: 'POST',
+        data: { page: page },
+        success: function (response) {
+          $('#app').html(response);
+        }
+      });
+    }
+  });
+
+
+  $(document).ready(function () {
+    $('#search-keyword').keyup(function () {
+      // Lấy từ khóa tìm kiếm từ trường nhập liệu
+      var searchKeyword = $(this).val();
+
+      // Kiểm tra nếu trường tìm kiếm rỗng
+      if (searchKeyword == '') {
+
+        // window.location.href = 'trangchu.php'
+        window.history.pushState(null, null, 'trangchu.php');
+        // Hiển thị kết quả cũ
+        $.get('display_products.php', function (data) {
+          $('#print-search').html(data);
+        });
+        return false;
+      }
+
+      // Gửi yêu cầu tìm kiếm bằng AJAX
+      $.ajax({
+        url: 'search.php',
+        type: 'POST',
+        data: { searchKeyword: searchKeyword },
+        success: function (response) {
+          // Hiển thị kết quả tìm kiếm
+          $('#print-search').html(response);
+        }
+      });
+    });
+  });
+
+  
+  // $(document).ready(function () {
+  //   $('#search-form').submit(function (event) {
+  //     // Ngăn chặn hành động submit mặc định của form
+  //     event.preventDefault();
+
+  //     // Lấy từ khóa tìm kiếm từ trường nhập liệu
+  //     var searchKeyword = $('#search-keyword').val();
+
+  //     // Kiểm tra nếu trường tìm kiếm rỗng
+  //     if (searchKeyword == '') {
+  //       // Hiển thị kết quả cũ
+  //       return false;
+  //     }
+  //   });
+  // });
+  // $(document).ready(function () {
+  //   $('#search-keyword').keyup(function () {
+  //     $('#search-form').submit(function (event) {
+  //       // Ngăn chặn hành động submit mặc định của form
+  //       event.preventDefault();
+
+  //       // Lấy từ khóa tìm kiếm từ trường nhập liệu
+  //       var searchKeyword = $('#search-keyword').val();
+
+  //       // Kiểm tra nếu trường tìm kiếm rỗng
+  //       if (searchKeyword == '') {
+  //         // Hiển thị kết quả cũ
+  //         return false;
+  //       }
+
+  //       // Gửi yêu cầu tìm kiếm bằng AJAX
+  //       $.ajax({
+  //         url: 'search.php',
+  //         type: 'POST',
+  //         data: { searchKeyword: searchKeyword },
+  //         success: function (response) {
+  //           // Hiển thị kết quả tìm kiếm
+  //           $('#print-search').html(response);
+  //         }
+  //       });
+  //     });
+  //   });
+  // });
+</script>
+
 </html>

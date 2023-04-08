@@ -17,25 +17,23 @@
 <body>
   <?php
     session_start();
-    if (isset($_SESSION["username"]) && isset($_SESSION["password"])) {
-      include '../components/connectDB.php';
-      $username = $_SESSION["username"];
-      $password = $_SESSION["password"];
-      $query = "SELECT * FROM users WHERE name='$username' AND password='$password'";
+    include '../components/connectDB.php';
+    
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $username = $_POST["username"];
+      $password = $_POST["password"];
+    
+      $query = "SELECT * FROM users WHERE username='$username'";
       $result = mysqli_query($conn, $query);
       $user = mysqli_fetch_assoc($result);
-      if(mysqli_num_rows($result) == 1) {
-        header("Location: trangchu.php");
-        exit();
-      } else {
-        $login_err = "Email hoặc mật khẩu không chính xác";
-        echo $login_err;
-      }
-    } else {
-        $username = "";
-        $password = "";
-    }
     
+      if (mysqli_num_rows($result) == 1 && password_verify($password, $user['password'])) {
+        $_SESSION["cur_user"] = $user;
+        header("Location: trangchu.php");
+      } else {
+        echo "Incorrect username or password.";
+      }
+    }
   
   ?>
 
@@ -93,14 +91,14 @@
               <h1>Sign In</h1>
               <div>Please login to use platform</div>
             </div>
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="login_card_form">
+            <form action="dangnhap.php" method="POST" class="login_card_form">
               <div class="form_item">
                 <span class="form_item_icon material-symbols-rounded">search</span>
-                <input type="text" placeholder="Enter Username" value="<?php echo $username;?>" required autofocus>
+                <input type="text" placeholder="Enter Username" value="" required autofocus id="username" name="username">
               </div>
               <div class="form_item">
                 <span class="form_item_icon material-symbols-rounded">lock</span>
-                <input type="password" placeholder="Enter Password" value="<?php echo $password;?>" required autofocus>
+                <input type="password" placeholder="Enter Password" value="" required autofocus id="password" name="password">
               </div>
               <div class="form_item_other">
                 <div class="checkbox">
@@ -109,8 +107,8 @@
                 </div>
                 <a href="./quenmatkhau.php">Forgot password?</a>
               </div>
-              <a class="submit-btn" href="#">
-                Sign in</a>
+              <input type="submit" class="submit-btn"  value="Sign in">
+                
             </form>
 
             <div class="login_card_footer">

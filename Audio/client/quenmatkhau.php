@@ -15,10 +15,7 @@
 
 <body>
     <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "audiodb";
+    include '../components/connectDB.php';
 
     // Create connection
     $conn = mysqli_connect($servername, $username, $password, $dbname);
