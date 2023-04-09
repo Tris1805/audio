@@ -808,7 +808,7 @@ html {
   height: 300px;
 }
 
-#price-input {
+.price-input {
   margin-top: 10px;
   padding: 2px;
   border-radius: 5px;

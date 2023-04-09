@@ -149,9 +149,11 @@
               <div class="brand-filter-title">KHOẢNG GIÁ</div>
               <div class="price-container">
                 Chọn khoảng giá mong muốn.
-                <input type="number" name="" id="price-input" placeholder="0" />
+                <input type="text" name="" id="min-price-input" class="price-input" placeholder="0" maxlength="15" />
                 <span>-</span>
-                <input type="number" name="" id="price-input" placeholder="10000000" />
+                <input type="text" name="" id="max-price-input" class="price-input" placeholder="10000000"
+                  maxlength="15" /> <br />
+                <label class="container" style="display: flex; justify-content: center;"><a href="#" class="brand-chooser" onclick="searchProductsByPrice()">Tìm kiếm</a></label>
               </div>
             </div>
           </div>
@@ -188,7 +190,10 @@
                 </div> -->
 
             </div>
-            <?php include "pagination.php"; ?>
+            <div id="pagination">
+
+              <?php include "pagination.php"; ?>
+            </div>
 
             <!-- <ul class="pagination">
                   <li :class="{ disabled: !canPreviousPage }" @click="onPreviousPage()">«</li>
@@ -264,50 +269,36 @@
     });
   });
 
-  
-  // $(document).ready(function () {
-  //   $('#search-form').submit(function (event) {
-  //     // Ngăn chặn hành động submit mặc định của form
-  //     event.preventDefault();
+  function searchProductsByPrice() {
+    var minPriceInput = document.getElementById("min-price-input").value;
+    minPrice = parseInt(minPriceInput.replace(/\D/g, ""));
+    var maxPriceInput = document.getElementById("max-price-input").value;
+    maxPrice = parseInt(maxPriceInput.replace(/\D/g, ""));
+    var url = "searchByPrice.php?min=" + minPrice + "&max=" + maxPrice + "$page=1";
+    window.location.href = url;
+  }
+  // $(window).on("load", function () {
+  //   var urlParams = new URLSearchParams(window.location.search);
+  //   var minPrice = urlParams.get("minPrice");
+  //   var maxPrice = urlParams.get("maxPrice");
 
-  //     // Lấy từ khóa tìm kiếm từ trường nhập liệu
-  //     var searchKeyword = $('#search-keyword').val();
-
-  //     // Kiểm tra nếu trường tìm kiếm rỗng
-  //     if (searchKeyword == '') {
-  //       // Hiển thị kết quả cũ
-  //       return false;
-  //     }
-  //   });
+  //   if (minPrice != null && maxPrice != null) {
+  //     $("#min-price-input").val(minPrice);
+  //     $("#max-price-input").val(maxPrice);
+  //     searchProductsByPrice(1, 8);
+  //   }
   // });
-  // $(document).ready(function () {
-  //   $('#search-keyword').keyup(function () {
-  //     $('#search-form').submit(function (event) {
-  //       // Ngăn chặn hành động submit mặc định của form
-  //       event.preventDefault();
+  const priceInput1 = document.getElementById("min-price-input");
+  priceInput1.addEventListener("input", function() {
+    const value = parseInt(this.value.replace(/\D/g, ""));
+    this.value = value.toLocaleString("en-US");
+  });
+  const priceInput2 = document.getElementById("max-price-input");
+  priceInput2.addEventListener("input", function() {
+    const value = parseInt(this.value.replace(/\D/g, ""));
+    this.value = value.toLocaleString("en-US");
+  });
 
-  //       // Lấy từ khóa tìm kiếm từ trường nhập liệu
-  //       var searchKeyword = $('#search-keyword').val();
-
-  //       // Kiểm tra nếu trường tìm kiếm rỗng
-  //       if (searchKeyword == '') {
-  //         // Hiển thị kết quả cũ
-  //         return false;
-  //       }
-
-  //       // Gửi yêu cầu tìm kiếm bằng AJAX
-  //       $.ajax({
-  //         url: 'search.php',
-  //         type: 'POST',
-  //         data: { searchKeyword: searchKeyword },
-  //         success: function (response) {
-  //           // Hiển thị kết quả tìm kiếm
-  //           $('#print-search').html(response);
-  //         }
-  //       });
-  //     });
-  //   });
-  // });
 </script>
 
 </html>
