@@ -58,6 +58,9 @@
             <span class="username_logged">
               <?php echo $cur_user['username']; ?>
             </span>
+            <span class="username_logged">
+              <a href="logout.php" >Logout</a>
+            </span>
 
             <?php
           } else { ?>
@@ -298,6 +301,10 @@
     const value = parseInt(this.value.replace(/\D/g, ""));
     this.value = value.toLocaleString("en-US");
   });
+
+  function logout() {
+    window.location.href = "logout.php";
+  }
 
 </script>
 
