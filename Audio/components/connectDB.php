@@ -2,7 +2,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "audiodb2";
+    $dbname = "audiodb";
     // Create connection
     $conn=mysqli_connect($servername ,$username, $password, $dbname); 
 

@@ -2,9 +2,9 @@
     <div class="header-content">
         <div class="left"><a href="index.php">Ikus Audio</a></div>
         <div class="middle">
-            <div class="header-menu"><a class="header-menu-title" href="trangchu.php">SẢN PHẨM</a></div>
+            <div class="header-menu"><a class="header-menu-title no-underline" href="trangchu.php">SẢN PHẨM</a></div>
 
-            <div class="header-menu"><a class="header-menu-title" href="lienhe.html">LIÊN HỆ</a></div>
+            <div class="header-menu"><a class="header-menu-title no-underline" href="lienhe.html">LIÊN HỆ</a></div>
         </div>
         <div class="right">
 
