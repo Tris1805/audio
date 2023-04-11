@@ -488,7 +488,7 @@ form {
 }
 
 /* Thiết lập style cho input */
-input[type=text], input[type=number], input[type=file] {
+input[type=text], input[type=number], input[type=file], input[type=password] {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;

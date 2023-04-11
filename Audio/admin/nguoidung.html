@@ -206,6 +206,59 @@
               </div>
             </div>
            
+            <div class="edit-form">
+              <span class="cancel-edit-form" style="float: right">X</span>
+              <form>
+                <label for="user-id">ID</label>
+                <input type="number" id="user-id" name="user-id" /><br />
+
+                <label for="username">Username:</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                /><br />
+
+                <label for="product-image">Password:</label>
+                <input
+                  type="password"
+                  id="user-password"
+                  name="user-password"
+                /><br />
+
+                <label for="product-price">email:</label>
+                <input
+                  type="text"
+                  id="user-mail"
+                  name="user-mail"
+                /><br />
+
+                <label for="user-address">Địa chỉ:</label>
+                <input
+                  type="text"
+                  id="user-address"
+                  name="user-address"
+                /><br />
+
+                <label for="user-tel">Số điện thoại:</label>
+                <input
+                  type="text"
+                  id="user-tel"
+                  name="user-tel"
+                /><br />
+
+                <button type="submit" id="saveChanges">Lưu</button>
+              </form>
+            </div>
+            <div class="delete-form">
+              <span class="cancel-delete-form" style="float: right">X</span>
+              <form>
+                <label for="product-id">ID</label>
+                <input type="number" id="product-id" name="product-id" /><br />
+
+                <button type="submit" id="deleteItem">Xóa</button>
+              </form>
+            </div>
           </section>
         </div>
       </div>
@@ -238,6 +291,64 @@
           link.classList.add("active");
           window.location.href = this.href;
         });
+      });
+
+      const editButton = document.querySelector(".edit-btn");
+      const editForm = document.querySelector(".edit-form");
+      const cancelEditBtn = document.querySelector(".cancel-edit-form");
+      const cancelDeleteBtn = document.querySelector(".cancel-delete-form");
+      const content = document.querySelector(".sales-boxes");
+      const deleleButton = document.querySelector(".delete-btn");
+      const deleteForm = document.querySelector(".delete-form");
+
+      editButton.addEventListener("click", function () {
+        editForm.style.display = "block";
+        content.classList.add("make-blur");
+      });
+
+      deleleButton.addEventListener("click", function () {
+        deleteForm.style.display = "block";
+        content.classList.add("make-blur");
+      });
+
+      // Thêm sự kiện "submit" vào form để lưu thông tin sản phẩm
+      editForm.addEventListener("submit", function (event) {
+        // Xử lý lưu thông tin sản phẩm
+        event.preventDefault(); // Ngăn chặn gửi form đi
+      });
+
+      // Thêm sự kiện "submit" vào form để xoa thông tin sản phẩm
+      deleteForm.addEventListener("submit", function (event) {
+        // Xử lý lưu thông tin sản phẩm
+        event.preventDefault(); // Ngăn chặn gửi form đi
+      });
+
+      // Thêm sự kiện "click" vào nút "Lưu" để lưu thông tin sản phẩm
+      const saveEditButton = editForm.querySelector('button[type="submit"]');
+      saveEditButton.addEventListener("click", function () {
+        // Xử lý lưu thông tin sản phẩm
+        editForm.style.display = "none"; // Ẩn form edit sản phẩm
+        content.classList.remove("make-blur");
+      });
+
+      const saveDeleteButton = deleteForm.querySelector(
+        'button[type="submit"]'
+      );
+      saveDeleteButton.addEventListener("click", function () {
+        // Xử lý lưu thông tin sản phẩm
+        deleteForm.style.display = "none";
+        content.classList.remove("make-blur");
+      });
+
+      // Bắt sự kiện khi người dùng ấn nút X
+      cancelEditBtn.addEventListener("click", () => {
+        editForm.style.display = "none";
+        content.classList.remove("make-blur");
+      });
+
+      cancelDeleteBtn.addEventListener("click", () => {
+        deleteForm.style.display = "none";
+        content.classList.remove("make-blur");
       });
     </script>
   </body>
