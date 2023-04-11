@@ -156,17 +156,10 @@
               <div class="brand-filter-title">KHOẢNG GIÁ</div>
               <div class="price-container">
                 Chọn khoảng giá mong muốn.
-<<<<<<< HEAD
                 <div class="price-input-container" style="display: flex; justify-content: space-around; align-items: center">
-                  <input type="text" name="" id="min-price-input" class="price-input" placeholder="0" maxlength="15" />
-                  <span>-</span>
-                  <input type="text" name="" id="max-price-input" class="price-input" style="float: right" placeholder="10000000"
-=======
                 <input type="text" name="" id="min-price-input" class="price-input" placeholder="0" maxlength="15" />
                 <span>-</span>
-                <input type="text" name="" id="max-price-input" class="price-input" placeholder="10,000,000"
->>>>>>> eb84ad75da51683af002c83ba15ed0fd0dd7fde2
-                  maxlength="15" /> <br />
+                <input type="text" name="" id="max-price-input" class="price-input" placeholder="10,000,000" maxlength="15" /> <br />
                 </div>
                 <label class="container" style="display: flex; justify-content: center; width: 100%;"><a href="#" class="sort-by-price--btn" onclick="searchProductsByPrice()">Tìm kiếm</a></label>
               </div>
