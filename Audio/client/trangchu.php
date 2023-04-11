@@ -154,7 +154,7 @@
                 Chọn khoảng giá mong muốn.
                 <input type="text" name="" id="min-price-input" class="price-input" placeholder="0" maxlength="15" />
                 <span>-</span>
-                <input type="text" name="" id="max-price-input" class="price-input" placeholder="10000000"
+                <input type="text" name="" id="max-price-input" class="price-input" placeholder="10,000,000"
                   maxlength="15" /> <br />
                 <label class="container" style="display: flex; justify-content: center;"><a href="#" class="brand-chooser" onclick="searchProductsByPrice()">Tìm kiếm</a></label>
               </div>

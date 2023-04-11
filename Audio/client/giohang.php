@@ -17,7 +17,7 @@
   </head>
   <body>
     <div id="app">
-      <app-header></app-header>
+    <?php include "../components/header.php"; ?>
 
       <div class="main-container">
         <div class="cart-container">
@@ -29,19 +29,19 @@
             <div class="main-payment-info">
               <form action="" id="customer-info">
                 <label for="">Họ tên *</label><br />
-                <input type="text" class="user-input" v-model="tenKH" required /><br />
+                <input type="text" class="user-input"  required /><br />
                 <label for="">Địa chỉ *</label><br />
-                <input type="text" class="user-input" v-model="diachiKH" required /><br />
+                <input type="text" class="user-input"  required /><br />
                 <label for="">Số điện thoại *</label><br />
                 <input
                   type="text"
                   class="user-input"
                   name=""
-                  v-model="sdtKH"
+                  
                   required
                 /><br />
                 <label for="">Ghi chú</label><br />
-                <input type="text" class="user-input" v-model="ghichuKH" /><br />
+                <input type="text" class="user-input"  /><br />
               </form>
             </div>
             <div class="main-payment-method main-payment-info">
@@ -55,7 +55,7 @@
                 />COD
                 <img
                   style="height: 30px"
-                  src="assets/images/icons/COD.png"
+                  src="../assets/images/icons/COD.png"
                   alt=""
                 />
                 <br />
@@ -63,19 +63,28 @@
             </div>
           </div>
           <div class="cart-content">
-            <div class="total">TỔNG TIỀN: {{ totalPrice }}</div>
-            <div class="complete-payment" @click="onPayment()">THANH TOÁN</div>
+            <div class="total">TỔNG TIỀN: </div>
+            <div class="complete-payment" >THANH TOÁN</div>
             <div class="line2"></div>
             <br />
             <div class="cart-list">
               <ul>
-                <li v-for="item in cartItems">
+                <li>
                   <div class="cart-list-item">
-                    <img :src="item.image" />
-                    {{ item.name }} | {{ formatPrice(item.price)}}
-                    <div class="delete-item" @click="onRemoveItem(item)">
-                      <img src="assets/images/icons/bin.png" alt="" />
+                    <img src="../assets/images/products/airpod_2.jpg" />
+                    Air Pod 2 </br>
+                    5,000,000đ
+                    <select name="quantity" id="quantity">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <div class="delete-item" >
+                      <img src="../assets/images/icons/bin.png" alt="" />
                     </div>
+
                   </div>
                 </li>
               </ul>
@@ -84,7 +93,7 @@
         </div>
       </div>
 
-      <app-footer></app-footer>
+      <?php include "../components/footer.php"; ?>
       <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
