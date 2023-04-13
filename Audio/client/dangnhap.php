@@ -31,7 +31,7 @@
         $_SESSION["cur_user"] = $user;
         header("Location: trangchu.php");
       } else {
-        echo "Incorrect username or password.";
+        echo "Incorrect username or password."; 
       }
     }
   
