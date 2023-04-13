@@ -52,15 +52,19 @@
           if (!empty($_SESSION["cur_user"])) {
             $cur_user = $_SESSION["cur_user"];
             ?>
-            <div class="navbar-btn login-icon"><a class="navbar-link" href="#"><img class="navbar-icon"
-                  src="../assets/images/icons/account.png"></a>
-            </div>
-            <span class="username_logged">
+
+            <div class="username-field" style="display: flex ; flex-direction: column; justify-content: center; ">
+            <span class="username_logged"> Xin chào, 
               <?php echo $cur_user['username']; ?>
             </span>
             <span class="username_logged">
-              <a href="logout.php" >Logout</a>
+              <a href="logout.php"  style="color: white;" >Log-out</a>
             </span>
+            </div>
+            <div class="navbar-btn login-icon"><a class="navbar-link" href="#"><img class="navbar-icon"
+                  src="../assets/images/icons/account.png"></a>
+            </div>
+            
 
             <?php
           } else { ?>
@@ -152,11 +156,12 @@
               <div class="brand-filter-title">KHOẢNG GIÁ</div>
               <div class="price-container">
                 Chọn khoảng giá mong muốn.
+                <div class="price-input-container" style="display: flex; justify-content: space-around; align-items: center">
                 <input type="text" name="" id="min-price-input" class="price-input" placeholder="0" maxlength="15" />
                 <span>-</span>
-                <input type="text" name="" id="max-price-input" class="price-input" placeholder="10,000,000"
-                  maxlength="15" /> <br />
-                <label class="container" style="display: flex; justify-content: center;"><a href="#" class="brand-chooser" onclick="searchProductsByPrice()">Tìm kiếm</a></label>
+                <input type="text" name="" id="max-price-input" class="price-input" placeholder="10,000,000" maxlength="15" /> <br />
+                </div>
+                <label class="container" style="display: flex; justify-content: center; width: 100%;"><a href="#" class="sort-by-price--btn" onclick="searchProductsByPrice()">Tìm kiếm</a></label>
               </div>
             </div>
           </div>
@@ -172,7 +177,7 @@
                 echo sprintf('<a href="chitietsanpham.php?id=%s"><img src="../%s" style="height: 210px; width: 210px;" alt=""/></a>', $row['id'], $row['image']);
                 echo '</div>';
                 echo '<div class="new-items-data">';
-                echo '<a class="new-items-data--title" href="#"><p>' . $row['name'] . '</p></a>';
+                echo '<a class="new-items-data--title no-underline" href="#"><p>' . $row['name'] . '</p></a>';
                 echo sprintf('<div class="newprice">%sđ</div>', number_format($row['price'], 0, '', ','));
                 echo "</div>";
                 echo "</div>";

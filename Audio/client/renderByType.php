@@ -14,22 +14,22 @@
 
 <body>
   <?php
-    include '../components/connectDB.php';
+  include '../components/connectDB.php';
 
-    if (!$conn) {
-      die("Connection failed: " . mysqli_connect_error());
-    }
-    
-    // $sql = "SELECT count(id) as total FROM products";
-    $type = $_GET["type"];
-    $item_per_page = 8;
-    $cur_page = !empty($_GET['cur_page']) ? $_GET['cur_page'] : 1;
-    $offset = ($cur_page - 1) * $item_per_page;
-    $sql = "SELECT * FROM `products` WHERE type = '$type' LIMIT $offset, $item_per_page";
-    $result = mysqli_query($conn, $sql);
-    $tolal_products = mysqli_query($conn, "SELECT * FROM products WHERE type = '$type'");
-    $tolal_products = $tolal_products->num_rows;
-    $totalPages = ceil($tolal_products / $item_per_page);
+  if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+  }
+
+  // $sql = "SELECT count(id) as total FROM products";
+  $type = $_GET["type"];
+  $item_per_page = 8;
+  $cur_page = !empty($_GET['cur_page']) ? $_GET['cur_page'] : 1;
+  $offset = ($cur_page - 1) * $item_per_page;
+  $sql = "SELECT * FROM `products` WHERE type = '$type' LIMIT $offset, $item_per_page";
+  $result = mysqli_query($conn, $sql);
+  $tolal_products = mysqli_query($conn, "SELECT * FROM products WHERE type = '$type'");
+  $tolal_products = $tolal_products->num_rows;
+  $totalPages = ceil($tolal_products / $item_per_page);
   ?>
   <?php include "../components/header.php"; ?>
   <div id="app">
@@ -42,10 +42,14 @@
         <div class="main-tag" onclick="onTypeChange('inear')">IN EAR</div>
         <div class="main-tag" onclick="onTypeChange('earbud')">EARBUD</div>
         <div class="main-tag" onclick="onTypeChange('true-wireless')">TRUE WIRELESS</div> -->
-        <div><a href="renderByType.php?type=full-sized" class="main-tag"  id="full-sized-btn" onclick="getProducts('full-sized')">FULL SIZED</a></div>
-        <div><a href="renderByType.php?type=inear" class="main-tag"  id="in-ear-btn" onclick="getProducts('inear')">IN EAR</a></div>
-        <div><a href="renderByType.php?type=earbud" class="main-tag"  id="ear-bud-btn" onclick="getProducts('earbud')">EARBUD</a></div>
-        <div><a href="renderByType.php?type=true-wireless" class="main-tag"  id="true-wireless-btn" onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
+        <div><a href="renderByType.php?type=full-sized" class="main-tag" id="full-sized-btn"
+            onclick="getProducts('full-sized')">FULL SIZED</a></div>
+        <div><a href="renderByType.php?type=inear" class="main-tag" id="in-ear-btn" onclick="getProducts('inear')">IN
+            EAR</a></div>
+        <div><a href="renderByType.php?type=earbud" class="main-tag" id="ear-bud-btn"
+            onclick="getProducts('earbud')">EARBUD</a></div>
+        <div><a href="renderByType.php?type=true-wireless" class="main-tag" id="true-wireless-btn"
+            onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
       </div>
       <div class="main-content">
         <div class="new-product">
@@ -84,53 +88,60 @@
               <div class="brand-filter-title">THƯƠNG HIỆU</div>
               <div class="brand-container">
                 <label class="container" style="display: flex; justify-content: center;">
-                    <button class="brand-chooser">APPLE</button>
-                  </label>
-                  <label class="container" style="display: flex; justify-content: center;">
-                    <button class="brand-chooser">Focal</button>
-                  </label>
-                  <label class="container" style="display: flex; justify-content: center;">
-                    <button class="brand-chooser">HiFiMan</button>
-                  </label>
-                  <label class="container" style="display: flex; justify-content: center;">
-                    <button class="brand-chooser">MOONDROP</button>
-                  </label>
-                  <label class="container" style="display: flex; justify-content: center;">
-                    <button class="brand-chooser">SONY</button>
-                  </label>
+                  <button class="brand-chooser">APPLE</button>
+                </label>
+                <label class="container" style="display: flex; justify-content: center;">
+                  <button class="brand-chooser">Focal</button>
+                </label>
+                <label class="container" style="display: flex; justify-content: center;">
+                  <button class="brand-chooser">HiFiMan</button>
+                </label>
+                <label class="container" style="display: flex; justify-content: center;">
+                  <button class="brand-chooser">MOONDROP</button>
+                </label>
+                <label class="container" style="display: flex; justify-content: center;">
+                  <button class="brand-chooser">SONY</button>
+                </label>
               </div>
             </div>
             <div class="brand-filter price-filter">
               <div class="brand-filter-title">KHOẢNG GIÁ</div>
               <div class="price-container">
                 Chọn khoảng giá mong muốn.
-                <input type="number" name="" id="price-input" v-model="minPrice" />
-                <span>-</span>
-                <input type="number" name="" id="price-input" v-model="maxPrice" />
+                <div class="price-input-container"
+                  style="display: flex; justify-content: space-around; align-items: center">
+                  <input type="text" name="" id="min-price-input" class="price-input" placeholder="0" maxlength="15" />
+                  <span>-</span>
+                  <input type="text" name="" id="max-price-input" class="price-input" style="float: right"
+                    placeholder="10000000" maxlength="15" /> <br />
+                </div>
+                <label class="container" style="display: flex; justify-content: center; width: 100%;"><a href="#"
+                    class="sort-by-price--btn" onclick="searchProductsByPrice()">Tìm kiếm</a></label>
               </div>
             </div>
+
           </div>
           <div class="product-list">
             <div class="item-container" id="print-search">
-                
-                <?php
-                  while ($row = mysqli_fetch_assoc($result)) {
-                      
-                      echo '<div class="new-items">';
-                      echo '<div>';
-                      echo '<div class="new-items-img">';
-                      echo  sprintf('<a href="chitietsanpham.php?id=%s"><img src="../%s" style="height: 210px; width: 210px;" alt=""/></a>',$row['id'],$row['image']);
-                      echo '</div>';
-                      echo '<div class="new-items-data">';
-                      echo sprintf( '<a class="new-items-data--title" href="chitietsanpham.php?id=%s"><p>%s</p></a>', $row['id'], $row['name']);
-                      echo sprintf('<div class="newprice">%s</div>', number_format($row['price'], 0, '', ','));
-                      echo "</div>";
-                      echo "</div>";
-                      echo "</div>";
-                  }
-                ?>
-                
-                <!-- <div @click="onProductClick(product)">
+
+              <?php
+              while ($row = mysqli_fetch_assoc($result)) {
+
+                echo '<div class="new-items">';
+                echo '<div>';
+                echo '<div class="new-items-img">';
+                echo sprintf('<a href="chitietsanpham.php?id=%s"><img src="../%s" style="height: 210px; width: 210px;" alt=""/></a>', $row['id'], $row['image']);
+                echo '</div>';
+                echo '<div class="new-items-data">';
+                echo sprintf('<a class="new-items-data--title" href="chitietsanpham.php?id=%s"><p>%s</p></a>', $row['id'], $row['name']);
+                echo sprintf('<div class="newprice">%s</div>', number_format($row['price'], 0, '', ','));
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+              }
+              ?>
+
+              <!-- <div @click="onProductClick(product)">
                   <div class="new-items-img">
                     <img :src="product.image" style="height: 210px; width: 210px;" />
                   </div>
@@ -141,28 +152,28 @@
                     <div class="newprice">{{ formatPrice(product.price) }} đ</div>
                   </div>
                 </div> -->
-                
+
             </div>
             <ul class="pagination">
-                <?php
+              <?php
 
-                    for ($i = 1; $i <= $totalPages; $i++) {
-                        if ($i != $cur_page) {
-                            ?>
-                            <li class=""><a href="?type=<?= $type ?>&cur_page=<?= $i ?>" > <?= $i ?></a></li>
-                        <?php } else { ?>
-                            <li class=""><a href="?type=<?= $type ?>&cur_page=<?= $i ?>"  class="active"> <?= $i ?></a></li>
+              for ($i = 1; $i <= $totalPages; $i++) {
+                if ($i != $cur_page) {
+                  ?>
+                  <li class=""><a href="?type=<?= $type ?>&cur_page=<?= $i ?>"> <?= $i ?></a></li>
+                <?php } else { ?>
+                  <li class=""><a href="?type=<?= $type ?>&cur_page=<?= $i ?>" class="active"> <?= $i ?></a></li>
 
-                        <?php } ?>
-                    <?php }
-                ?>
+                <?php } ?>
+              <?php }
+              ?>
             </ul>
-                <!-- <ul class="pagination">
+            <!-- <ul class="pagination">
                   <li :class="{ disabled: !canPreviousPage }" @click="onPreviousPage()">«</li>
                   <li v-for="page in pages" @click="onPageChange(page)" :class="{ active: page === currentPage }">{{ page }}
                   </li>
                   <li :class="{ disabled: !canNextPage }" @click="onNextPage()">»</li> -->
-                <!-- </ul> -->
+            <!-- </ul> -->
           </div>
         </div>
       </div>
@@ -178,27 +189,28 @@
 <script src="scripts/chitietsanpham.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <!-- <script>
-	$(document).ready(function(){
-		// Bắt sự kiện khi người dùng chọn trang
-		$('body').on('click', '.pagination li a', function(e){
-			e.preventDefault();
-			var page = $(this).attr('cur_page');
-			loadData(page);
-		});
+  $(document).ready(function(){
+    // Bắt sự kiện khi người dùng chọn trang
+    $('body').on('click', '.pagination li a', function(e){
+      e.preventDefault();
+      var page = $(this).attr('cur_page');
+      loadData(page);
+    });
 
-		// Hàm tải nội dung mới
-		function loadData(page){
-			$.ajax({
-				url: 'renderByType.php',
-				type: 'GET',
-				data: {page: page},
-				success: function(response){
-					$('#app').html(response);
-				}
-			});
-		}
-	});
-	</script> -->
-  
+    // Hàm tải nội dung mới
+    function loadData(page){
+      $.ajax({
+        url: 'renderByType.php',
+        type: 'GET',
+        data: {page: page},
+        success: function(response){
+          $('#app').html(response);
+        }
+      });
+    }
+  });
+  </script> -->
+
 </script>
+
 </html>
