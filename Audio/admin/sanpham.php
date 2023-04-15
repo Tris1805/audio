@@ -51,7 +51,6 @@
     include '../components/connectDB.php';
     $item_per_page = 8;
     $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
-    echo $cur_page;
     $offset = ($cur_page - 1) * $item_per_page;
     $sql = "SELECT * FROM `products`  LIMIT $offset, $item_per_page";
     $result = mysqli_query($conn, $sql);
@@ -159,27 +158,27 @@
               <div class="recent-stock box">
                 <div class="title">Tình trạng kho hàng</div>
                 <div class="stock-details-title">
-                  <div class="stock-details-title-items">ID</div>
-                  <div class="stock-details-title-items" style="padding-left: 20px">
+                  <div class="stock-details-title-items id-title">ID</div>
+                  <div class="stock-details-title-items image-title">
                     Hình ảnh
                   </div>
-                  <div class="stock-details-title-items" style="padding-left: 10px">
+                  <div class="stock-details-title-items name-title">
                     Tên sản phẩm
                   </div>
-                  <div class="stock-details-title-items" style="padding-left: 40px">
+                  <div class="stock-details-title-items price-title">
                     Đơn giá
                   </div>
-                  <div class="stock-details-title-items">Số lượng</div>
+                  <div class="stock-details-title-items stock-title">Số lượng</div>
                 </div>
                 <!-- <div class="sales-details stock-details"> -->
                 <?php
 
                 while ($row = mysqli_fetch_assoc($result)) {
                   echo '<div class="sales-details stock-details">';
-                  echo '<ul class="details">';
+                  echo '<ul class="details id-item">';
                   echo '<li><a href="#">' . $row['id'] . '</a></li>';
                   echo '</ul>';
-                  echo '<ul class="details">';
+                  echo '<ul class="details image-item">';
                   echo sprintf('<li>
                       <img
                         src="../%s"
@@ -187,16 +186,16 @@
                         class="stock--img"
                       />
                     </li>', $row['image']);
-                  echo '</ul>';
-                  echo '<ul class="details">';
-                  echo '<li>' . $row['name'] . '</li>';
-                  echo '</ul>';
-                  echo '<ul class="details">';
-                  echo sprintf('<li>%s</li>', number_format($row['price'], 0, '', ','));
-                  echo "</ul>";
-                  echo '<ul class="details">';
-                  echo '<li>123</li>';
-                  echo "</ul>";
+                  echo  '</ul>';
+                  echo  '<ul class="details name-item">';
+                  echo  '<li>' . $row['name'] . '</li>';
+                  echo  '</ul>';
+                  echo  '<ul class="details price-item">';
+                  echo  sprintf('<li>%s</li>', number_format($row['price'], 0, '', ','));
+                  echo  "</ul>";
+                  echo  '<ul class="details stock-item">';
+                  echo  '<li>123</li>';
+                  echo  "</ul>";
                   echo "</div>";
 
                 }
@@ -363,11 +362,11 @@
   
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
-    let sidebar = document.querySelector(".sidebar");
+    let sidebar1 = document.querySelector(".sidebar");
     let sidebarBtn = document.querySelector(".sidebarBtn");
     sidebarBtn.onclick = function () {
-      sidebar.classList.toggle("active");
-      if (sidebar.classList.contains("active")) {
+      sidebar1.classList.toggle("active");
+      if (sidebar1.classList.contains("active")) {
         sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
       } else sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
     };

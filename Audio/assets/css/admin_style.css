@@ -457,6 +457,50 @@ background-color: black;
 color: white;
 }
 
+/* ADJUST ARRANGEMENT IN ADMIN PAGE */
+.id-title, .id-item{
+width: 3%;
+}
+
+.image-title{
+width: 15%;
+/* text-align: center; */
+}
+
+.name-title{
+  width: 20%;
+  /* text-align: center; */
+  /* padding-left: 3.5%; */
+}
+
+.price-title{
+width: 15%;
+text-align: center;
+
+}
+
+.stock-title, .stock-item{
+width: 80px;
+text-align: right;
+}
+
+.image-item{
+  width: 15%;
+ 
+}
+
+.name-item{
+width: 20%;
+}
+
+.price-item{
+width: 15%;
+text-align: center;
+
+}
+
+
+
 
 /* TEST FORM */
 

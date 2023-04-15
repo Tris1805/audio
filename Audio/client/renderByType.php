@@ -188,7 +188,7 @@
 <script src="scripts/trangchu.js"></script>
 <script src="scripts/chitietsanpham.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<!-- <script>
+<script>
   $(document).ready(function(){
     // Bắt sự kiện khi người dùng chọn trang
     $('body').on('click', '.pagination li a', function(e){
@@ -209,8 +209,36 @@
       });
     }
   });
-  </script> -->
+  function searchProductsByPrice() {
+    var minPriceInput = document.getElementById("min-price-input").value;
+    minPrice = parseInt(minPriceInput.replace(/\D/g, ""));
+    var maxPriceInput = document.getElementById("max-price-input").value;
+    maxPrice = parseInt(maxPriceInput.replace(/\D/g, ""));
+    var url = "searchByPrice.php?min=" + minPrice + "&max=" + maxPrice + "$page=1";
+    window.location.href = url;
+  }
+  // $(window).on("load", function () {
+  //   var urlParams = new URLSearchParams(window.location.search);
+  //   var minPrice = urlParams.get("minPrice");
+  //   var maxPrice = urlParams.get("maxPrice");
 
+  //   if (minPrice != null && maxPrice != null) {
+  //     $("#min-price-input").val(minPrice);
+  //     $("#max-price-input").val(maxPrice);
+  //     searchProductsByPrice(1, 8);
+  //   }
+  // });
+  const priceInput1 = document.getElementById("min-price-input");
+  priceInput1.addEventListener("input", function() {
+    const value = parseInt(this.value.replace(/\D/g, ""));
+    this.value = value.toLocaleString("en-US");
+  });
+  const priceInput2 = document.getElementById("max-price-input");
+  priceInput2.addEventListener("input", function() {
+    const value = parseInt(this.value.replace(/\D/g, ""));
+    this.value = value.toLocaleString("en-US");
+  });
+  
 </script>
 
 </html>

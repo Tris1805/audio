@@ -18,7 +18,6 @@
 
   <body>
     <div id="app">
-      <!-- <?php include "../components/header.php"; ?> -->
       <div class="main-container">
         <div class="main-content">
           <div class="sidebar">
@@ -28,19 +27,19 @@
             </div>
             <ul class="nav-links">
               <li>
-                <a href="index.html">
+                <a href="./index.html">
                   <i class="bx bx-grid-alt"></i>
                   <span class="links_name">Thống kê</span>
                 </a>
               </li>
               <li>
-                <a href="sanpham.html">
+                <a href="./sanpham.html" class="active">
                   <i class="bx bx-box"></i>
                   <span class="links_name">Sản phẩm</span>
                 </a>
               </li>
               <li>
-                <a href="luotmua.html">
+                <a href="./luotmua.html">
                   <i class="bx bx-list-ul"></i>
                   <span class="links_name">Lượt mua</span>
                 </a>
@@ -64,7 +63,7 @@
                 </a>
               </li> -->
               <li>
-                <a href="nguoidung.html" class="active">
+                <a href="./nguoidung.html">
                   <i class="bx bx-user"></i>
                   <span class="links_name">Người dùng</span>
                 </a>
@@ -100,44 +99,47 @@
             <nav>
               <div class="sidebar-button">
                 <i class="bx bx-menu sidebarBtn"></i>
-                <span class="dashboard">Quản Lý Người Dùng</span>
+                <span class="dashboard">Quản Lý Sản Phẩm</span>
               </div>
               <div class="search-box">
                 <input type="text" placeholder="Search..." />
                 <i class="bx bx-search"></i>
               </div>
               <div class="profile-details">
-                <img src="https://i.pinimg.com/736x/ba/95/3c/ba953c1e9f85cfbc3a5ba7b2d648f424.jpg" alt="" />
+                <img
+                  src="https://i.pinimg.com/736x/ba/95/3c/ba953c1e9f85cfbc3a5ba7b2d648f424.jpg"
+                  alt=""
+                />
                 <span class="admin_name">Lunh</span>
                 <i class="bx"></i>
               </div>
             </nav>
-            
+
             <div class="home-content">
               <div class="sales-boxes">
                 <div class="recent-stock box">
-                  <div class="title">Thông tin người dùng</div>
-                  <div class="user-details-title">
-                    <div class="user-details-title-items id-title" >ID</div>
+                  <div class="title">Tình trạng kho hàng</div>
+                  <div class="stock-details-title">
+                    <div class="stock-details-title-items id-title">ID</div>
                     <div
-                      class="user-details-title-items name-title" 
+                      class="stock-details-title-items image-title"
                     >
-                      Username
+                      Hình ảnh
                     </div>
                     <div
-                      class="user-details-title-items"
+                      class="stock-details-title-items name-title"                    
                     >
-                      Email
+                      Tên sản phẩm
                     </div>
                     <div
-                      class="user-details-title-items" 
+                      class="stock-details-title-items price-title"                
                     >
-                      Địa chỉ
+                      Đơn giá
                     </div>
-                    <div class="user-details-title-items" >Sđt</div>
+                    <div class="stock-details-title-items stock-title">Số lượng</div>
                   </div>
                   <div class="sales-details stock-details">
-                    <ul class="details">
+                    <ul class="details id-item">
                       <li>1</li>
                       <li><a href="#">1</a></li>
                       <li><a href="#">1</a></li>
@@ -148,49 +150,89 @@
                       <li><a href="#">1</a></li>
                       <li><a href="#">1</a></li>
                     </ul>
-                    <ul class="details">
-                      <li>TriBui</li>
-                      <li>TriBui</li>
-                      <li>TriBui</li>
-                      <li>TriBui</li>
-                      <li>TriBui</li>
-                      <li>TriBui</li>
-                      <li>TriBui</li>
-                      <li>TriBui</li>
-                      <li>TriBui</li>
+                    <ul class="details image-item">
+                      <li>
+                        <img
+                          src="../assets/images/products/focal_celestee.jpg"
+                          alt=""
+                          class="stock--img"
+                        />
+                      </li>
+                      <li>
+                        <img
+                          src="../assets/images/products/focal_celestee.jpg"
+                          alt=""
+                          class="stock--img"
+                        />
+                      </li>
+                      <li>
+                        <img
+                          src="../assets/images/products/focal_celestee.jpg"
+                          alt=""
+                          class="stock--img"
+                        />
+                      </li>
+                      <li>
+                        <img
+                          src="../assets/images/products/focal_celestee.jpg"
+                          alt=""
+                          class="stock--img"
+                        />
+                      </li>
+                      <li>
+                        <img
+                          src="../assets/images/products/focal_celestee.jpg"
+                          alt=""
+                          class="stock--img"
+                        />
+                      </li>
+                      <li>
+                        <img
+                          src="../assets/images/products/focal_celestee.jpg"
+                          alt=""
+                          class="stock--img"
+                        />
+                      </li>
+                      <li>
+                        <img
+                          src="../assets/images/products/focal_celestee.jpg"
+                          alt=""
+                          class="stock--img"
+                        />
+                      </li>
                     </ul>
-                    <ul class="details">
-                      <li>Tribui@gmail.com</li>
-                      <li>Tribui@gmail.com</li>
-                      <li>Tribui@gmail.com</li>
-                      <li>Tribui@gmail.com</li>
-                      <li>Tribui@gmail.com</li>
-                      <li>Tribui@gmail.com</li>
-                      <li>Tribui@gmail.com</li>
-                      <li>Tribui@gmail.com</li>
-                      <li>Tribui@gmail.com</li>
+                    <ul class="details name-item">
+                      <li>Focal Celestee</li>
+                      <li>zzzzzzzzzzzzzzzzzzzzz</li>
+                      <li>Focal Celestee</li>
+                      <li>Focal Celestee</li>
+                      <li>Focal Celestee</li>
+                      <li>Focal Celestee</li>
+                      <li>Focal Celestee</li>
+                      <li>Focal Celestee</li>
+                      <li>Focal Celestee</li>
                     </ul>
-                    <ul class="details">
-                      <li>164 Đường Tây Thiên, Xã Bắc Ấn, TP Thiên Đường</li>
-                      <li>164 Đường Tây Thiên, Xã Bắc Ấn, TP Thiên Đường</li>
-                      <li>164 Đường Tây Thiên, Xã Bắc Ấn, TP Thiên Đường</li>
-                      <li>164 Đường Tây Thiên, Xã Bắc Ấn, TP Thiên Đường</li>
-                      <li>164 Đường Tây Thiên, Xã Bắc Ấn, TP Thiên Đường</li>
-                      <li>164 Đường Tây Thiên, Xã Bắc Ấn, TP Thiên Đường</li>
-                      <li>164 Đường Tây Thiên, Xã Bắc Ấn, TP Thiên Đường</li>
-                      <li>164 Đường Tây Thiên, Xã Bắc Ấn, TP Thiên Đường</li>
-                      <li>164 Đường Tây Thiên, Xã Bắc Ấn, TP Thiên Đường</li>
+                    <ul class="details price-item">
+                      <li>23.000.000đ</li>
+                      <li>23.000.000đ</li>
+                      <li>23.000.000đ</li>
+                      <li>23.000.000đ</li>
+                      <li>23.000.000đ</li>
+                      <li>23.000.000đ</li>
+                      <li>23.000.000đ</li>
+                      <li>23.000.000đ</li>
+                      <li>23.000.000đ</li>
                     </ul>
-                    <ul class="details">
-                      <li>0987654321</li>
-                      <li>0987654321</li>
-                      <li>0987654321</li>
-                      <li>0987654321</li>
-                      <li>0987654321</li>
-                      <li>0987654321</li>
-                      <li>0987654321</li>
-                      <li>0987654321</li>
-                      <li>0987654321</li>
+                    <ul class="details stock-item ">
+                      <li>12</li>
+                      <li>12</li>
+                      <li>12</li>
+                      <li>12</li>
+                      <li>12</li>
+                      <li>12</li>
+                      <li>12</li>
+                      <li>12</li>
+                      <li>12</li>
                     </ul>
                   </div>
                 </div>
@@ -205,46 +247,38 @@
                 </div>
               </div>
             </div>
-           
             <div class="edit-form">
               <span class="cancel-edit-form" style="float: right">X</span>
               <form>
-                <label for="user-id">ID</label>
-                <input type="number" id="user-id" name="user-id" /><br />
+                <label for="product-id">ID</label>
+                <input type="number" id="product-id" name="product-id" /><br />
 
-                <label for="username">Username:</label>
+                <label for="product-name">Tên sản phẩm:</label>
                 <input
                   type="text"
-                  id="username"
-                  name="username"
+                  id="product-name"
+                  name="product-name"
                 /><br />
 
-                <label for="product-image">Password:</label>
+                <label for="product-image">Hình ảnh:</label>
                 <input
-                  type="password"
-                  id="user-password"
-                  name="user-password"
+                  type="file"
+                  id="product-image"
+                  name="product-image"
                 /><br />
 
-                <label for="product-price">email:</label>
+                <label for="product-price">Đơn giá:</label>
                 <input
-                  type="text"
-                  id="user-mail"
-                  name="user-mail"
+                  type="number"
+                  id="product-price"
+                  name="product-price"
                 /><br />
 
-                <label for="user-address">Địa chỉ:</label>
+                <label for="product-quantity">Số lượng:</label>
                 <input
-                  type="text"
-                  id="user-address"
-                  name="user-address"
-                /><br />
-
-                <label for="user-tel">Số điện thoại:</label>
-                <input
-                  type="text"
-                  id="user-tel"
-                  name="user-tel"
+                  type="number"
+                  id="product-quantity"
+                  name="product-quantity"
                 /><br />
 
                 <button type="submit" id="saveChanges">Lưu</button>
@@ -264,7 +298,6 @@
       </div>
     </div>
 
-    <!-- <?php include "../components/footer.php"; ?> -->
     <script>
       let sidebar = document.querySelector(".sidebar");
       let sidebarBtn = document.querySelector(".sidebarBtn");
