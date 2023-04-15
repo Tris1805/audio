@@ -517,6 +517,11 @@ text-align: center;
 
 /* TEST FORM */
 
+.form-container {
+  width: 100%;
+
+}
+
 .edit-form, .delete-form{
   position: relative;
   position: fixed;
@@ -526,16 +531,17 @@ text-align: center;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  /* border: solid gray 1px; */
   z-index: 9999;
-  display: none; /* Hide the form initially    */
+  /* display: none; Hide the form initially    */
 }
 
 
-.make-blur{
+/* .make-blur{
   filter: blur(5px);
   pointer-events: none;
-}
+} */
 
 /* Thiết lập màu nền và font chữ cho form */
 form {
