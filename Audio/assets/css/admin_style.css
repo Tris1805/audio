@@ -278,7 +278,7 @@ nav .profile-details i{
 }
 .home-content .sales-boxes{
   display: flex;
-  /* justify-content: space-between; */
+    /* justify-content: space-between; */
   flex-direction: row;
   /* padding: 0 20px; */
 }
@@ -372,12 +372,25 @@ nav .profile-details i{
 
 /* Stock page */
 .recent-stock{
-  width: 80%;
+  width: 100%;
   background: #fff;
+  display: flex;
+  flex-direction: row;
   padding: 20px 30px;
   margin: 0 20px;
   border-radius: 12px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.recent-stock-title {
+  width: 100%;
+}
+
+.recent-stock-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
 }
 
 .stock-details-title{
@@ -417,8 +430,8 @@ nav .profile-details i{
 }
 
 .manage-stock{
-  width: 15%;
-  height: 10%;
+  width: 20%;
+  height: 100%;
   background: #fff;
   padding: 20px 20px;
   margin: 0 20px;
@@ -427,7 +440,7 @@ nav .profile-details i{
 }
 
 .modify-item{
-margin-top: 40px;
+margin-top: 14px;
 }
 
 .modify-item li{
