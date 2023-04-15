@@ -1,0 +1,8 @@
+<div class="manage-stock box">
+    <ul class="modify-item">
+        <li>
+          <button class="edit-btn">Edit</button>
+          <button class="delete-btn">Delete</button>
+        </li>
+      </ul>
+</div>
