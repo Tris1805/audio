@@ -16,12 +16,12 @@
   <?php
   include '../components/connectDB.php';
   session_start();
-  // Create connection
-  $conn = mysqli_connect($servername, $username, $password, $dbname);
-  // Check connection
-  if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-  }
+  // // Create connection
+  // $conn = mysqli_connect($servername, $username, $password, $dbname);
+  // // Check connection
+  // if (!$conn) {
+  //   die("Connection failed: " . mysqli_connect_error());
+  // }
 
   // $sql = "SELECT count(id) as total FROM products";
   $item_per_page = 8;
