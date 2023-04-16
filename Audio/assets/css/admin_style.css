@@ -370,7 +370,8 @@ nav .profile-details i{
   color: #333;
 }
 
-/* Stock page */
+
+/* STOCK AND USERS PAGE*/
 .recent-stock{
   width: 100%;
   background: #fff;
@@ -393,7 +394,7 @@ nav .profile-details i{
 
 }
 
-.stock-details-title{
+.stock-details-title, .user-details-title{
   margin-top: 10px;
   width: 100%;
   display: flex;
@@ -408,16 +409,6 @@ nav .profile-details i{
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.user-details-title{
-  margin-top: 10px;
-  width: 100%;
-  display: flex;
-  /* justify-content: space-between; */
-  font-size: medium;
-  font-weight: 700;
-  flex-direction: row;
 }
 
 .details li{
@@ -443,7 +434,12 @@ nav .profile-details i{
 margin-top: 14px;
 }
 
-.modify-item li{
+.modify-user{
+margin-top: 30%;
+padding-left: 10%;
+}
+
+.modify-item li, .modify-user li{
   list-style-type: none;
   display: flex;
   justify-content: space-between;
@@ -451,7 +447,7 @@ margin-top: 14px;
   margin-bottom: 11.2px;
 }
 
-.modify-item li button{
+.modify-item li button, .modify-user li button{
   width: 45%;
   height: 30px;
   background-color: white;
@@ -492,14 +488,8 @@ text-align: center;
 
 }
 
-.stock-title, .stock-item{
-width: 80px;
-text-align: right;
-}
-
 .image-item{
   width: 15%;
- 
 }
 
 .name-item{
@@ -509,8 +499,47 @@ width: 20%;
 .price-item{
 width: 15%;
 text-align: center;
-
 }
+
+.stock-title, .stock-item{
+width: 80px;
+text-align: right;
+}
+
+.username-title{
+  width: 10%;
+}
+
+.mail-title{
+width: 14%;
+}
+
+.address-title{
+  width: 31%;
+}
+
+.tel-title{
+  width: 10%;
+  text-align: right;
+}
+
+.username-item{
+width: 10%;
+}
+
+.mail-item{
+width: 14%;
+}
+
+.address-item{
+width: 31%;
+}
+
+.tel-item{
+width: 10%;
+text-align: right;
+}
+
 
 
 
