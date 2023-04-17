@@ -19,9 +19,7 @@
   if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
   }
-
-  // $sql = "SELECT count(id) as total FROM products";
-  $type = $_GET["type"];
+  $type = $_GET['type'];
   $item_per_page = 8;
   $cur_page = !empty($_GET['cur_page']) ? $_GET['cur_page'] : 1;
   $offset = ($cur_page - 1) * $item_per_page;
@@ -31,8 +29,8 @@
   $tolal_products = $tolal_products->num_rows;
   $totalPages = ceil($tolal_products / $item_per_page);
   ?>
-  <?php include "../components/header.php"; ?>
   <div id="app">
+    <?php include "../components/header.php"; ?>
     <div class="main-container">
       <div class="main-promo">
         <img src="../assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
@@ -88,19 +86,19 @@
               <div class="brand-filter-title">THƯƠNG HIỆU</div>
               <div class="brand-container">
                 <label class="container" style="display: flex; justify-content: center;">
-                  <button class="brand-chooser">APPLE</button>
+                  <a href="renderByBrand.php?brand=Apple" class="brand-chooser">APPLE</a>
                 </label>
                 <label class="container" style="display: flex; justify-content: center;">
-                  <button class="brand-chooser">Focal</button>
+                  <a href="renderByBrand.php?brand=Focal" class="brand-chooser">Focal</a>
                 </label>
                 <label class="container" style="display: flex; justify-content: center;">
-                  <button class="brand-chooser">HiFiMan</button>
+                  <a href="renderByBrand.php?brand=HiFiMan" class="brand-chooser">HiFiMan</a>
                 </label>
                 <label class="container" style="display: flex; justify-content: center;">
-                  <button class="brand-chooser">MOONDROP</button>
+                  <a href="renderByBrand.php?brand=MOONDROP" class="brand-chooser">MOONDROP</a>
                 </label>
                 <label class="container" style="display: flex; justify-content: center;">
-                  <button class="brand-chooser">SONY</button>
+                  <a href="renderByBrand.php?brand=SONY" class="brand-chooser">SONY</a>
                 </label>
               </div>
             </div>
@@ -156,17 +154,16 @@
             </div>
             <ul class="pagination">
               <?php
-
               for ($i = 1; $i <= $totalPages; $i++) {
                 if ($i != $cur_page) {
                   ?>
                   <li class=""><a href="?type=<?= $type ?>&cur_page=<?= $i ?>"> <?= $i ?></a></li>
                 <?php } else { ?>
                   <li class=""><a href="?type=<?= $type ?>&cur_page=<?= $i ?>" class="active"> <?= $i ?></a></li>
-
                 <?php } ?>
-              <?php }
-              ?>
+              <?php } ?>
+            </ul>
+
             </ul>
             <!-- <ul class="pagination">
                   <li :class="{ disabled: !canPreviousPage }" @click="onPreviousPage()">«</li>
@@ -189,26 +186,46 @@
 <script src="scripts/chitietsanpham.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
-  $(document).ready(function(){
+  // $(document).ready(function(){
+  //   // Bắt sự kiện khi người dùng chọn trang
+  //   $('body').on('click', '.pagination li a', function(e){
+  //     e.preventDefault();
+  //     var page = $(this).attr('data-page');
+  //     loadData(page);
+  //   });
+
+  //   // Hàm tải nội dung mới
+  //   function loadData(page){
+  //     $.ajax({
+  //       url: 'renderByType.php',
+  //       type: 'POST',
+  //       data: {page: page},
+  //       success: function(response){
+  //         $('#app').html(response);
+  //       }
+  //     });
+  //   }
+  // });
+  $(document).ready(function () {
     // Bắt sự kiện khi người dùng chọn trang
-    $('body').on('click', '.pagination li a', function(e){
+    $('body').on('click', '.pagination li a', function (e) {
       e.preventDefault();
-      var page = $(this).attr('cur_page');
-      loadData(page);
+      var url = $(this).attr('href');
+      loadData(url);
     });
 
     // Hàm tải nội dung mới
-    function loadData(page){
+    function loadData(url) {
       $.ajax({
-        url: 'renderByType.php',
+        url: url,
         type: 'GET',
-        data: {page: page},
-        success: function(response){
+        success: function (response) {
           $('#app').html(response);
         }
       });
     }
   });
+
   function searchProductsByPrice() {
     var minPriceInput = document.getElementById("min-price-input").value;
     minPrice = parseInt(minPriceInput.replace(/\D/g, ""));
@@ -229,16 +246,16 @@
   //   }
   // });
   const priceInput1 = document.getElementById("min-price-input");
-  priceInput1.addEventListener("input", function() {
+  priceInput1.addEventListener("input", function () {
     const value = parseInt(this.value.replace(/\D/g, ""));
     this.value = value.toLocaleString("en-US");
   });
   const priceInput2 = document.getElementById("max-price-input");
-  priceInput2.addEventListener("input", function() {
+  priceInput2.addEventListener("input", function () {
     const value = parseInt(this.value.replace(/\D/g, ""));
     this.value = value.toLocaleString("en-US");
   });
-  
+
 </script>
 
 </html>

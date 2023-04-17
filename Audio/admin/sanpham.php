@@ -48,15 +48,15 @@
 
 <body>
   <?php
-    include '../components/connectDB.php';
-    $item_per_page = 8;
-    $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
-    $offset = ($cur_page - 1) * $item_per_page;
-    $sql = "SELECT * FROM `products`  LIMIT $offset, $item_per_page";
-    $result = mysqli_query($conn, $sql);
-    $tolal_products = mysqli_query($conn, "select * from products");
-    $tolal_products = $tolal_products->num_rows;
-    $totalPages = ceil($tolal_products / $item_per_page);
+  include '../components/connectDB.php';
+  $item_per_page = 8;
+  $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
+  $offset = ($cur_page - 1) * $item_per_page;
+  $sql = "SELECT * FROM `products`  LIMIT $offset, $item_per_page";
+  $result = mysqli_query($conn, $sql);
+  $tolal_products = mysqli_query($conn, "select * from products");
+  $tolal_products = $tolal_products->num_rows;
+  $totalPages = ceil($tolal_products / $item_per_page);
   ?>
   <div id="app">
     <div class="main-container">
@@ -156,210 +156,205 @@
           <div class="home-content">
             <div class="sales-boxes">
               <div class="recent-stock box">
-                <div class="title">Tình trạng kho hàng</div>
-                <div class="stock-details-title">
-                  <div class="stock-details-title-items id-title">ID</div>
-                  <div class="stock-details-title-items image-title">
-                    Hình ảnh
+                <div class="recent-stock-title">
+                  <div class="80%" style="width: 80%;">
+                    <div class="title">Tình trạng kho hàng</div>
+                    <div class="stock-details-title">
+                      <div class="stock-details-title-items id-title">ID</div>
+                      <div class="stock-details-title-items image-title">
+                        Hình ảnh
+                      </div>
+                      <div class="stock-details-title-items name-title">
+                        Tên sản phẩm
+                      </div>
+                      <div class="stock-details-title-items price-title">
+                        Đơn giá
+                      </div>
+                      <div class="stock-details-title-items stock-title">
+                        Số lượng
+                      </div>
+                    </div>
                   </div>
-                  <div class="stock-details-title-items name-title">
-                    Tên sản phẩm
-                  </div>
-                  <div class="stock-details-title-items price-title">
-                    Đơn giá
-                  </div>
-                  <div class="stock-details-title-items stock-title">Số lượng</div>
-                </div>
-                <!-- <div class="sales-details stock-details"> -->
-                <?php
-
-                while ($row = mysqli_fetch_assoc($result)) {
-                  echo '<div class="sales-details stock-details">';
-                  echo '<ul class="details id-item">';
-                  echo '<li><a href="#">' . $row['id'] . '</a></li>';
-                  echo '</ul>';
-                  echo '<ul class="details image-item">';
-                  echo sprintf('<li>
+                  <?php
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    echo '<div class="recent-stock-item">';
+                    echo ' <div class="80%" style="width: 80%;">';
+                    echo '<div class="sales-details stock-details">';
+                    echo '<ul class="details id-item">';
+                    echo '<li><a href="#">' . $row['id'] . '</a></li>';
+                    echo '</ul>';
+                    echo '<ul class="details image-item">';
+                    echo sprintf('<li>
                       <img
                         src="../%s"
                         alt=""
                         class="stock--img"
                       />
                     </li>', $row['image']);
-                  echo  '</ul>';
-                  echo  '<ul class="details name-item">';
-                  echo  '<li>' . $row['name'] . '</li>';
-                  echo  '</ul>';
-                  echo  '<ul class="details price-item">';
-                  echo  sprintf('<li>%s</li>', number_format($row['price'], 0, '', ','));
-                  echo  "</ul>";
-                  echo  '<ul class="details stock-item">';
-                  echo  '<li>123</li>';
-                  echo  "</ul>";
-                  echo "</div>";
+                    echo '</ul>';
+                    echo '<ul class="details name-item">';
+                    echo '<li>' . $row['name'] . '</li>';
+                    echo '</ul>';
+                    echo '<ul class="details price-item">';
+                    echo sprintf('<li>%s</li>', number_format($row['price'], 0, '', ','));
+                    echo "</ul>";
+                    echo '<ul class="details stock-item">';
+                    echo '<li>123</li>';
+                    echo "</ul>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo '<div class="15%" style="width: 15%;">
+                                <ul class="modify-item">
+                                  <li>
+                                  <a href="edit.php" ><button class="edit-btn">Edit</button></a>      
+                                  <a href="edit.php" ><button class="delete-btn">Delete</button></a>      
+                                  </li>
+                                  
+                                </ul>
+                              </div>';
 
-                }
-                ?>
-                <!-- <ul class="details">
-                      <li>1</li>
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">1</a></li>
+                    echo "</div>";
+                  }
+
+                  ?>
+                  <div id="pagination">
+                    <ul class="pagination">
+                      <?php
+
+                      for ($i = 1; $i <= $totalPages; $i++) {
+                        if ($i != $cur_page) {
+                          ?>
+                          <li class=""><a href="#product-list" data-page="<?= $i ?>"> <?= $i ?></a></li>
+                        <?php } else { ?>
+                          <li class=""><a href="#product-list" data-page="<?= $i ?>" class="active"> <?= $i ?></a></li>
+
+                        <?php } ?>
+                      <?php }
+                      ?>
                     </ul>
-                    <ul class="details">
-                      <li>
-                        <img
-                          src="../assets/images/products/focal_celestee.jpg"
-                          alt=""
-                          class="stock--img"
-                        />
-                      </li>
-                      <li>
-                        <img
-                          src="../assets/images/products/focal_celestee.jpg"
-                          alt=""
-                          class="stock--img"
-                        />
-                      </li>
-                      <li>
-                        <img
-                          src="../assets/images/products/focal_celestee.jpg"
-                          alt=""
-                          class="stock--img"
-                        />
-                      </li>
-                      <li>
-                        <img
-                          src="../assets/images/products/focal_celestee.jpg"
-                          alt=""
-                          class="stock--img"
-                        />
-                      </li>
-                      <li>
-                        <img
-                          src="../assets/images/products/focal_celestee.jpg"
-                          alt=""
-                          class="stock--img"
-                        />
-                      </li>
-                      <li>
-                        <img
-                          src="../assets/images/products/focal_celestee.jpg"
-                          alt=""
-                          class="stock--img"
-                        />
-                      </li>
-                      <li>
-                        <img
-                          src="../assets/images/products/focal_celestee.jpg"
-                          alt=""
-                          class="stock--img"
-                        />
-                      </li>
-                    </ul>
-                    <ul class="details">
-                      <li>Focal Celestee</li>
-                      <li>Focal Celestee</li>
-                      <li>Focal Celestee</li>
-                      <li>Focal Celestee</li>
-                      <li>Focal Celestee</li>
-                      <li>Focal Celestee</li>
-                      <li>Focal Celestee</li>
-                      <li>Focal Celestee</li>
-                      <li>Focal Celestee</li>
-                    </ul>
-                    <ul class="details">
-                      <li>23.000.000đ</li>
-                      <li>23.000.000đ</li>
-                      <li>23.000.000đ</li>
-                      <li>23.000.000đ</li>
-                      <li>23.000.000đ</li>
-                      <li>23.000.000đ</li>
-                      <li>23.000.000đ</li>
-                      <li>23.000.000đ</li>
-                      <li>23.000.000đ</li>
-                    </ul>
-                    <ul class="details">
-                      <li>12</li>
-                      <li>12</li>
-                      <li>12</li>
-                      <li>12</li>
-                      <li>12</li>
-                      <li>12</li>
-                      <li>12</li>
-                      <li>12</li>
-                      <li>12</li>
-                    </ul>
+                  </div>
+                  <!-- <div class="recent-stock-item">
+                    <div class="80%" style="width: 80%;">
+                      <div class="sales-details stock-details">
+                        <ul class="details id-item">
+                          <li>1</li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">1</a></li>
+                        </ul>
+                        <ul class="details image-item">
+                          <li>
+                            <img src="../assets/images/products/focal_celestee.jpg" alt="" class="stock--img" />
+                          </li>
+                          <li>
+                            <img src="../assets/images/products/focal_celestee.jpg" alt="" class="stock--img" />
+                          </li>
+                          <li>
+                            <img src="../assets/images/products/focal_celestee.jpg" alt="" class="stock--img" />
+                          </li>
+                          <li>
+                            <img src="../assets/images/products/focal_celestee.jpg" alt="" class="stock--img" />
+                          </li>
+                          <li>
+                            <img src="../assets/images/products/focal_celestee.jpg" alt="" class="stock--img" />
+                          </li>
+                          <li>
+                            <img src="../assets/images/products/focal_celestee.jpg" alt="" class="stock--img" />
+                          </li>
+                          <li>
+                            <img src="../assets/images/products/focal_celestee.jpg" alt="" class="stock--img" />
+                          </li>
+                        </ul>
+                        <ul class="details name-item">
+                          <li>Focal Celestee</li>
+                          <li>ákljaskjdadjasjdskjasldas</li>
+                          <li>Focal</li>
+                          <li>Celestee</li>
+                          <li>Focal Celestee</li>
+                          <li>Apple Airpod 3 pro</li>
+                          <li>Focal Celestee</li>
+                          <li>Focal Celestee</li>
+                          <li>Focal Celestee</li>
+                        </ul>
+                        <ul class="details price-item">
+                          <li>23.000.000đ</li>
+                          <li>23.000.000đ</li>
+                          <li>23.000.000đ</li>
+                          <li>23.000.000đ</li>
+                          <li>23.000.000đ</li>
+                          <li>23.000.000đ</li>
+                          <li>23.000.000đ</li>
+                          <li>23.000.000đ</li>
+                          <li>23.000.000đ</li>
+                        </ul>
+                        <ul class="details stock-item">
+                          <li>12</li>
+                          <li>12</li>
+                          <li>12</li>
+                          <li>12</li>
+                          <li>12</li>
+                          <li>12</li>
+                          <li>12</li>
+                          <li>12</li>
+                          <li>12</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="15%" style="width: 15%;">
+                      <ul class="modify-item">
+                        <li>
+                          <button class="edit-btn">Edit</button>
+                          <button class="delete-btn">Delete</button>
+                        </li>
+                        <li>
+                          <button class="edit-btn">Edit</button>
+                          <button class="delete-btn">Delete</button>
+                        </li>
+                      </ul>
+                    </div>
                   </div> -->
-
-                <div id="pagination">
-                  <ul class="pagination">
-                    <?php
-
-                    for ($i = 1; $i <= $totalPages; $i++) {
-                      if ($i != $cur_page) {
-                        ?>
-                        <li class=""><a href="#" data-page="<?= $i ?>"> <?= $i ?></a></li>
-                      <?php } else { ?>
-                        <li class=""><a href="#" data-page="<?= $i ?>" class="active"> <?= $i ?></a></li>
-
-                      <?php } ?>
-                    <?php }
-                    ?>
-                  </ul>
                 </div>
               </div>
-              <div class="manage-stock box">
-                <div class="title">Chỉnh sửa</div>
-                <ul class="modify-item">
-                  <li>
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
-                  </li>
-                </ul>
-              </div>
             </div>
-          </div>
-          <div class="edit-form">
-            <span class="cancel-edit-form" style="float: right">X</span>
-            <form>
-              <label for="product-id">ID</label>
-              <input type="number" id="product-id" name="product-id" /><br />
+            <div class="edit-form">
+              <span class="cancel-edit-form" style="float: right">X</span>
+              <form>
+                <label for="product-id">ID</label>
+                <input type="number" id="product-id" name="product-id" /><br />
 
-              <label for="product-name">Tên sản phẩm:</label>
-              <input type="text" id="product-name" name="product-name" /><br />
+                <label for="product-name">Tên sản phẩm:</label>
+                <input type="text" id="product-name" name="product-name" /><br />
 
-              <label for="product-image">Hình ảnh:</label>
-              <input type="file" id="product-image" name="product-image" /><br />
+                <label for="product-image">Hình ảnh:</label>
+                <input type="file" id="product-image" name="product-image" /><br />
 
-              <label for="product-price">Đơn giá:</label>
-              <input type="number" id="product-price" name="product-price" /><br />
+                <label for="product-price">Đơn giá:</label>
+                <input type="number" id="product-price" name="product-price" /><br />
 
-              <label for="product-quantity">Số lượng:</label>
-              <input type="number" id="product-quantity" name="product-quantity" /><br />
+                <label for="product-quantity">Số lượng:</label>
+                <input type="number" id="product-quantity" name="product-quantity" /><br />
 
-              <button type="submit" id="saveChanges">Lưu</button>
-            </form>
-          </div>
-          <div class="delete-form">
-            <span class="cancel-delete-form" style="float: right">X</span>
-            <form>
-              <label for="product-id">ID</label>
-              <input type="number" id="product-id" name="product-id" /><br />
+                <button type="submit" id="saveChanges">Lưu</button>
+              </form>
+            </div>
+            <div class="delete-form">
+              <span class="cancel-delete-form" style="float: right">X</span>
+              <form>
+                <label for="product-id">ID</label>
+                <input type="number" id="product-id" name="product-id" /><br />
 
-              <button type="submit" id="deleteItem">Xóa</button>
-            </form>
-          </div>
+                <button type="submit" id="deleteItem">Xóa</button>
+              </form>
+            </div>
         </section>
       </div>
     </div>
   </div>
-  
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
     let sidebar1 = document.querySelector(".sidebar");
@@ -449,25 +444,25 @@
 
 
     $(document).ready(function () {
-    // Bắt sự kiện khi người dùng chọn trang
-    $('body').on('click', '.pagination li a', function (e) {
-      e.preventDefault();
-      var page = $(this).attr('data-page');
-      loadData(page);
-    });
-
-    // Hàm tải nội dung mới
-    function loadData(page) {
-      $.ajax({
-        url: 'sanpham.php',
-        type: 'POST',
-        data: { page: page },
-        success: function (response) {
-          $('#app').html(response);
-        }
+      // Bắt sự kiện khi người dùng chọn trang
+      $('body').on('click', '.pagination li a', function (e) {
+        e.preventDefault();
+        var page = $(this).attr('data-page');
+        loadData(page);
       });
-    }
-  });
+
+      // Hàm tải nội dung mới
+      function loadData(page) {
+        $.ajax({
+          url: 'sanpham.php',
+          type: 'POST',
+          data: { page: page },
+          success: function (response) {
+            $('#app').html(response);
+          }
+        });
+      }
+    });
 
     // $(document).on('click', '.pagination a', function (event) {
     //   event.preventDefault();
