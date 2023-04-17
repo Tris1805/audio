@@ -86,9 +86,9 @@
                       <?php echo $row['name'] ?> </br>
                       <?php echo $row['price'] ?>
                       <input type="text" name="quantity[<?php echo $row['id'] ?>]" value="<?php echo $_SESSION['giohang'][$row['id']] ?>">
-                      <div class="delete-item">
+                      <a href="giohang.php?action=delete&id=<?php echo $row['id']?>"><div class="delete-item">
                         <img src="../assets/images/icons/bin.png" alt="" />
-                      </div>
+                      </div></a>
                     </div>
                   </li>
                   <?php

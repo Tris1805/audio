@@ -448,7 +448,6 @@ padding-left: 10%;
   margin-bottom: 11.2px;
 }
 
-<<<<<<< HEAD
 .modify-item li a{
   width: 100%;
   height: 30px;
@@ -456,10 +455,6 @@ padding-left: 10%;
 
 .modify-item li a button{
   width: 90%;
-=======
-.modify-item li button, .modify-user li button{
-  width: 45%;
->>>>>>> 7a4799ffa878ac3a9c32b101018ca1300821aa3f
   height: 30px;
   background-color: white;
   border-radius: 5px;
