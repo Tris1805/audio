@@ -370,7 +370,8 @@ nav .profile-details i{
   color: #333;
 }
 
-/* Stock page */
+
+/* STOCK AND USERS PAGE*/
 .recent-stock{
   width: 100%;
   background: #fff;
@@ -393,7 +394,7 @@ nav .profile-details i{
 
 }
 
-.stock-details-title{
+.stock-details-title, .user-details-title{
   margin-top: 10px;
   width: 100%;
   display: flex;
@@ -408,16 +409,6 @@ nav .profile-details i{
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.user-details-title{
-  margin-top: 10px;
-  width: 100%;
-  display: flex;
-  /* justify-content: space-between; */
-  font-size: medium;
-  font-weight: 700;
-  flex-direction: row;
 }
 
 .details li{
@@ -444,7 +435,12 @@ margin-top: 9px;
 width: 100%;
 }
 
-.modify-item li{
+.modify-user{
+margin-top: 30%;
+padding-left: 10%;
+}
+
+.modify-item li, .modify-user li{
   list-style-type: none;
   display: flex;
   justify-content: space-between;
@@ -452,6 +448,7 @@ width: 100%;
   margin-bottom: 11.2px;
 }
 
+<<<<<<< HEAD
 .modify-item li a{
   width: 100%;
   height: 30px;
@@ -459,6 +456,10 @@ width: 100%;
 
 .modify-item li a button{
   width: 90%;
+=======
+.modify-item li button, .modify-user li button{
+  width: 45%;
+>>>>>>> 7a4799ffa878ac3a9c32b101018ca1300821aa3f
   height: 30px;
   background-color: white;
   border-radius: 5px;
@@ -501,14 +502,8 @@ text-align: center;
 
 }
 
-.stock-title, .stock-item{
-width: 80px;
-text-align: right;
-}
-
 .image-item{
   width: 15%;
- 
 }
 
 .name-item{
@@ -518,13 +513,57 @@ width: 20%;
 .price-item{
 width: 15%;
 text-align: center;
+}
 
+.stock-title, .stock-item{
+width: 80px;
+text-align: right;
+}
+
+.username-title{
+  width: 10%;
+}
+
+.mail-title{
+width: 14%;
+}
+
+.address-title{
+  width: 31%;
+}
+
+.tel-title{
+  width: 10%;
+  text-align: right;
+}
+
+.username-item{
+width: 10%;
+}
+
+.mail-item{
+width: 14%;
+}
+
+.address-item{
+width: 31%;
+}
+
+.tel-item{
+width: 10%;
+text-align: right;
 }
 
 
 
 
+
 /* TEST FORM */
+
+.form-container {
+  width: 100%;
+
+}
 
 .edit-form, .delete-form{
   position: relative;
@@ -535,16 +574,17 @@ text-align: center;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  /* border: solid gray 1px; */
   z-index: 9999;
-  display: none; /* Hide the form initially    */
+  /* display: none; Hide the form initially    */
 }
 
 
-.make-blur{
+/* .make-blur{
   filter: blur(5px);
   pointer-events: none;
-}
+} */
 
 /* Thiết lập màu nền và font chữ cho form */
 form {
