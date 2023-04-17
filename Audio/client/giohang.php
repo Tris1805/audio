@@ -16,7 +16,7 @@
 <body>
   <?php
   session_start();
-  
+
   include '../components/connectDB.php';
   if (!isset($_SESSION['giohang'])) {
     $_SESSION['giohang'] = array();
@@ -77,22 +77,27 @@
             <div class="cart-list">
               <ul>
                 <?php
-                
+
                 while ($row = mysqli_fetch_array($products)) {
                   ?>
                   <li>
                     <div class="cart-list-item">
                       <img src="../<?php echo $row['image'] ?>" />
-                      <?php echo $row['name'] ?> </br>
-                      <?php echo $row['price'] ?>
-                      <input type="text" name="quantity[<?php echo $row['id'] ?>]" value="<?php echo $_SESSION['giohang'][$row['id']] ?>">
-                      <a href="giohang.php?action=delete&id=<?php echo $row['id']?>"><div class="delete-item">
-                        <img src="../assets/images/icons/bin.png" alt="" />
-                      </div></a>
+                      <div class="cart-list-item-info">
+                        <?php echo $row['name'] ?> </br>
+                        <?php echo $row['price'] ?>
+                        <input type="text" class="quantity_order_confirm" name="quantity[<?php echo $row['id'] ?>]"
+                          value="<?php echo $_SESSION['giohang'][$row['id']] ?>">
+                      </div>
+                      <a href="giohang.php?action=delete&id=<?php echo $row['id'] ?>">
+                        <div class="delete-item">
+                          <img src="../assets/images/icons/bin.png" alt="" />
+                        </div>
+                      </a>
                     </div>
                   </li>
                   <?php
-                  
+
                 }
                 ?>
 

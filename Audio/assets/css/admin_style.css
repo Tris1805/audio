@@ -448,12 +448,12 @@ padding-left: 10%;
   margin-bottom: 11.2px;
 }
 
-.modify-item li a{
+.modify-item li a, .modify-user li a{
   width: 100%;
   height: 30px;
 }
 
-.modify-item li a button{
+.modify-item li a button, .modify-user li a button{
   width: 90%;
   height: 30px;
   background-color: white;

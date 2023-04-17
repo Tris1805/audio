@@ -61,7 +61,8 @@
               <div class="guarantee-time">Bảo hành 12 tháng.</div>
             </div>
             <form action="giohang.php?action=add" method="POST">
-              <input type="text" name="quantity[<?php echo $row['id'] ?>]" value="1">
+              Số Lượng: 
+              <input type="text" class="quantity_order" name="quantity[<?php echo $row['id'] ?>]" value="1">
               <input type="hidden" name="product_id" value="<?php echo $row['id'] ?>" />
               <input type="hidden" name="product_name" value="<?php echo $row['name'] ?>" />
               <input type="hidden" name="product_price" value="<?php echo $row['price'] ?>" />
