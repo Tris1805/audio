@@ -64,18 +64,21 @@
             <div class="navbar-btn login-icon"><a class="navbar-link" href="#"><img class="navbar-icon"
                   src="../assets/images/icons/account.png"></a>
             </div>
-            
+            <div class="navbar-btn cart"><a class="navbar-link" href="giohang.php"><img class="navbar-icon"
+                src="../assets/images/icons/shopping-cart.png"></a></div>
+            </div>
 
             <?php
           } else { ?>
             <div class="navbar-btn login-icon"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
                   src="../assets/images/icons/account.png"></a>
             </div>
-          <?php }
-          ?>
-          <div class="navbar-btn cart"><a class="navbar-link" href="giohang.php"><img class="navbar-icon"
+          
+          <div class="navbar-btn cart"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
                 src="../assets/images/icons/shopping-cart.png"></a></div>
-        </div>
+          </div>
+        <?php }
+          ?>
       </div>
     </div>
     <div class="main-container">

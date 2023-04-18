@@ -72,23 +72,43 @@
             <div class="more-detail" style="text-align:justify;">
               <ul>
                 <?php
-                $string = $row['descriptions'];
-                $array = explode(',', $string);
+                $string = $row['description'];
+                $count = substr_count($string, '"');
+                if ($count == 2){
+                  $matches = array();
+                  preg_match('/"(.*?)"/', $string, $matches);
 
-                // Loại bỏ dấu ngoặc kép trong từng phần tử mảng
-                foreach ($array as &$item) {
-                  $item = str_replace('"', '', $item);
-                }
-                foreach ($array as $desc) {
-                  if ($desc != "") {
-                    ?>
-                    <li>
-                      <?php echo $desc ?>
-                    </li>
-                  <?php }
-                }
-
+                  // Lấy nội dung giữa cặp dấu ngoặc kép
+                  $line = $matches[1];
+                  
                 ?>
+                <li>
+                  <?php echo $line ?>
+                </li>
+                  
+                <?php }else {
+
+                  $array = explode(',', $string);
+                  $resultArray = array();
+  
+                  // Lặp qua mỗi phần tử trong mảng
+                  foreach ($array as $item) {
+                    // Thay thế dấu ngoặc kép (") bằng chuỗi trống ("")
+                    $result = str_replace('"', '', $item);
+                    // Đẩy kết quả vào mảng tạm thời
+                    array_push($resultArray, $result);
+                  }
+                  foreach ($resultArray as $desc) {
+                    if ($desc != "") {
+                      ?>
+                      <li>
+                        <?php echo $desc ?>
+                      </li>
+                    <?php }
+                  }
+  
+                }
+              ?>
 
               </ul>
             <?php } ?>

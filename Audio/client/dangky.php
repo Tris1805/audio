@@ -99,7 +99,7 @@
                   $id = $num_rows + 1;
                   $admin = 0;
                   $password = password_hash($password, PASSWORD_DEFAULT);
-                  $stmt = $conn->prepare("INSERT INTO users (userid, username, password, email, tel, admin) VALUES (?, ?, ?, ?, ?, ?)");
+                  $stmt = $conn->prepare("INSERT INTO users (user_id, username, password, email, phone, role) VALUES (?, ?, ?, ?, ?, ?)");
                   $stmt->bind_param("ssssss", $id,$username, $password, $email, $phone_number, $admin);    
 
                   if ($stmt->execute()) {

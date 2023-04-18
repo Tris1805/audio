@@ -26,7 +26,6 @@
       $query = "SELECT * FROM users WHERE username='$username'";
       $result = mysqli_query($conn, $query);
       $user = mysqli_fetch_assoc($result);
-    
       if (mysqli_num_rows($result) == 1 && password_verify($password, $user['password'])) {
         $_SESSION["cur_user"] = $user;
         header("Location: trangchu.php");
