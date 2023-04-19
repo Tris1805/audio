@@ -18,7 +18,7 @@
         echo '<div class="new-items">';
         echo '<div>';
         echo '<div class="new-items-img">';
-        echo sprintf('<a href="chitietsanpham.php?id=%s"><img src="../%s" style="height: 210px; width: 210px;" alt=""/></a>', $row['id'], $row['image']);
+        echo sprintf('<a href="chitietsanpham.php?id=%s"><img src="%s" style="height: 210px; width: 210px;" alt=""/></a>', $row['id'], $row['image']);
         echo '</div>';
         echo '<div class="new-items-data">';
         echo '<a class="new-items-data--title" href="#"><p>' . $row['name'] . '</p></a>';

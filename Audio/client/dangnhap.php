@@ -18,7 +18,7 @@
   <?php
     session_start();
     include '../components/connectDB.php';
-    
+    $error = '';
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $username = $_POST["username"];
       $password = $_POST["password"];
@@ -30,7 +30,8 @@
         $_SESSION["cur_user"] = $user;
         header("Location: trangchu.php");
       } else {
-        echo "Incorrect username or password."; 
+        $error = '</br><div style="color: red;">Incorrect username or password.</div>'; 
+        
       }
     }
   
@@ -42,44 +43,6 @@
 
     <div class="main-container">
       <div class="main-account-content">
-        <!-- 
-      <div v-if="!isLoggedIn" class="main-content">
-        <div class="member-content">
-          <div class="member-form login">
-            <span class="member-form-title">ĐĂNG NHẬP</span>
-            <form action="">
-              <label for="username" class="form-description">Tên đăng nhập *</label>
-              <br />
-              <input type="text" class="user-input" id="username-id" required v-model="username" />
-              <br />
-              <label for="password" class="form-description">Mật khẩu *</label>
-              <br />
-              <input type="password" class="user-input" name="password" id="username-pws" required v-model="password" />
-              <br />
-            </form>
-            <div class="login-func">
-              <a href="" style="text-decoration: none; color: black">Quên mật khẩu</a>
-              <div class="member-btn" @click="onLogin()">ĐĂNG NHẬP</div>
-            </div>
-          </div>
-          <div class="member-form register">
-            <span class="member-form-title">ĐĂNG KÝ</span>
-            <form action="">
-              <label for="username" class="form-description">Tên đăng nhập *</label>
-              <br />
-              <input type="text" class="user-input" id="username-id" required v-model="username" />
-              <br />
-              <label for="password" class="form-description">Mật khẩu *</label>
-              <br />
-              <input type="password" class="user-input" name="password" id="username-pws" required v-model="password" />
-              <br />
-            </form>
-            <div class="register-func">
-              <div class="member-btn" @click="onRegister()">ĐĂNG KÝ</div>
-            </div>
-          </div>
-        </div>
-      </div> -->
         <div class="login_card_containter">
           <div class="login_card">
             <div class="login_card_logo">
@@ -89,6 +52,11 @@
             <div class="login_card_header">
               <h1>Sign In</h1>
               <div>Please login to use platform</div>
+              <?php 
+                if(!empty($error)){
+                  echo $error;
+                }
+              ?>
             </div>
             <form action="dangnhap.php" method="POST" class="login_card_form">
               <div class="form_item">

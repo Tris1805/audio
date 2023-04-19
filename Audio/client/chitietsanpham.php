@@ -84,7 +84,7 @@
         ?>
         <div class="item-detail">
           <div class="item-detail-img">
-            <img src="../<?php echo $row['image'] ?>" alt="" />
+            <img src="<?php echo $row['image'] ?>" alt="" />
           </div>
           <div class="item-detail-info">
             <h2 class="title">

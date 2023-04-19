@@ -177,6 +177,9 @@
                   </div>
                   <?php
                   while ($row = mysqli_fetch_assoc($result)) {
+                    $sql = "SELECT * FROM inventory WHERE product_id = '".$row['id']."' ORDER BY updated_at DESC LIMIT 1";
+                    $result2 = mysqli_query($conn, $sql);
+                    $row2 = mysqli_fetch_assoc($result2);
                     echo '<div class="recent-stock-item">';
                     echo ' <div class="80%" style="width: 80%;">';
                     echo '<div class="sales-details stock-details">';
@@ -186,7 +189,7 @@
                     echo '<ul class="details image-item">';
                     echo sprintf('<li>
                       <img
-                        src="../%s"
+                        src="%s"
                         alt=""
                         class="stock--img"
                       />
@@ -199,14 +202,14 @@
                     echo sprintf('<li>%s</li>', number_format($row['price'], 0, '', ','));
                     echo "</ul>";
                     echo '<ul class="details stock-item">';
-                    echo '<li>123</li>';
+                    echo '<li>'.$row2['quantity'].'</li>';
                     echo "</ul>";
                     echo "</div>";
                     echo "</div>";
                     echo '<div class="15%" style="width: 15%;">
                                 <ul class="modify-item">
                                   <li>
-                                  <a href="edit.php" ><button class="edit-btn">Edit</button></a>      
+                                  <a href="manage_products.php?id=' . $row['id'] . '" ><button class="edit-btn">Edit</button></a>      
                                   <a href="edit.php" ><button class="delete-btn">Delete</button></a>      
                                   </li>
                                   
@@ -233,101 +236,42 @@
                       ?>
                     </ul>
                   </div>
-                  <!-- <div class="recent-stock-item">
-                    <div class="80%" style="width: 80%;">
-                      <div class="sales-details stock-details">
-                        <ul class="details id-item">
-                          <li>1</li>
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">1</a></li>
-                        </ul>
-                        <ul class="details image-item">
-                          <li>
-                            <img src="../assets/images/products/focal_celestee.jpg" alt="" class="stock--img" />
-                          </li>
-                          <li>
-                            <img src="../assets/images/products/focal_celestee.jpg" alt="" class="stock--img" />
-                          </li>
-                          <li>
-                            <img src="../assets/images/products/focal_celestee.jpg" alt="" class="stock--img" />
-                          </li>
-                          <li>
-                            <img src="../assets/images/products/focal_celestee.jpg" alt="" class="stock--img" />
-                          </li>
-                          <li>
-                            <img src="../assets/images/products/focal_celestee.jpg" alt="" class="stock--img" />
-                          </li>
-                          <li>
-                            <img src="../assets/images/products/focal_celestee.jpg" alt="" class="stock--img" />
-                          </li>
-                          <li>
-                            <img src="../assets/images/products/focal_celestee.jpg" alt="" class="stock--img" />
-                          </li>
-                        </ul>
-                        <ul class="details name-item">
-                          <li>Focal Celestee</li>
-                          <li>ákljaskjdadjasjdskjasldas</li>
-                          <li>Focal</li>
-                          <li>Celestee</li>
-                          <li>Focal Celestee</li>
-                          <li>Apple Airpod 3 pro</li>
-                          <li>Focal Celestee</li>
-                          <li>Focal Celestee</li>
-                          <li>Focal Celestee</li>
-                        </ul>
-                        <ul class="details price-item">
-                          <li>23.000.000đ</li>
-                          <li>23.000.000đ</li>
-                          <li>23.000.000đ</li>
-                          <li>23.000.000đ</li>
-                          <li>23.000.000đ</li>
-                          <li>23.000.000đ</li>
-                          <li>23.000.000đ</li>
-                          <li>23.000.000đ</li>
-                          <li>23.000.000đ</li>
-                        </ul>
-                        <ul class="details stock-item">
-                          <li>12</li>
-                          <li>12</li>
-                          <li>12</li>
-                          <li>12</li>
-                          <li>12</li>
-                          <li>12</li>
-                          <li>12</li>
-                          <li>12</li>
-                          <li>12</li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="15%" style="width: 15%;">
-                      <ul class="modify-item">
-                        <li>
-                          <button class="edit-btn">Edit</button>
-                          <button class="delete-btn">Delete</button>
-                        </li>
-                        <li>
-                          <button class="edit-btn">Edit</button>
-                          <button class="delete-btn">Delete</button>
-                        </li>
-                      </ul>
-                    </div>
-                  </div> -->
                 </div>
               </div>
             </div>
-            
+
         </section>
       </div>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
+    $(document).ready(function () {
+      // Bắt sự kiện khi người dùng chọn trang
+      $('body').on('click', '.pagination li a', function (e) {
+        e.preventDefault();
+        var page = $(this).attr('data-page');
+        loadData(page);
+      });
+
+      // Hàm tải nội dung mới
+      function loadData(page) {
+        $.ajax({
+          url: 'sanpham.php',
+          type: 'POST',
+          data: { page: page },
+          success: function (response) {
+            $('#app').html(response);
+          }
+        });
+      }
+    });
+
+
+
+
+
+
     let sidebar1 = document.querySelector(".sidebar");
     let sidebarBtn = document.querySelector(".sidebarBtn");
     sidebarBtn.onclick = function () {
@@ -414,39 +358,7 @@
     });
 
 
-    $(document).ready(function () {
-      // Bắt sự kiện khi người dùng chọn trang
-      $('body').on('click', '.pagination li a', function (e) {
-        e.preventDefault();
-        var page = $(this).attr('data-page');
-        loadData(page);
-      });
-
-      // Hàm tải nội dung mới
-      function loadData(page) {
-        $.ajax({
-          url: 'sanpham.php',
-          type: 'POST',
-          data: { page: page },
-          success: function (response) {
-            $('#app').html(response);
-          }
-        });
-      }
-    });
-
-    // $(document).on('click', '.pagination a', function (event) {
-    //   event.preventDefault();
-    //   var page = $(this).attr("data-page");
-    //   $.ajax({
-    //     type: "POST",
-    //     url: "sanpham.php",
-    //     data: { page: page },
-    //     success: function (data) {
-    //       $("#app").html(data);
-    //     }
-    //   });
-    // });
+    
 
   </script>
   <script>

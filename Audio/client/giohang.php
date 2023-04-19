@@ -79,7 +79,7 @@
   
           // Sử dụng hàm date() để định dạng thời gian hiện tại theo chuỗi định dạng
           $current_time_formatted = date($date_format, $current_time);
-          $insertBill = mysqli_query($conn, "INSERT INTO `bill`(`id`, `user_id`, `address`, `note`, `created_day`, `last_updated`, `payment`, `total`, `cus_name`) VALUES (null,1,'" . $_POST['dia-chi-dich'] . "','" . $_POST['ghi-chu-dich'] . "','" . $current_time_formatted . "','" . $current_time_formatted . "','" . $_POST['payment'] . "','" . $total . "', '".$_POST['ho-ten-dich']."')");
+          $insertBill = mysqli_query($conn, "INSERT INTO `bill`(`id`, `user_id`, `address`, `note`, `created_day`, `last_updated`, `payment`, `total`, `cus_name`) VALUES (null,1,'" . $_POST['dia-chi-dich'] . "','" . $_POST['ghi-chu-dich'] . "','" . $current_time_formatted . "','" . $current_time_formatted . "','" . $_POST['payment'] . "','" . $total . "', '" . $_POST['ho-ten-dich'] . "')");
           $billID = $conn->insert_id;
           $insertString = "";
           foreach ($orderProducts as $key => $product) {
@@ -95,7 +95,7 @@
               $row2 = mysqli_fetch_assoc($getLatestQuantity);
               $latestQuantity = $row2['quantity'];
               $newQuantity = $latestQuantity - $quantity;
-              $updateInventory = mysqli_query($conn, "INSERT INTO `inventory`(`id`, `product_id`, `quantity`, `updated_at`, `order_purchase_id`, `order_sale_id`, `order_type`) VALUES (null, ".$product['id'].", ".$newQuantity.", now(), null, ". $billID.", 'sale');");
+              $updateInventory = mysqli_query($conn, "INSERT INTO `inventory`(`id`, `product_id`, `quantity`, `updated_at`, `order_purchase_id`, `order_sale_id`, `order_type`) VALUES (null, " . $product['id'] . ", " . $newQuantity . ", now(), null, " . $billID . ", 'sale');");
 
               // Hoàn thành giao dịch
               mysqli_commit($conn);
@@ -105,7 +105,7 @@
               // Xử lý lỗi
               // ...
             }
-            
+
           }
           // $updateInventory = mysqli_query($conn, "INSERT INTO `inventory`(`id`, `product_id`, `quantity`, `updated_at`, `order_purchase_id`, `order_sale_id`, `order_type`) VALUES (null, ".$product['id'].", 2, now(), null, ". $billID.", 'sale');");
           // echo "INSERT INTO `bill_details`(`id`, `bill_id`, `product_id`, `quantity`, `price`, `created_day`, `last_updated`) VALUES " . $insertString . "";
@@ -127,22 +127,63 @@
   ?>
   <div id="app">
 
-    <?php include "../components/header.php"; ?>
+    <div class="header-container">
+      <div class="header-content">
+        <div class="left"><a href="index.php">Ikus Audio</a></div>
+        <div class="middle">
+          <div class="header-menu"><a class="header-menu-title" href="trangchu.php">SẢN PHẨM</a></div>
 
-    <div class="main-container">
-      <?php
-      if (!empty($error)) {
-        ?>
-        <div class="ermsg" style="margin-top: 110px;  width: 100%; height: 40px;">
-          <?php echo $error; ?>
-          <a href="javascript:history.back()">Quay lại</a>
+          <div class="header-menu"><a class="header-menu-title" href="lienhe.php">LIÊN HỆ</a></div>
         </div>
-      <?php } else if( !empty($succes)) { ?>
+        <div class="right">
+          <?php
+          if (!empty($_SESSION["cur_user"])) {
+            $cur_user = $_SESSION["cur_user"];
+            ?>
+
+            <div class="username-field" style="display: flex ; flex-direction: column; justify-content: center; ">
+              <span class="username_logged"> Xin chào,
+                <?php echo $cur_user['username']; ?>
+              </span>
+              <span class="username_logged">
+                <a href="logout.php" style="color: white;">Log-out</a>
+              </span>
+            </div>
+            <div class="navbar-btn login-icon"><a class="navbar-link" href="#"><img class="navbar-icon"
+                  src="../assets/images/icons/account.png"></a>
+            </div>
+            <div class="navbar-btn cart"><a class="navbar-link" href="giohang.php"><img class="navbar-icon"
+                  src="../assets/images/icons/shopping-cart.png"></a></div>
+          </div>
+
+          <?php
+          } else { ?>
+          <div class="navbar-btn login-icon"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
+                src="../assets/images/icons/account.png"></a>
+          </div>
+
+          <div class="navbar-btn cart"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
+                src="../assets/images/icons/shopping-cart.png"></a></div>
+        </div>
+      <?php }
+          ?>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <?php
+    if (!empty($error)) {
+      ?>
+      <div class="ermsg" style="margin-top: 110px;  width: 100%; height: 40px;">
+        <?php echo $error; ?>
+        <a href="javascript:history.back()">Quay lại</a>
+      </div>
+    <?php } else if (!empty($succes)) { ?>
         <div class="ermsg" style="margin-top: 110px;  width: 100%; height: 40px;">
-          <?php echo $succes; ?>
+        <?php echo $succes; ?>
           <a href="trangchu.php">Quay lại</a>
         </div>
-      <?php } else {
+    <?php } else {
 
 
       ?>
@@ -169,7 +210,7 @@
                   <label for="">Ghi chú</label><br />
                   <input type="text" id="ghi-chu" class="user-input" /><br />
                 </form>
-              <?php } ?>
+            <?php } ?>
             </div>
             <div class="main-payment-method main-payment-info">
               <span class="customer-info-title">Phuong thuc thanh toan</span>
@@ -178,7 +219,8 @@
                 <img style="height: 30px" src="../assets/images/icons/COD.png" alt="" />
                 <br />
 
-                <input type="radio" class="payment-checkbox" name="payment" id="bank" value="bank" style ="margin-top: 5%" />Internet Banking
+                <input type="radio" class="payment-checkbox" name="payment" id="bank" value="bank"
+                  style="margin-top: 5%" />Internet Banking
                 <img style="height: 30px" src="../assets/images/icons/bank.png" alt="" />
                 <br />
               </form>
@@ -207,11 +249,11 @@
                       ?>
                       <li>
                         <div class="cart-list-item">
-                          <img src="../<?php echo $row['image'] ?>" />
+                          <img src="<?php echo $row['image'] ?>" />
                           <div class="cart-list-item-info">
-                            <?php echo $row['name'] ?> </br>
+                          <?php echo $row['name'] ?> </br>
                             <span class="price">
-                              <?php echo sprintf('<div class="">%sđ</div>', number_format($row['price'], 0, '', ',')) ?>
+                            <?php echo sprintf('<div class="">%sđ</div>', number_format($row['price'], 0, '', ',')) ?>
                             </span>
                             <input type="text" class="quantity_order_confirm" name="quantity[<?php echo $row['id'] ?>]"
                               value="<?php echo $_SESSION['giohang'][$row['id']] ?>" onchange="updateTotal()">
@@ -223,23 +265,23 @@
                           </a>
                         </div>
                       </li>
-                      <?php
+                    <?php
                     }
                   }
-      }
-      ?>
+    }
+    ?>
 
-              </ul>
-            </div>
-          </form>
-        </div>
+            </ul>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
 
-    <?php include "../components/footer.php"; ?>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"></script>
+  <?php include "../components/footer.php"; ?>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
   </div>
 </body>
 <!-- <script src="utils/data.js"></script>
@@ -306,9 +348,9 @@
     var soDienThoai = document.getElementById("so-dien-thoai").value;
     var ghiChu = document.getElementById("ghi-chu").value;
     var paymentMethod = document.querySelector('input[name="payment"]:checked'); // Lấy phần tử input radio được chọn
-        if (paymentMethod) {
-            var valuePayment = paymentMethod.value; // Lấy giá trị của input radio được chọn
-        }
+    if (paymentMethod) {
+      var valuePayment = paymentMethod.value; // Lấy giá trị của input radio được chọn
+    }
 
     // Gán dữ liệu vào form đích
     document.getElementById("ho-ten-dich").value = hoTen;

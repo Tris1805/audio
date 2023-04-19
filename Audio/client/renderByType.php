@@ -14,6 +14,8 @@
 
 <body>
   <?php
+  session_start();
+
   include '../components/connectDB.php';
 
   if (!$conn) {
@@ -30,7 +32,48 @@
   $totalPages = ceil($tolal_products / $item_per_page);
   ?>
   <div id="app">
-    <?php include "../components/header.php"; ?>
+  <div class="header-container">
+      <div class="header-content">
+        <div class="left"><a href="index.php">Ikus Audio</a></div>
+        <div class="middle">
+          <div class="header-menu"><a class="header-menu-title" href="trangchu.php">SẢN PHẨM</a></div>
+
+          <div class="header-menu"><a class="header-menu-title" href="lienhe.php">LIÊN HỆ</a></div>
+        </div>
+        <div class="right">
+          <?php
+          if (!empty($_SESSION["cur_user"])) {
+            $cur_user = $_SESSION["cur_user"];
+            ?>
+
+            <div class="username-field" style="display: flex ; flex-direction: column; justify-content: center; ">
+            <span class="username_logged"> Xin chào, 
+              <?php echo $cur_user['username']; ?>
+            </span>
+            <span class="username_logged">
+              <a href="logout.php"  style="color: white;" >Log-out</a>
+            </span>
+            </div>
+            <div class="navbar-btn login-icon"><a class="navbar-link" href="#"><img class="navbar-icon"
+                  src="../assets/images/icons/account.png"></a>
+            </div>
+            <div class="navbar-btn cart"><a class="navbar-link" href="giohang.php"><img class="navbar-icon"
+                src="../assets/images/icons/shopping-cart.png"></a></div>
+            </div>
+
+            <?php
+          } else { ?>
+            <div class="navbar-btn login-icon"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
+                  src="../assets/images/icons/account.png"></a>
+            </div>
+          
+          <div class="navbar-btn cart"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
+                src="../assets/images/icons/shopping-cart.png"></a></div>
+          </div>
+        <?php }
+          ?>
+      </div>
+    </div>
     <div class="main-container">
       <div class="main-promo">
         <img src="../assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
@@ -128,7 +171,7 @@
                 echo '<div class="new-items">';
                 echo '<div>';
                 echo '<div class="new-items-img">';
-                echo sprintf('<a href="chitietsanpham.php?id=%s"><img src="../%s" style="height: 210px; width: 210px;" alt=""/></a>', $row['id'], $row['image']);
+                echo sprintf('<a href="chitietsanpham.php?id=%s"><img src="%s" style="height: 210px; width: 210px;" alt=""/></a>', $row['id'], $row['image']);
                 echo '</div>';
                 echo '<div class="new-items-data">';
                 echo sprintf('<a class="new-items-data--title" href="chitietsanpham.php?id=%s"><p>%s</p></a>', $row['id'], $row['name']);
