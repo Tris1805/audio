@@ -44,10 +44,6 @@
           <div class="header-menu"><a class="header-menu-title" href="lienhe.php">LIÊN HỆ</a></div>
         </div>
         <div class="right">
-
-
-
-
           <?php
           if (!empty($_SESSION["cur_user"])) {
             $cur_user = $_SESSION["cur_user"];

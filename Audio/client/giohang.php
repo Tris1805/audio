@@ -79,7 +79,7 @@
   
           // Sử dụng hàm date() để định dạng thời gian hiện tại theo chuỗi định dạng
           $current_time_formatted = date($date_format, $current_time);
-          $insertBill = mysqli_query($conn, "INSERT INTO `bill`(`id`, `user_id`, `address`, `note`, `created_day`, `last_updated`, `payment`, `total`, `cus_name`) VALUES (null,1,'" . $_POST['dia-chi-dich'] . "','" . $_POST['ghi-chu-dich'] . "','" . $current_time_formatted . "','" . $current_time_formatted . "','" . $_POST['cod-dich'] . "','" . $total . "', '".$_POST['ho-ten-dich']."')");
+          $insertBill = mysqli_query($conn, "INSERT INTO `bill`(`id`, `user_id`, `address`, `note`, `created_day`, `last_updated`, `payment`, `total`, `cus_name`) VALUES (null,1,'" . $_POST['dia-chi-dich'] . "','" . $_POST['ghi-chu-dich'] . "','" . $current_time_formatted . "','" . $current_time_formatted . "','" . $_POST['payment'] . "','" . $total . "', '".$_POST['ho-ten-dich']."')");
           $billID = $conn->insert_id;
           $insertString = "";
           foreach ($orderProducts as $key => $product) {
@@ -192,7 +192,7 @@
               <input type="hidden" style="display:none;" value="" name="dia-chi-dich" id="dia-chi-dich">
               <input type="hidden" style="display:none;" value="" name="so-dien-thoai-dich" id="so-dien-thoai-dich">
               <input type="hidden" style="display:none;" value="" name="ghi-chu-dich" id="ghi-chu-dich">
-              <input type="hidden" style="display:none;" value="" name="cod-dich" id="cod-dich">
+              <input type="hidden" style="display:none;" value="" name="payment" id="payment">
               <div class="line2"></div>
               <br />
               <div class="cart-list">
@@ -305,14 +305,17 @@
     var diaChi = document.getElementById("dia-chi").value;
     var soDienThoai = document.getElementById("so-dien-thoai").value;
     var ghiChu = document.getElementById("ghi-chu").value;
-    var cod = document.getElementById("cod").value;
+    var paymentMethod = document.querySelector('input[name="payment"]:checked'); // Lấy phần tử input radio được chọn
+        if (paymentMethod) {
+            var valuePayment = paymentMethod.value; // Lấy giá trị của input radio được chọn
+        }
 
     // Gán dữ liệu vào form đích
     document.getElementById("ho-ten-dich").value = hoTen;
     document.getElementById("dia-chi-dich").value = diaChi;
     document.getElementById("so-dien-thoai-dich").value = soDienThoai;
     document.getElementById("ghi-chu-dich").value = ghiChu;
-    document.getElementById("cod-dich").value = cod;
+    document.getElementById("payment").value = valuePayment;
 
     // Submit form đích để gửi dữ liệu đi
     document.getElementById("form-dich").submit();

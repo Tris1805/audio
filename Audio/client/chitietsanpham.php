@@ -30,7 +30,52 @@
   
   ?>
   <div id="app">
-    <?php include "../components/header.php"; ?>
+    <div class="header-container">
+      <div class="header-content">
+        <div class="left"><a href="index.php">Ikus Audio</a></div>
+        <div class="middle">
+          <div class="header-menu"><a class="header-menu-title no-underline" href="trangchu.php">SẢN PHẨM</a></div>
+
+          <div class="header-menu"><a class="header-menu-title no-underline" href="lienhe.html">LIÊN HỆ</a></div>
+        </div>
+        <div class="right">
+
+
+
+        <?php
+          if (!empty($_SESSION["cur_user"])) {
+            $cur_user = $_SESSION["cur_user"];
+            ?>
+
+            <div class="username-field" style="display: flex ; flex-direction: column; justify-content: center; ">
+            <span class="username_logged"> Xin chào, 
+              <?php echo $cur_user['username']; ?>
+            </span>
+            <span class="username_logged">
+              <a href="logout.php"  style="color: white;" >Log-out</a>
+            </span>
+            </div>
+            <div class="navbar-btn login-icon"><a class="navbar-link" href="#"><img class="navbar-icon"
+                  src="../assets/images/icons/account.png"></a>
+            </div>
+            <div class="navbar-btn cart"><a class="navbar-link" href="giohang.php"><img class="navbar-icon"
+                src="../assets/images/icons/shopping-cart.png"></a></div>
+            </div>
+
+            <?php
+          } else { ?>
+            <div class="navbar-btn login-icon"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
+                  src="../assets/images/icons/account.png"></a>
+            </div>
+          
+          <div class="navbar-btn cart"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
+                src="../assets/images/icons/shopping-cart.png"></a></div>
+          </div>
+        <?php }
+          ?>
+        </div>
+      </div>
+    </div>
 
     <div class="main-container">
       <?php
@@ -61,9 +106,16 @@
               <div class="guarantee-time">Bảo hành 12 tháng.</div>
             </div>
             <form action="giohang.php?action=add" method="POST">
-              Số Lượng: 
+              Số Lượng:
+              <?php
+              $sql = "SELECT * FROM inventory WHERE product_id = '" . $row['id'] . "' ORDER BY id DESC LIMIT 1";
+              $resultQuan = mysqli_query($conn, $sql);
+              $rowQuan = mysqli_fetch_assoc($resultQuan);
+              ?>
               <input type="text" class="quantity_order" name="quantity[<?php echo $row['id'] ?>]" value="1">
-              <span style ="margin-left: 5%">Còn lại: 120</span>
+              <span style="margin-left: 5%">Còn lại:
+                <?php echo $rowQuan['quantity'] ?>
+              </span>
               <input type="hidden" name="product_id" value="<?php echo $row['id'] ?>" />
               <input type="hidden" name="product_name" value="<?php echo $row['name'] ?>" />
               <input type="hidden" name="product_price" value="<?php echo $row['price'] ?>" />
@@ -75,23 +127,23 @@
                 <?php
                 $string = $row['description'];
                 $count = substr_count($string, '"');
-                if ($count == 2){
+                if ($count == 2) {
                   $matches = array();
                   preg_match('/"(.*?)"/', $string, $matches);
 
                   // Lấy nội dung giữa cặp dấu ngoặc kép
                   $line = $matches[1];
-                  
-                ?>
-                <li>
-                  <?php echo $line ?>
-                </li>
-                  
-                <?php }else {
+
+                  ?>
+                  <li>
+                    <?php echo $line ?>
+                  </li>
+
+                <?php } else {
 
                   $array = explode(',', $string);
                   $resultArray = array();
-  
+
                   // Lặp qua mỗi phần tử trong mảng
                   foreach ($array as $item) {
                     // Thay thế dấu ngoặc kép (") bằng chuỗi trống ("")
@@ -107,9 +159,9 @@
                       </li>
                     <?php }
                   }
-  
+
                 }
-              ?>
+                ?>
 
               </ul>
             <?php } ?>
