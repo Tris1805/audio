@@ -177,6 +177,10 @@
                 <input type="radio" class="payment-checkbox" name="payment" id="cod" value="cod" checked />COD
                 <img style="height: 30px" src="../assets/images/icons/COD.png" alt="" />
                 <br />
+
+                <input type="radio" class="payment-checkbox" name="payment" id="bank" value="bank" style ="margin-top: 5%" />Internet Banking
+                <img style="height: 30px" src="../assets/images/icons/bank.png" alt="" />
+                <br />
               </form>
             </div>
           </div>

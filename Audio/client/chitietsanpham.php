@@ -63,6 +63,7 @@
             <form action="giohang.php?action=add" method="POST">
               Số Lượng: 
               <input type="text" class="quantity_order" name="quantity[<?php echo $row['id'] ?>]" value="1">
+              <span style ="margin-left: 5%">Còn lại: 120</span>
               <input type="hidden" name="product_id" value="<?php echo $row['id'] ?>" />
               <input type="hidden" name="product_name" value="<?php echo $row['name'] ?>" />
               <input type="hidden" name="product_price" value="<?php echo $row['price'] ?>" />
