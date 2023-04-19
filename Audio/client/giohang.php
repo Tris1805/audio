@@ -254,9 +254,10 @@
                           <?php echo $row['name'] ?> </br>
                             <span class="price">
                             <?php echo sprintf('<div class="">%sđ</div>', number_format($row['price'], 0, '', ',')) ?>
-                            </span>
-                            <input type="text" class="quantity_order_confirm" name="quantity[<?php echo $row['id'] ?>]"
-                              value="<?php echo $_SESSION['giohang'][$row['id']] ?>" onchange="updateTotal()">
+                    </span>
+                        <div>
+                            SL: <input type="text" class="quantity_order_confirm" name="quantity[<?php echo $row['id'] ?>]"
+                              value="<?php echo $_SESSION['giohang'][$row['id']] ?>" onchange="updateTotal()"></div>
                           </div>
                           <a href="giohang.php?action=delete&id=<?php echo $row['id'] ?>">
                             <div class="delete-item">

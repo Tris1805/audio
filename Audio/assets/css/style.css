@@ -268,7 +268,6 @@ html {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10%;
 }
 
 .main-promo {
@@ -1010,7 +1009,7 @@ html {
 }
 
 .quantity_order_confirm{
-
+  width: 20%;
 }
 
 .total {

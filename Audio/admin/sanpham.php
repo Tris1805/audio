@@ -157,8 +157,12 @@
             <div class="sales-boxes">
               <div class="recent-stock box">
                 <div class="recent-stock-title">
+                  <div class="title" style="display: flex; justify-content: space-between;">Tình trạng kho hàng <a href="" class="add-btn-container"><button class="add-btn" style="width: 108%;
+  height: 30px;
+  background-color: white;
+  border-radius: 5px;
+  transition: background-color ease-in-out 0.3782s;" >Add</button></a></div>
                   <div class="80%" style="width: 80%;">
-                    <div class="title">Tình trạng kho hàng</div>
                     <div class="stock-details-title">
                       <div class="stock-details-title-items id-title">ID</div>
                       <div class="stock-details-title-items image-title">
