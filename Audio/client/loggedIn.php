@@ -17,27 +17,7 @@
 
 <body>
     <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "audiodb";
-
-    // Create connection
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    // $sql = "SELECT count(id) as total FROM products";
-    $item_per_page = 8;
-    $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
-    $offset = ($cur_page - 1) * $item_per_page;
-    $sql = "SELECT * FROM `products`  LIMIT $offset, $item_per_page";
-    $result = mysqli_query($conn, $sql);
-    $tolal_products = mysqli_query($conn, "select * from products");
-    $tolal_products = $tolal_products->num_rows;
-    $totalPages = ceil($tolal_products / $item_per_page);
+    
     ?>
 
     <div id="app">

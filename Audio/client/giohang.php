@@ -23,6 +23,12 @@
   }
   $error = false;
   $succes = "";
+  if (!empty($_SESSION["cur_user"])) {
+    $cur_user = $_SESSION["cur_user"];
+    
+  }else {
+    $error = "Bạn chưa đăng nhập";
+  }
   if (isset($_GET['action'])) {
     function update_cart($add = false)
     {
@@ -79,8 +85,13 @@
   
           // Sử dụng hàm date() để định dạng thời gian hiện tại theo chuỗi định dạng
           $current_time_formatted = date($date_format, $current_time);
-          $insertBill = mysqli_query($conn, "INSERT INTO `bill`(`id`, `user_id`, `address`, `note`, `created_day`, `last_updated`, `payment`, `total`, `cus_name`) VALUES (null,1,'" . $_POST['dia-chi-dich'] . "','" . $_POST['ghi-chu-dich'] . "','" . $current_time_formatted . "','" . $current_time_formatted . "','" . $_POST['payment'] . "','" . $total . "', '" . $_POST['ho-ten-dich'] . "')");
+          $insertBill = mysqli_query($conn, "INSERT INTO `bill`(`id`, `user_id`, `address`, `note`, `created_day`, `last_updated`, `payment`, `total`, `cus_name`) VALUES (null,'".$cur_user["user_id"]."','" . $_POST['dia-chi-dich'] . "','" . $_POST['ghi-chu-dich'] . "','" . $current_time_formatted . "','" . $current_time_formatted . "','" . $_POST['payment'] . "','" . $total . "', '" . $_POST['ho-ten-dich'] . "')");
           $billID = $conn->insert_id;
+          // if (!empty($_SESSION["cur_user"])){
+          //   $cur_user = $_SESSION["cur_user"];
+          //   $billID = $cur_user["user_id"];
+          // }
+          // $billID = $cur_user["user_id"];
           $insertString = "";
           foreach ($orderProducts as $key => $product) {
             $quantity = (int) $_POST['quantity'][$product['id']];
@@ -254,10 +265,10 @@
                           <?php echo $row['name'] ?> </br>
                             <span class="price">
                             <?php echo sprintf('<div class="">%sđ</div>', number_format($row['price'], 0, '', ',')) ?>
-                    </span>
-                        <div>
-                            SL: <input type="text" class="quantity_order_confirm" name="quantity[<?php echo $row['id'] ?>]"
-                              value="<?php echo $_SESSION['giohang'][$row['id']] ?>" onchange="updateTotal()"></div>
+                            </span>
+                            <div>
+                              SL: <input type="text" class="quantity_order_confirm" name="quantity[<?php echo $row['id'] ?>]"
+                                value="<?php echo $_SESSION['giohang'][$row['id']] ?>" onchange="updateTotal()"></div>
                           </div>
                           <a href="giohang.php?action=delete&id=<?php echo $row['id'] ?>">
                             <div class="delete-item">
