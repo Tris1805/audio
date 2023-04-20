@@ -53,7 +53,7 @@
               <a href="logout.php"  style="color: white;" >Log-out</a>
             </span>
             </div>
-            <div class="navbar-btn login-icon"><a class="navbar-link" href="#"><img class="navbar-icon"
+            <div class="navbar-btn login-icon"><a class="navbar-link" href="loggedIn.php"><img class="navbar-icon"
                   src="../assets/images/icons/account.png"></a>
             </div>
             <div class="navbar-btn cart"><a class="navbar-link" href="giohang.php"><img class="navbar-icon"

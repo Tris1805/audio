@@ -15,6 +15,7 @@
 
 <body>
   <?php
+  session_start();
   include '../components/connectDB.php';
 
   // Create connection
@@ -34,142 +35,138 @@
       <div class="header-content">
         <div class="left"><a href="index.php">Ikus Audio</a></div>
         <div class="middle">
-          <div class="header-menu"><a class="header-menu-title no-underline" href="trangchu.php">SẢN PHẨM</a></div>
+          <div class="header-menu"><a class="header-menu-title" href="trangchu.php">SẢN PHẨM</a></div>
 
-          <div class="header-menu"><a class="header-menu-title no-underline" href="lienhe.html">LIÊN HỆ</a></div>
+          <div class="header-menu"><a class="header-menu-title" href="lienhe.php">LIÊN HỆ</a></div>
         </div>
         <div class="right">
-
-
-
-        <?php
+          <?php
           if (!empty($_SESSION["cur_user"])) {
             $cur_user = $_SESSION["cur_user"];
             ?>
 
             <div class="username-field" style="display: flex ; flex-direction: column; justify-content: center; ">
-            <span class="username_logged"> Xin chào, 
-              <?php echo $cur_user['username']; ?>
-            </span>
-            <span class="username_logged">
-              <a href="logout.php"  style="color: white;" >Log-out</a>
-            </span>
+              <span class="username_logged"> Xin chào,
+                <?php echo $cur_user['username']; ?>
+              </span>
+              <span class="username_logged">
+                <a href="logout.php" style="color: white;">Log-out</a>
+              </span>
             </div>
-            <div class="navbar-btn login-icon"><a class="navbar-link" href="#"><img class="navbar-icon"
+            <div class="navbar-btn login-icon"><a class="navbar-link" href="loggedIn.php"><img class="navbar-icon"
                   src="../assets/images/icons/account.png"></a>
             </div>
             <div class="navbar-btn cart"><a class="navbar-link" href="giohang.php"><img class="navbar-icon"
-                src="../assets/images/icons/shopping-cart.png"></a></div>
-            </div>
+                  src="../assets/images/icons/shopping-cart.png"></a></div>
+          </div>
 
-            <?php
+          <?php
           } else { ?>
-            <div class="navbar-btn login-icon"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
-                  src="../assets/images/icons/account.png"></a>
-            </div>
-          
+          <div class="navbar-btn login-icon"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
+                src="../assets/images/icons/account.png"></a>
+          </div>
+
           <div class="navbar-btn cart"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
                 src="../assets/images/icons/shopping-cart.png"></a></div>
-          </div>
-        <?php }
+        </div>
+      <?php }
           ?>
-        </div>
-      </div>
     </div>
+  </div>
 
-    <div class="main-container">
-      <?php
-      if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        ?>
-        <div class="item-detail">
-          <div class="item-detail-img">
-            <img src="<?php echo $row['image'] ?>" alt="" />
-          </div>
-          <div class="item-detail-info">
-            <h2 class="title">
-              <?php echo $row['name'] ?>
-            </h2>
-            <h6 class="brand-name">
-              THƯƠNG HIỆU <a href="#">
-                <?php echo $row['brand'] ?>
-              </a>
-            </h6>
-            <span class="item-price">
-              <?php echo number_format($row['price'], 0, '', ',') ?>đ
-            </span>
+  <div class="main-container">
+    <?php
+    if (mysqli_num_rows($result) > 0) {
+      $row = mysqli_fetch_assoc($result);
+      ?>
+      <div class="item-detail">
+        <div class="item-detail-img">
+          <img src="<?php echo $row['image'] ?>" alt="" />
+        </div>
+        <div class="item-detail-info">
+          <h2 class="title">
+            <?php echo $row['name'] ?>
+          </h2>
+          <h6 class="brand-name">
+            THƯƠNG HIỆU <a href="#">
+              <?php echo $row['brand'] ?>
+            </a>
+          </h6>
+          <span class="item-price">
+            <?php echo number_format($row['price'], 0, '', ',') ?>đ
+          </span>
 
-            <div class="guarantee">
-              <div class="guarantee-img">
-                <img src="../assets/images/icons/icon-shield.svg" alt="" />
-              </div>
-              <div class="guarantee-time">Bảo hành 12 tháng.</div>
+          <div class="guarantee">
+            <div class="guarantee-img">
+              <img src="../assets/images/icons/icon-shield.svg" alt="" />
             </div>
-            <form action="giohang.php?action=add" method="POST">
-              Số Lượng:
-              <?php
-              $sql = "SELECT * FROM inventory WHERE product_id = '" . $row['id'] . "' ORDER BY id DESC LIMIT 1";
-              $resultQuan = mysqli_query($conn, $sql);
-              $rowQuan = mysqli_fetch_assoc($resultQuan);
-              ?>
-              <input type="text" class="quantity_order" name="quantity[<?php echo $row['id'] ?>]" value="1">
-              <span style="margin-left: 5%">Còn lại:
-                <?php echo $rowQuan['quantity'] ?>
-              </span>
-              <input type="hidden" name="product_id" value="<?php echo $row['id'] ?>" />
-              <input type="hidden" name="product_name" value="<?php echo $row['name'] ?>" />
-              <input type="hidden" name="product_price" value="<?php echo $row['price'] ?>" />
-              <input type="submit" class="buy-btn" value="THÊM VÀO GIỎ HÀNG" />
-            </form>
-            <br />
-            <div class="more-detail" style="text-align:justify;">
-              <ul>
-                <?php
-                $string = $row['description'];
-                $count = substr_count($string, '"');
-                if ($count == 2) {
-                  $matches = array();
-                  preg_match('/"(.*?)"/', $string, $matches);
-
-                  // Lấy nội dung giữa cặp dấu ngoặc kép
-                  $line = $matches[1];
-
-                  ?>
-                  <li>
-                    <?php echo $line ?>
-                  </li>
-
-                <?php } else {
-
-                  $array = explode(',', $string);
-                  $resultArray = array();
-
-                  // Lặp qua mỗi phần tử trong mảng
-                  foreach ($array as $item) {
-                    // Thay thế dấu ngoặc kép (") bằng chuỗi trống ("")
-                    $result = str_replace('"', '', $item);
-                    // Đẩy kết quả vào mảng tạm thời
-                    array_push($resultArray, $result);
-                  }
-                  foreach ($resultArray as $desc) {
-                    if ($desc != "") {
-                      ?>
-                      <li>
-                        <?php echo $desc ?>
-                      </li>
-                    <?php }
-                  }
-
-                }
-                ?>
-
-              </ul>
-            <?php } ?>
+            <div class="guarantee-time">Bảo hành 12 tháng.</div>
           </div>
+          <form action="giohang.php?action=add" method="POST">
+            Số Lượng:
+            <?php
+            $sql = "SELECT * FROM inventory WHERE product_id = '" . $row['id'] . "' ORDER BY id DESC LIMIT 1";
+            $resultQuan = mysqli_query($conn, $sql);
+            $rowQuan = mysqli_fetch_assoc($resultQuan);
+            ?>
+            <input type="text" class="quantity_order" name="quantity[<?php echo $row['id'] ?>]" value="1">
+            <span style="margin-left: 5%">Còn lại:
+              <?php echo $rowQuan['quantity'] ?>
+            </span>
+            <input type="hidden" name="product_id" value="<?php echo $row['id'] ?>" />
+            <input type="hidden" name="product_name" value="<?php echo $row['name'] ?>" />
+            <input type="hidden" name="product_price" value="<?php echo $row['price'] ?>" />
+            <input type="submit" class="buy-btn" value="THÊM VÀO GIỎ HÀNG" />
+          </form>
+          <br />
+          <div class="more-detail" style="text-align:justify;">
+            <ul>
+              <?php
+              $string = $row['description'];
+              $count = substr_count($string, '"');
+              if ($count == 2) {
+                $matches = array();
+                preg_match('/"(.*?)"/', $string, $matches);
+
+                // Lấy nội dung giữa cặp dấu ngoặc kép
+                $line = $matches[1];
+
+                ?>
+                <li>
+                  <?php echo $line ?>
+                </li>
+
+              <?php } else {
+
+                $array = explode(',', $string);
+                $resultArray = array();
+
+                // Lặp qua mỗi phần tử trong mảng
+                foreach ($array as $item) {
+                  // Thay thế dấu ngoặc kép (") bằng chuỗi trống ("")
+                  $result = str_replace('"', '', $item);
+                  // Đẩy kết quả vào mảng tạm thời
+                  array_push($resultArray, $result);
+                }
+                foreach ($resultArray as $desc) {
+                  if ($desc != "") {
+                    ?>
+                    <li>
+                      <?php echo $desc ?>
+                    </li>
+                  <?php }
+                }
+
+              }
+              ?>
+
+            </ul>
+          <?php } ?>
         </div>
       </div>
     </div>
-    <?php include "../components/footer.php"; ?>
+  </div>
+  <?php include "../components/footer.php"; ?>
   </div>
 
 </body>

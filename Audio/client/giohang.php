@@ -160,7 +160,7 @@
                 <a href="logout.php" style="color: white;">Log-out</a>
               </span>
             </div>
-            <div class="navbar-btn login-icon"><a class="navbar-link" href="#"><img class="navbar-icon"
+            <div class="navbar-btn login-icon"><a class="navbar-link" href="loggedIn.php"><img class="navbar-icon"
                   src="../assets/images/icons/account.png"></a>
             </div>
             <div class="navbar-btn cart"><a class="navbar-link" href="giohang.php"><img class="navbar-icon"
@@ -173,7 +173,7 @@
                 src="../assets/images/icons/account.png"></a>
           </div>
 
-          <div class="navbar-btn cart"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
+          <div class="navbar-btn cart"><a class="navbar-link" href="giohang.php"><img class="navbar-icon"
                 src="../assets/images/icons/shopping-cart.png"></a></div>
         </div>
       <?php }
@@ -225,7 +225,7 @@
             </div>
             <div class="main-payment-method main-payment-info">
               <span class="customer-info-title">Phuong thuc thanh toan</span>
-              <form action="" id="payment-method">
+              <form action="" id="payment-method" >
                 <input type="radio" class="payment-checkbox" name="payment" id="cod" value="cod" checked />COD
                 <img style="height: 30px" src="../assets/images/icons/COD.png" alt="" />
                 <br />

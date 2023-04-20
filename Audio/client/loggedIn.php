@@ -17,7 +17,9 @@
 
 <body>
     <?php
-    
+        session_start();
+        if (!empty($_SESSION["cur_user"])) {
+            $cur_user = $_SESSION["cur_user"];
     ?>
 
     <div id="app">
@@ -35,16 +37,16 @@
                 <div v-if="isLoggedIn" class="member-content">
                     <div class="member-form login">
                         <span class="member-form-title">XIN CHÀO QUÝ KHÁCH</span>
-                        <h2>{{ user.username }}</h2>
+                        <h2><?php echo $cur_user['username']?></h2>
                         <div class="login-func">
-                            <div class="member-btn" @click="onLogout()">ĐĂNG XUẤT</div>
-                            <div class="member-btn" @click="onRebill()">XEM ĐƠN ĐÃ ĐẶT </div>
+                            <div class="member-btn"><a href="logout.php" style="color: white; text-decoration: none;">ĐĂNG XUẤT</a></div>
+                            <div class="member-btn"><a href="dathangthanhcong.php" style="color: white; text-decoration: none;">XEM ĐƠN ĐÃ ĐẶT</a></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+            <?php } ?>
         <?php include "../components/footer.php"; ?>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
