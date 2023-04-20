@@ -70,7 +70,7 @@
                     <span class="bill-info">
                         <?php echo $cur_user['phone'] ?>
                     </span>
-                    <span class="customer-title">Địa chỉ:</span>
+                    <span class="customer-title">Địa chỉ giao hàng:</span>
                     <span class="bill-info">
                         <?php echo $row['address'] ?>
                     </span>
@@ -112,11 +112,11 @@
                                             style="height: 100px;"> <?php
                                             echo $row3['name']; ?>
                                     </div>
-                                    <div>
+                                    <div style = "width: 66px; text-align: center">
                                         <?php echo $row2['quantity']; ?>
                                     </div>
                                     <div style="margin-left: 26%;">
-                                        <?php echo number_format($row2['price'], 0, '', ',');
+                                        <?php echo number_format($row2['price'], 0, '', ','); echo 'đ';
                                 } ?>
                                 </div>
                             </li>
@@ -127,7 +127,7 @@
                     ?>
                     <h2 style="margin:  20px 0;">Tổng cộng:
                         <?php
-                        echo number_format($row['total'], 0, '', ','); ?>
+                        echo number_format($row['total'], 0, '', ','); echo 'đ'; ?>
 
                     </h2>
                 </div>

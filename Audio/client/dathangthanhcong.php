@@ -95,18 +95,20 @@
                         while ($row = mysqli_fetch_assoc($result)) {
                             ?>
                             <ul class="cart-table">
-                                <li style="margin-top: 5px; margin-bottom: 5px;">
+                                <li style="margin-top: 5px; margin-bottom: 5px; width:100%">
                                     <div style="display: flex; justify-content: left;">
                                         <?php echo $num; ?>
                                     </div>
                                     <div style="margin-left: 11.5%; width: 25%;">
                                         <?php echo $row['created_day']; ?>
                                     </div>
-                                    <div style="margin-left: 20%;">
-                                        <?php echo number_format($row['total'], 0, '', ','); ?>
+                                    <div style="margin-left: 20%; width: 20%">
+                                        <?php echo number_format($row['total'], 0, '', ','); echo 'đ'; ?>
                                     </div>
-                                    <a style="margin-left: 20%;" href="chitietdonhang.php?id=<?php echo $row['id']; ?>">Xem chi
+                                    <div style="width: 20%; text-align: right ">
+                                    <a style="margin-left: 20%; position: relative; right: 0" href="chitietdonhang.php?id=<?php echo $row['id']; ?>">Xem chi
                                         tiết</a>
+                                    <div>
                                 </li>
                             </ul>
                             <?php
@@ -119,13 +121,16 @@
                 </div>
             </div>
         </div>
+</div>
 
-        <app-footer></app-footer>
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
         </script>
-    </div>
+        
+
+   
+
+
 </body>
 <script src="utils/data.js"></script>
 <script src="utils/commons.js"></script>
