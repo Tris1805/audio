@@ -102,17 +102,21 @@
             </div>
             <div class="guarantee-time">Bảo hành 12 tháng.</div>
           </div>
-          <form action="giohang.php?action=add" method="POST">
+          <form action="giohang.php?action=add" method="POST" id="goToCart">
             Số Lượng:
             <?php
             $sql = "SELECT * FROM inventory WHERE product_id = '" . $row['id'] . "' ORDER BY id DESC LIMIT 1";
             $resultQuan = mysqli_query($conn, $sql);
             $rowQuan = mysqli_fetch_assoc($resultQuan);
             ?>
-            <input type="text" class="quantity_order" name="quantity[<?php echo $row['id'] ?>]" value="1">
+            <input type="text" id="quantity_buy" class="quantity_order" name="quantity[<?php echo $row['id'] ?>]"
+              value="1">
+            <input id="quantity_inventory" value="<?php echo $rowQuan['quantity'] ?>" style="margin-left: 5%"
+              type="hidden">
             <span style="margin-left: 5%">Còn lại:
               <?php echo $rowQuan['quantity'] ?>
             </span>
+
             <input type="hidden" name="product_id" value="<?php echo $row['id'] ?>" />
             <input type="hidden" name="product_name" value="<?php echo $row['name'] ?>" />
             <input type="hidden" name="product_price" value="<?php echo $row['price'] ?>" />
@@ -174,5 +178,28 @@
 <script src="utils/commons.js"></script>
 <script src="scripts/components.js"></script>
 <script src="scripts/chitietsanpham.js"></script>
+<script>
+
+  var buyBtn = document.querySelector('.buy-btn'); // Lấy phần tử có class "buy-btn"
+
+  buyBtn.addEventListener('click', function (event) {
+    event.preventDefault(); // Ngăn chặn hành vi submit form mặc định
+
+    var quantity_ven = parseInt(document.getElementById('quantity_inventory').value);
+    var quantity_buy = parseInt(document.getElementById('quantity_buy').value);
+
+    if (quantity_buy <= quantity_ven) {
+      // Nếu số lượng mua nhỏ hơn hoặc bằng số lượng hàng trong kho
+      // Thực hiện submit form
+      document.getElementById('goToCart').submit();
+    } else {
+      // Nếu số lượng mua lớn hơn số lượng hàng trong kho
+      // Hiển thị thông báo lỗi
+      alert('Kho không đủ hàng, vui lòng nhập số lượng nhỏ hơn hoặc bằng số lượng còn lại');
+    }
+  });
+
+
+</script>
 
 </html>
