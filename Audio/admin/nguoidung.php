@@ -46,48 +46,13 @@
                 <span class="links_name">Lượt mua</span>
               </a>
             </li>
-            <!-- <li>
-                <a href="#">
-                  <i class="bx bx-pie-chart-alt-2"></i>
-                  <span class="links_name">Analytics</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="bx bx-coin-stack"></i>
-                  <span class="links_name">Stock</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="bx bx-book-alt"></i>
-                  <span class="links_name">Total order</span>
-                </a>
-              </li> -->
             <li>
               <a href="nguoidung.html" class="active">
                 <i class="bx bx-user"></i>
                 <span class="links_name">Người dùng</span>
               </a>
             </li>
-            <!-- <li>
-                <a href="#">
-                  <i class="bx bx-message"></i>
-                  <span class="links_name">Messages</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="bx bx-heart"></i>
-                  <span class="links_name">Favrorites</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="bx bx-cog"></i>
-                  <span class="links_name">Setting</span>
-                </a>
-              </li> -->
+        
             <li class="log_out">
               <a href="#">
                 <i class="bx bx-log-out"></i>
@@ -118,26 +83,36 @@
             <div class="sales-boxes">
               <div class="recent-stock box">
                 <div class="recent-stock-title">
-                  <div class="100%" style="width: 100%;">
-                    <div class="title">Thông tin người dùng</div>
-                    <div class="user-details-title">
-                      <div class="user-details-title-items id-title">ID</div>
-                      <div class="user-details-title-items username-title">
-                        Username
-                      </div>
-                      <div class="user-details-title-items mail-title">
-                        Email
-                      </div>
-                      <div class="user-details-title-items address-title">
-                        Địa chỉ
-                      </div>
-                      <div class="user-details-title-items tel-title">Sđt</div>
+                <div class="80%" style="width: 80%;">
+                  <div class="title">Thông tin người dùng</div>
+                  <div class="user-details-title">
+                    <div class="user-details-title-items id-title" >ID</div>
+                    <div
+                      class="user-details-title-items username-title" 
+                    >
+                      Username
                     </div>
+                    <div
+                      class="user-details-title-items mail-title"
+                    >
+                      Email
+                    </div>
+                    <div
+                      class="user-details-title-items status-title" 
+                    >
+                      Trạng Thái
+                    </div>
+                    <div class="user-details-title-items tel-title" >Sđt</div>
+                  
                   </div>
+                </div>
+
                   <?php
                   while ($row = mysqli_fetch_assoc($result)) {
 
                     ?>
+                    <div class="recent-stock-item">
+                      <div class="80%" style="width: 80%">
                     <div class="sales-details stock-details">
                       <ul class="details id-item">
                         <li><a href="#">
@@ -159,95 +134,40 @@
 
 
                       </ul>
-                      <ul class="details address-item">
-                        <li>164 Đường Tây Thiên, Xã Bắc Ấn, TP Thiên Đường</li>
+                      <ul class="details status-item">
+                        <li>Đã bị khóa</li>
                       </ul>
                       <ul class="details tel-item">
                         <li>
                           <?php echo $row['phone']; ?>
                         </li>
                       </ul>
-                    <!-- </div> -->
-                    <div class="15%" style="width: 15%; margin-top: -2.2%;">
-                      <ul class="modify-user">
-                        <li>
-                          <a href=""><button class="edit-btn">Edit</button></a>
-                          <a href=""><button class="delete-btn">Delete</button></a>
-                        </li>
-                        <!-- <li>
+                    </div>
+                  </div>
+                  <div class="15%" style="width: 15%; margin-top: -1.4%;">
+                    <ul class="modify-user">
+                      <li>
                         <a href=""><button class="edit-btn">Edit</button></a>
                         <a href=""><button class="delete-btn">Delete</button></a>
-                      </li>  -->
-                      </ul>
-                    </div>
+                      </li>
+                    </ul>
+                  </div>
                   </div>
                   
                   <?php
                   }
                   ?>
               </div>
+                </div>
             </div>
           </div>
 
-          <!-- <div class="edit-form">
-              <span class="cancel-edit-form" style="float: right">X</span>
-              <form>
-                <label for="user-id">ID</label>
-                <input type="number" id="user-id" name="user-id" /><br />
-
-                <label for="username">Username:</label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                /><br />
-
-                <label for="product-image">Password:</label>
-                <input
-                  type="password"
-                  id="user-password"
-                  name="user-password"
-                /><br />
-
-                <label for="product-price">email:</label>
-                <input
-                  type="text"
-                  id="user-mail"
-                  name="user-mail"
-                /><br />
-
-                <label for="user-address">Địa chỉ:</label>
-                <input
-                  type="text"
-                  id="user-address"
-                  name="user-address"
-                /><br />
-
-                <label for="user-tel">Số điện thoại:</label>
-                <input
-                  type="text"
-                  id="user-tel"
-                  name="user-tel"
-                /><br />
-
-                <button type="submit" id="saveChanges">Lưu</button>
-              </form>
-            </div>
-            <div class="delete-form">
-              <span class="cancel-delete-form" style="float: right">X</span>
-              <form>
-                <label for="product-id">ID</label>
-                <input type="number" id="product-id" name="product-id" /><br />
-
-                <button type="submit" id="deleteItem">Xóa</button>
-              </form>
-            </div> -->
         </section>
       </div>
     </div>
   </div>
 
-  <!-- <?php include "../components/footer.php"; ?> -->
+ 
   <script>
     let sidebar = document.querySelector(".sidebar");
     let sidebarBtn = document.querySelector(".sidebarBtn");

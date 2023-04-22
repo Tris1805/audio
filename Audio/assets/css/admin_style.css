@@ -479,7 +479,7 @@ nav .profile-details i {
   border: red;
 }
 
-.edit-btn:hover, .add-btn:hover {
+.edit-btn:hover{
   background-color: black;
   color: white;
 }
@@ -533,8 +533,8 @@ nav .profile-details i {
   width: 14%;
 }
 
-.address-title {
-  width: 31%;
+.status-title {
+  width: 15%;
 }
 
 .tel-title {
@@ -550,8 +550,8 @@ nav .profile-details i {
   width: 14%;
 }
 
-.address-item {
-  width: 31%;
+.status-item {
+  width: 15%;
 }
 
 .tel-item {
