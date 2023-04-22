@@ -2,7 +2,7 @@
 include "../components/connectDB.php";
 switch ($_GET['action']) {
     case "edit":
-
+        
         $id = $_POST['product-id'];
         $name = $_POST['product-name'];
         $price = $_POST['product-price'];
@@ -18,6 +18,16 @@ switch ($_GET['action']) {
             uploadHinh($hinh);
             $sql = sprintf("UPDATE `products` SET `name` = '%s', `price` = '%f', `image` = '%s' WHERE `products`.`id` = %d;", $name, $number, $hinh, $id);
         }
+        if ($conn->query($sql) === TRUE) {
+            echo "The record editted successfully";
+            header("Location: ../admin/sanpham.php");
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+        break;
+    case 'delete':
+        $id = $_GET['id'];
+        $sql =  "DELETE FROM `products` WHERE id = ".$id."";
         if ($conn->query($sql) === TRUE) {
             echo "The record editted successfully";
             header("Location: ../admin/sanpham.php");

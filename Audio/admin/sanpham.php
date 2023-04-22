@@ -213,8 +213,8 @@
                     echo '<div class="15%" style="width: 15%;">
                                 <ul class="modify-item">
                                   <li>
-                                  <a href="manage_products.php?id=' . $row['id'] . '" ><button class="edit-btn">Edit</button></a>      
-                                  <a href="edit.php" ><button class="delete-btn">Delete</button></a>      
+                                  <a href="manage_products.php?action=edit&id=' . $row['id'] . '" ><button class="edit-btn">Edit</button></a>      
+                                  <a class="deleteCF" href="handleProducts.php?action=delete&id=' . $row['id'] . '" ><button onclick="return confirm("Are you sure?");" class="delete-btn">Delete</button></a>      
                                   </li>
                                   
                                 </ul>
@@ -366,6 +366,8 @@
 
   </script>
   <script>
+    var delBtns = document.querySelectorAll('.deleteCF');
+    
 
 
   </script>
