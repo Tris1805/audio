@@ -57,6 +57,7 @@
   $tolal_products = mysqli_query($conn, "select * from products");
   $tolal_products = $tolal_products->num_rows;
   $totalPages = ceil($tolal_products / $item_per_page);
+  // $length = mysqli_query($conn, "SELECT count(*) FROM products ");
   ?>
   <div id="app">
     <div class="main-container">
@@ -157,7 +158,7 @@
             <div class="sales-boxes">
               <div class="recent-stock box">
                 <div class="recent-stock-title">
-                  <div class="title" style="display: flex; justify-content: space-between;">Tình trạng kho hàng <a href="" class="add-btn-container"><button class="add-btn" style="width: 170%;
+                  <div class="title" style="display: flex; justify-content: space-between;">Tình trạng kho hàng <a href="addProducts.php?length=<?= $tolal_products+1;  ?>" class="add-btn-container"><button class="add-btn" style="width: 170%;
   height: 30px;
   background-color: white;
   color: black;

@@ -17,6 +17,12 @@
   </head>
 
   <body>
+    <?php 
+      include "../components/connectDB.php";
+      $sql = "";
+      $length = $_GET['length'];
+
+    ?>
     <div id="app">
       <div class="main-container">
         <div class="main-content">
@@ -85,14 +91,15 @@
               <div class="sales-boxes">
                 <div class="form-container box">
                   <div class="edit-form">
-                    <form>
+                    <form action="handleProducts.php?action=add" method="POST"  enctype="multipart/form-data">
                       <label for="product-id">ID</label>
                       <input
                         type="number"
                         id="product-id"
-                        value="id"
+                        value="<?= $length ?>"
                         placeholder="id"
                         name="product-id"
+                        readonly
                       /><br />
 
                       <label for="product-name">Tên sản phẩm:</label>
@@ -106,7 +113,7 @@
                       <input
                         type="file"
                         id="product-image"
-                        name="product-image"
+                        name="fileToUpload"
                       /><br />
 
                       <label for="product-price">Đơn giá:</label>

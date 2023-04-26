@@ -35,6 +35,33 @@ switch ($_GET['action']) {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
         break;
+        case 'add':
+            $id = $_POST['product-id'];
+            $name = $_POST['product-name'];
+            $price = $_POST['product-price'];
+            $numberString = str_replace(',', '', $price);
+        
+            // Chuyển đổi chuỗi thành số nguyên
+            $number = intval($numberString);
+            $product_type = $_POST['product-type'];
+            $product_brand = $_POST['product-brand'];
+            if (isset($_FILES['fileToUpload']) && $_FILES['fileToUpload']['name'] == '') {
+                //No file selected
+                $sql = "INSERT INTO `products`(`id`, `name`, `price`, `type`, `brand`, `date`, `description`) VALUES ('".$id."', '".$name."', '".$number."', '".$product_type."', '".$product_brand."', '0', '');";
+            } else {
+                $hinh = '';
+                uploadHinh($hinh);
+                $sql = "INSERT INTO `products`(`id`, `name`, `price`, `type`, `brand`, `date`, `image`, `description`) VALUES ('".$id."', '".$name."', '".$number."', '".$product_type."', '".$product_brand."', '0', '".$hinh."', '');";
+            }
+            if ($conn->query($sql) === TRUE) {
+                echo "The record edited successfully";
+                header("Location: ../admin/sanpham.php");
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        
+            break;
+        
 }
 
 function uploadHinh(&$hinh)
