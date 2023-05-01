@@ -121,6 +121,7 @@
             <input type="hidden" name="product_name" value="<?php echo $row['name'] ?>" />
             <input type="hidden" name="product_price" value="<?php echo $row['price'] ?>" />
             <input type="submit" class="buy-btn" value="THÊM VÀO GIỎ HÀNG" />
+            
           </form>
           <br />
           <div class="more-detail" style="text-align:justify;">

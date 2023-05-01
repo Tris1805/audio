@@ -158,21 +158,24 @@
             <div class="sales-boxes">
               <div class="recent-stock box">
                 <div class="recent-stock-title">
-                  <div class="title" style="display: flex; justify-content: space-between;">Tình trạng kho hàng <a href="addProducts.php?length=<?= $tolal_products+1;  ?>" class="add-btn-container">
-                  <button class="add-btn" style="width: 120%;
-  height: 30px;
-  background-color: white;
-  color: black;
-  border-radius: 5px;
-  cursor: pointer" >Add</button>
-  <button class="add-btn" style="width: 120%;
-  height: 30px;
-  background-color: white;
-  color: black;
-  border-radius: 5px;
-  cursor: pointer" >Nhập</button></a>
-  
-  </div>
+                  <div class="title" style="display: flex; justify-content: space-between;">Tình trạng kho hàng 
+                    <a href="addProducts.php?length=<?= $tolal_products+1;  ?>" class="add-btn-container">
+                      <button class="add-btn" style="width: 120%;
+                      height: 30px;
+                      background-color: white;
+                      color: black;
+                      border-radius: 5px;
+                      cursor: pointer" >Add</button>
+                    </a>
+                    <a href="nhaphang.php" class="add-btn-container">
+                      <button class="add-btn" style="width: 120%;
+                      height: 30px;
+                      background-color: white;
+                      color: black;
+                      border-radius: 5px;
+                      cursor: pointer" >Nhập</button>
+                    </a>
+                  </div>
                   <div class="80%" style="width: 80%;">
                     <div class="stock-details-title">
                       <div class="stock-details-title-items id-title">ID</div>

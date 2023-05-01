@@ -128,19 +128,19 @@
               <div class="brand-filter-title">THƯƠNG HIỆU</div>
               <div class="brand-container">
                 <label class="container" style="display: flex; justify-content: center;">
-                  <a href="renderByBrand.php?brand=Apple" class="brand-chooser">APPLE</a>
+                  <a href="renderByBrand.php?brand=Apple#print-search" class="brand-chooser">APPLE</a>
                 </label>
                 <label class="container" style="display: flex; justify-content: center;">
-                  <a href="renderByBrand.php?brand=Focal" class="brand-chooser">Focal</a>
+                  <a href="renderByBrand.php?brand=Focal#print-search" class="brand-chooser">Focal</a>
                 </label>
                 <label class="container" style="display: flex; justify-content: center;">
-                  <a href="renderByBrand.php?brand=HiFiMan" class="brand-chooser">HiFiMan</a>
+                  <a href="renderByBrand.php?brand=HiFiMan#print-search" class="brand-chooser">HiFiMan</a>
                 </label>
                 <label class="container" style="display: flex; justify-content: center;">
-                  <a href="renderByBrand.php?brand=MOONDROP" class="brand-chooser">MOONDROP</a>
+                  <a href="renderByBrand.php?brand=MOONDROP#print-search" class="brand-chooser">MOONDROP</a>
                 </label>
                 <label class="container" style="display: flex; justify-content: center;">
-                  <a href="renderByBrand.php?brand=SONY" class="brand-chooser">SONY</a>
+                  <a href="renderByBrand.php?brand=SONY#print-search" class="brand-chooser">SONY</a>
                 </label>
               </div>
             </div>

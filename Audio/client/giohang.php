@@ -51,7 +51,12 @@
     switch ($_GET['action']) {
       case "add":
         update_cart(true);
-        header("Location: ./giohang.php");
+        if(basename($_SERVER['PHP_SELF']) == "giohang.php"){
+          header("Location: ./trangchu.php#print-search");
+        }else{
+          update_cart(true);
+          header("Location: ./giohang.php");
+        }
         break;
       case 'delete':
         if (isset($_GET['id'])) {

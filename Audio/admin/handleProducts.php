@@ -2,7 +2,7 @@
 include "../components/connectDB.php";
 switch ($_GET['action']) {
     case "edit":
-        
+
         $id = $_POST['product-id'];
         $name = $_POST['product-name'];
         $price = $_POST['product-price'];
@@ -27,7 +27,7 @@ switch ($_GET['action']) {
         break;
     case 'delete':
         $id = $_GET['id'];
-        $sql =  "DELETE FROM `products` WHERE id = ".$id."";
+        $sql = "DELETE FROM `products` WHERE id = " . $id . "";
         if ($conn->query($sql) === TRUE) {
             echo "The record editted successfully";
             header("Location: ../admin/sanpham.php");
@@ -35,33 +35,86 @@ switch ($_GET['action']) {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
         break;
-        case 'add':
-            $id = $_POST['product-id'];
-            $name = $_POST['product-name'];
-            $price = $_POST['product-price'];
-            $numberString = str_replace(',', '', $price);
-        
-            // Chuyển đổi chuỗi thành số nguyên
-            $number = intval($numberString);
-            $product_type = $_POST['product-type'];
-            $product_brand = $_POST['product-brand'];
-            if (isset($_FILES['fileToUpload']) && $_FILES['fileToUpload']['name'] == '') {
-                //No file selected
-                $sql = "INSERT INTO `products`(`id`, `name`, `price`, `type`, `brand`, `date`, `description`) VALUES ('".$id."', '".$name."', '".$number."', '".$product_type."', '".$product_brand."', '0', '');";
-            } else {
-                $hinh = '';
-                uploadHinh($hinh);
-                $sql = "INSERT INTO `products`(`id`, `name`, `price`, `type`, `brand`, `date`, `image`, `description`) VALUES ('".$id."', '".$name."', '".$number."', '".$product_type."', '".$product_brand."', '0', '".$hinh."', '');";
+    case 'add':
+        $id = $_POST['product-id'];
+        $name = $_POST['product-name'];
+        $price = $_POST['product-price'];
+        $numberString = str_replace(',', '', $price);
+
+        // Chuyển đổi chuỗi thành số nguyên
+        $number = intval($numberString);
+        $product_type = $_POST['product-type'];
+        $product_brand = $_POST['product-brand'];
+        if (isset($_FILES['fileToUpload']) && $_FILES['fileToUpload']['name'] == '') {
+            //No file selected
+            $sql = "INSERT INTO `products`(`id`, `name`, `price`, `type`, `brand`, `date`, `description`) VALUES ('" . $id . "', '" . $name . "', '" . $number . "', '" . $product_type . "', '" . $product_brand . "', '0', '');";
+        } else {
+            $hinh = '';
+            uploadHinh($hinh);
+            $sql = "INSERT INTO `products`(`id`, `name`, `price`, `type`, `brand`, `date`, `image`, `description`) VALUES ('" . $id . "', '" . $name . "', '" . $number . "', '" . $product_type . "', '" . $product_brand . "', '0', '" . $hinh . "', '');";
+        }
+        if ($conn->query($sql) === TRUE) {
+            echo "The record edited successfully";
+            header("Location: ../admin/sanpham.php");
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+
+        break;
+    case "addQuantity":
+        $id = $_POST['product-id'];
+        $quantity = $_POST['product-quantity'];
+        // var_dump($quantity);exit();
+        $date_format = 'Y-m-d';
+        $current_time = time();
+        $current_time_formatted = date($date_format, $current_time);
+        if (!is_numeric($quantity) || $quantity < 0) {
+
+            die('Lỗi: Số lượng sản phẩm không hợp lệ.');
+        } else {
+
+            $quantity = intval($quantity);
+        }
+        $sql = "INSERT INTO `purchase_order`(`id`, `product_id`, `quantity`, `created_day`, `last_updated`) VALUES (null, " . $id . ", " . $quantity . ", " . $current_time_formatted . ", " . $current_time_formatted . ")";
+        // var_dump($sql);exit();
+        if ($conn->query($sql) === TRUE) {
+            echo "The record edited successfully";
+            
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+        mysqli_begin_transaction($conn);
+
+        try {
+            $tolal_products = mysqli_query($conn, "select * from products");
+            $tolal_products = $tolal_products->num_rows;
+            if (intval($id) == $tolal_products){
+                $billIDResult = mysqli_query($conn, "SELECT id FROM purchase_order WHERE product_id = '" . $id . "' ORDER BY id DESC LIMIT 1;");
+                $billIDRow = mysqli_fetch_assoc($billIDResult);
+                $billID = $billIDRow['id'];
+                $updateInventory = mysqli_query($conn, "INSERT INTO `inventory`(`id`, `product_id`, `quantity`, `updated_at`, `order_purchase_id`, `order_sale_id`, `order_type`) VALUES (null, " . $id . ", " . $quantity . ", now(), " . $billID . ", null, 'purchase');");
+            }else{
+                $getLatestQuantity = mysqli_query($conn, "SELECT quantity FROM inventory WHERE product_id = '" . $id . "' ORDER BY id DESC LIMIT 1;");
+                $billIDResult = mysqli_query($conn, "SELECT id FROM purchase_order WHERE product_id = '" . $id . "' ORDER BY id DESC LIMIT 1;");
+                $billIDRow = mysqli_fetch_assoc($billIDResult);
+                $billID = $billIDRow['id'];
+                $row2 = mysqli_fetch_assoc($getLatestQuantity);
+                $latestQuantity = $row2['quantity'];
+                $newQuantity = $latestQuantity + $quantity;
+                $updateInventory = mysqli_query($conn, "INSERT INTO `inventory`(`id`, `product_id`, `quantity`, `updated_at`, `order_purchase_id`, `order_sale_id`, `order_type`) VALUES (null, " . $id . ", " . $newQuantity . ", now(), " . $billID . ", null, 'purchase');");
             }
-            if ($conn->query($sql) === TRUE) {
-                echo "The record edited successfully";
-                header("Location: ../admin/sanpham.php");
-            } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
-            }
+
+            // Hoàn thành giao dịch
+            mysqli_commit($conn);
+            header("Location: ../admin/sanpham.php");
+        } catch (Exception $e) {
+            // Lỗi xảy ra, rollback giao dịch
+            mysqli_rollback($conn);
+            // Xử lý lỗi
+            // ...
+        }
         
-            break;
-        
+        break;
 }
 
 function uploadHinh(&$hinh)

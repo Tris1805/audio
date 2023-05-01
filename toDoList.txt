@@ -1,7 +1,7 @@
-Gắn link vào các trang admin  
+Gắn link vào các trang admin  (done)
 
-Gắn link vào logo Ikus in admin
+Gắn link vào logo Ikus in admin(done)
 
-Fix ấn thêm vào giỏ hàng, bị nhảy sang ngay giỏ hàng, kh nên nhảy, ở lại trang đó để khách lựa tiếp
+Fix ấn thêm vào giỏ hàng, bị nhảy sang ngay giỏ hàng, kh nên nhảy, ở lại trang đó để khách lựa tiếp (done)
 
 Làm form người dùng
