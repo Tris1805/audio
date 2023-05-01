@@ -17,12 +17,6 @@
   </head>
 
   <body>
-    <?php 
-      include "../components/connectDB.php";
-      $sql = "";
-      $length = $_GET['length'];
-
-    ?>
     <div id="app">
       <div class="main-container">
         <div class="main-content">
@@ -91,66 +85,26 @@
               <div class="sales-boxes">
                 <div class="form-container box">
                   <div class="edit-form">
-                    <form action="handleProducts.php?action=add" method="POST"  enctype="multipart/form-data">
+                    <form>
                       <label for="product-id">ID</label>
                       <input
                         type="number"
                         id="product-id"
-                        value="<?= $length ?>"
+                        value="id"
                         placeholder="id"
                         name="product-id"
-                        readonly
                       /><br />
 
-                      <label for="product-name">Tên sản phẩm:</label>
-                      <input
-                        type="text"
-                        id="product-name"
-                        name="product-name"
-                      /><br />
-
-                      <label for="product-image">Hình ảnh:</label>
-                      <input
-                        type="file"
-                        id="product-image"
-                        name="fileToUpload"
-                      /><br />
-
-                      <label for="product-price">Đơn giá:</label>
+                      <label for="product-quantity">Số lượng:</label>
                       <input
                         type="number"
-                        id="product-price"
-                        name="product-price"
+                        id="product-quantity"
+                        name="product-quantity"
                       /><br />
 
-                      <label for="product-quantity">Description:</label>
-                      <input
-                        type="text"
-                        id="product-description"
-                        name="product-description"
-                      /><br />
-
-                      <label for="product-type">Chủng Loại:</label>
-                      <select type="text" id="product-type" name="product-type">
-                        <option value="earbud">Earbud</option>
-                        <option value="inear">Inear</option>
-                        <option value="full-sized">Fullsized</option>
-                        <option value="true-wireless">True Wireless</option>
-                      </select>
-                      <br />
-
-                      <label for="product-brand">Thương Hiệu:</label>
-                      <select type="text" id="product-brand" name="product-brand">
-                        <option value="Apple">Apple</option>
-                        <option value="Focal">Focal</option>
-                        <option value="HiFiMan">HiFiMan</option>
-                        <option value="SONY">SONY</option>
-                        <option value="MOONDROP">MOONDROP</option>
-                      </select>
-                      <br />
 
                       <button type="submit" id="saveChanges">
-                        Thêm sản phẩm
+                        Nhập Hàng
                       </button>
                     </form>
                   </div>
