@@ -4,3 +4,4 @@ Gắn link vào logo Ikus in admin
 
 Fix ấn thêm vào giỏ hàng, bị nhảy sang ngay giỏ hàng, kh nên nhảy, ở lại trang đó để khách lựa tiếp
 
+Làm form người dùng
