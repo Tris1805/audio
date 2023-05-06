@@ -112,6 +112,32 @@
                       <input type="number" id="product-quantity" name="product-quantity"
                         value="<?php echo $row2['quantity'] ?>" disabled /><br />
 
+                        <label for="product-quantity">Description:</label>
+                      <input
+                        type="text"
+                        id="product-description"
+                        name="product-description"
+                      /><br />
+
+                      <label for="product-type">Chủng Loại:</label>
+                      <select type="text" id="product-type" name="product-type">
+                        <option value="earbud">Earbud</option>
+                        <option value="inear">Inear</option>
+                        <option value="full-sized">Fullsized</option>
+                        <option value="true-wireless">True Wireless</option>
+                      </select>
+                      <br />
+
+                      <label for="product-brand">Thương Hiệu:</label>
+                      <select type="text" id="product-brand" name="product-brand">
+                        <option value="Apple">Apple</option>
+                        <option value="Focal">Focal</option>
+                        <option value="HiFiMan">HiFiMan</option>
+                        <option value="SONY">SONY</option>
+                        <option value="MOONDROP">MOONDROP</option>
+                      </select>
+                      <br />
+
                       <button type="submit" id="saveChanges">Lưu</button>
                     </form>
                   <?php
