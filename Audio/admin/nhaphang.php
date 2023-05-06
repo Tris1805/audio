@@ -26,30 +26,36 @@
           </div>
           <ul class="nav-links">
             <li>
-              <a href="./index.html">
+              <a href="./index.php">
                 <i class="bx bx-grid-alt"></i>
                 <span class="links_name">Thống kê</span>
               </a>
             </li>
             <li>
-              <a href="./sanpham.html" class="active">
+              <a href="./sanpham.php" class="active">
                 <i class="bx bx-box"></i>
                 <span class="links_name">Sản phẩm</span>
               </a>
             </li>
             <li>
-              <a href="./luotmua.html">
+              <a href="./luotmua.php">
                 <i class="bx bx-list-ul"></i>
                 <span class="links_name">Lượt mua</span>
               </a>
             </li>
 
             <li>
-              <a href="./nguoidung.html">
+              <a href="./nguoidung.php">
                 <i class="bx bx-user"></i>
                 <span class="links_name">Người dùng</span>
               </a>
             </li>
+            <li>
+                <a href="truyvan.php">
+                  <i class="bx bx-pie-chart-alt-2"></i>
+                  <span class="links_name">Truy vấn</span>
+                </a>
+              </li>
 
             <li class="log_out">
               <a href="#">
@@ -118,8 +124,7 @@
     // Lặp qua tất cả các thẻ 'a' và thêm sự kiện click cho chúng
     links.forEach((link) => {
       link.addEventListener("click", (event) => {
-        // Hủy bỏ hành động mặc định của thẻ 'a'
-        event.preventDefault();
+        php
         // Loại bỏ lớp 'active' từ tất cả các thẻ 'a'
         links.forEach((link) => {
           link.classList.remove("active");

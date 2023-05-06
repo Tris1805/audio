@@ -47,50 +47,19 @@
                   <span class="links_name">Lượt mua</span>
                 </a>
               </li>
-              <!-- 
               <li>
-              <a href="#">
-                <i class="bx bx-coin-stack"></i>
-                  <span class="links_name">Stock</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="bx bx-book-alt"></i>
-                  <span class="links_name">Total order</span>
-                </a>
-              </li> -->
-              <li>
-                <a href="http://google.com" target="_blank">
+                <a href="nguoidung.php">
                   <i class="bx bx-user"></i>
-                  <span class="links_name">Người dùng 2</span>
+                  <span class="links_name">Người dùng</span>
                 </a>
               </li>
 
               <li>
-                <a href="#">
+                <a href="truyvan.php">
                   <i class="bx bx-pie-chart-alt-2"></i>
                   <span class="links_name">Truy vấn</span>
                 </a>
               </li>
-              <!-- <li>
-                <a href="#">
-                  <i class="bx bx-message"></i>
-                  <span class="links_name">Messages</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="bx bx-heart"></i>
-                  <span class="links_name">Favrorites</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="bx bx-cog"></i>
-                  <span class="links_name">Setting</span>
-                </a>
-              </li> -->
               <li class="log_out">
                 <a href="#">
                   <i class="bx bx-log-out"></i>
@@ -291,7 +260,34 @@
       </div>
     </div>
 
-    
+    <script>
+      let sidebar = document.querySelector(".sidebar");
+      let sidebarBtn = document.querySelector(".sidebarBtn");
+      sidebarBtn.onclick = function () {
+        sidebar.classList.toggle("active");
+        if (sidebar.classList.contains("active")) {
+          sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+        } else sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+      };
+
+      // Lấy tất cả các thẻ 'a' trong danh sách liên kết
+      const links = document.querySelectorAll(".nav-links a");
+
+      // Lặp qua tất cả các thẻ 'a' và thêm sự kiện click cho chúng
+      links.forEach((link) => {
+        link.addEventListener("click", (event) => {
+          // Hủy bỏ hành động mặc định của thẻ 'a'
+          // event.preventDefault();
+          // Loại bỏ lớp 'active' từ tất cả các thẻ 'a'
+          links.forEach((link) => {
+            link.classList.remove("active");
+          });
+          // Thêm lớp 'active' cho thẻ 'a' đang được chọn
+          link.classList.add("active");
+          window.location.href = this.href;
+        });
+      });
+    </script>
    
   </body>
 </html>
