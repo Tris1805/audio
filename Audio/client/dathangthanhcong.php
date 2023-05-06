@@ -117,7 +117,6 @@
 
     }
     ?>
-                    <!-- <h3 style="margin-top: 20px;">TỔNG CỘNG: {{ totalPrice }} đ</h2> -->
                 </div>
             </div>
         </div>
