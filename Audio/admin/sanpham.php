@@ -69,7 +69,7 @@
           </div>
           <ul class="nav-links">
             <li>
-              <a href="./index.html">
+              <a href="./index.php">
                 <i class="bx bx-grid-alt"></i>
                 <span class="links_name">Thống kê</span>
               </a>
@@ -228,7 +228,7 @@
                                 <ul class="modify-item">
                                   <li>
                                   <a href="manage_products.php?action=edit&id=' . $row['id'] . '" ><button class="edit-btn">Edit</button></a>      
-                                  <a class="deleteCF" href="handleProducts.php?action=delete&id=' . $row['id'] . '" ><button onclick="return confirm("Are you sure?");" class="delete-btn">Delete</button></a>      
+                                  <a class="deleteCF" href="handleProducts.php?action=delete&id=' . $row['id'] . '" ><button onclick="return confirm(\'Are you sure?\');" class="delete-btn">Delete</button></a>     
                                   </li>
                                   
                                 </ul>
