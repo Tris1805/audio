@@ -93,7 +93,7 @@
                     $row2 = mysqli_fetch_assoc($result2);
 
                     ?>
-                    <form action="handleProducts.php?action=edit" method="POST"  enctype="multipart/form-data">
+                    <form action="handleProducts.php?action=edit" method="POST" enctype="multipart/form-data">
                       <label for="product-id">ID</label>
                       <input type="text" id="product-id" value="<?php echo $row['id'] ?>" placeholder="id"
                         name="product-id" readonly /><br />
@@ -112,35 +112,61 @@
                       <input type="number" id="product-quantity" name="product-quantity"
                         value="<?php echo $row2['quantity'] ?>" disabled /><br />
 
-                        <label for="product-quantity">Description:</label>
-                      <input
-                        type="text"
-                        id="product-description"
-                        name="product-description"
-                      /><br />
+                      <label for="product-quantity">Description:</label>
+                      <input type="text"  id="product-description" name="product-description"
+                        value="<?php echo htmlspecialchars($row['description'], ENT_QUOTES) ?>" /><br />
+
 
                       <label for="product-type">Chủng Loại:</label>
                       <select type="text" id="product-type" name="product-type">
-                        <option value="earbud">Earbud</option>
-                        <option value="inear">Inear</option>
-                        <option value="full-sized">Fullsized</option>
-                        <option value="true-wireless">True Wireless</option>
+                      <?php 
+                        switch($row['type']){
+                          case 'earbud':
+                            echo "<option value='earbud' selected>Earbud</option>";
+                            break;
+                          case 'inear':
+                            echo "<option value='earbud' selected>Inear</option>";
+                            break;
+                          case 'full-sized':
+                            echo "<option value='full-sized' selected>Fullsized</option>";
+                            break;
+                          case 'true-wireless':
+                            echo "<option value='true-wireless' selected>True Wireless</option>";
+                            break; 
+                        }
+                            
+                      ?>
                       </select>
                       <br />
 
                       <label for="product-brand">Thương Hiệu:</label>
                       <select type="text" id="product-brand" name="product-brand">
-                        <option value="Apple">Apple</option>
-                        <option value="Focal">Focal</option>
-                        <option value="HiFiMan">HiFiMan</option>
-                        <option value="SONY">SONY</option>
-                        <option value="MOONDROP">MOONDROP</option>
+                      <?php 
+                        switch($row['brand']){
+                          case 'Apple':
+                            echo "<option value='Apple' selected>Apple</option>";
+                            break;
+                          case 'Focal':
+                            echo "<option value='Focal' selected>Focal</option>";
+                            break;
+                          case 'HiFiMan':
+                            echo "<option value='HiFiMan' selected>HiFiMan</option>";
+                            break;
+                          case 'SONY':
+                            echo "<option value='SONY' selected>SONY</option>";
+                            break;
+                          case 'MOONDROP':
+                            echo "<option value='MOONDROP' selected>MOONDROP</option>";
+                            break;  
+                        }
+                            
+                      ?>
                       </select>
                       <br />
 
                       <button type="submit" id="saveChanges">Lưu</button>
                     </form>
-                  <?php
+                    <?php
                   }
                   ?>
                 </div>

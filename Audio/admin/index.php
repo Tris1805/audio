@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin</title>
     <link rel="stylesheet" href="../assets/css/admin_style.css" />
@@ -18,14 +18,16 @@
 
   <body>
     <div id="app">
-      <!-- <?php include "../components/header.php"; ?> -->
+      
       <div class="main-container">
         <div class="main-content">
           <div class="sidebar">
+            <a href="../client/trangchu.php">
             <div class="logo-details">
               <i class="bx"></i>
               <span class="logo_name">Ikus Audio</span>
             </div>
+            </a>
             <ul class="nav-links">
               <li>
                 <a href="index.php" class="active">
@@ -59,11 +61,11 @@
                 </a>
               </li> -->
               <li>
-                <a href="nguoidung.php">
+                <a href="http://google.com" target="_blank">
                   <i class="bx bx-user"></i>
-                  <span class="links_name">Người dùng</span>
+                  <span class="links_name">Người dùng 2</span>
                 </a>
-                </li>
+              </li>
 
               <li>
                 <a href="#">
@@ -290,33 +292,6 @@
     </div>
 
     
-    <script>
-      let sidebar = document.querySelector(".sidebar");
-      let sidebarBtn = document.querySelector(".sidebarBtn");
-      sidebarBtn.onclick = function () {
-        sidebar.classList.toggle("active");
-        if (sidebar.classList.contains("active")) {
-          sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-        } else sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
-      };
-
-      // Lấy tất cả các thẻ 'a' trong danh sách liên kết
-      const links = document.querySelectorAll(".nav-links a");
-
-      // Lặp qua tất cả các thẻ 'a' và thêm sự kiện click cho chúng
-      links.forEach((link) => {
-        link.addEventListener("click", (event) => {
-          // Hủy bỏ hành động mặc định của thẻ 'a'
-          event.preventDefault();
-          // Loại bỏ lớp 'active' từ tất cả các thẻ 'a'
-          links.forEach((link) => {
-            link.classList.remove("active");
-          });
-          // Thêm lớp 'active' cho thẻ 'a' đang được chọn
-          link.classList.add("active");
-          window.location.href = this.href;
-        });
-      });
-    </script>
+   
   </body>
 </html>
