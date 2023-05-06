@@ -45,15 +45,10 @@
                   <span class="links_name">Lượt mua</span>
                 </a>
               </li>
-              <!-- <li>
-                <a href="#">
-                  <i class="bx bx-pie-chart-alt-2"></i>
-                  <span class="links_name">Analytics</span>
-                </a>
-              </li>
+              <!-- 
               <li>
-                <a href="#">
-                  <i class="bx bx-coin-stack"></i>
+              <a href="#">
+                <i class="bx bx-coin-stack"></i>
                   <span class="links_name">Stock</span>
                 </a>
               </li>
@@ -67,6 +62,13 @@
                 <a href="nguoidung.php">
                   <i class="bx bx-user"></i>
                   <span class="links_name">Người dùng</span>
+                </a>
+                </li>
+
+              <li>
+                <a href="#">
+                  <i class="bx bx-pie-chart-alt-2"></i>
+                  <span class="links_name">Truy vấn</span>
                 </a>
               </li>
               <!-- <li>
