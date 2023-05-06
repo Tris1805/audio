@@ -1,12 +1,14 @@
 <?php
-    // Start session
-    session_start();
+include "../components/connectDB.php";
+// Start session
+session_start();
 
-    // Xóa tất cả các biến session
-    session_unset();
-    session_destroy();
+// // Xóa tất cả các biến session
+session_unset();
+session_destroy();
 
-    // Chuyển hướng trang đến trang đăng nhập
-    header("Location: trangchu.php");
-    exit;
+
+// Chuyển hướng trang đến trang đăng nhập
+header("Location: trangchu.php");
+exit;
 ?>

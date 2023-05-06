@@ -28,7 +28,11 @@
       $user = mysqli_fetch_assoc($result);
       if (mysqli_num_rows($result) == 1 && password_verify($password, $user['password'])) {
         $_SESSION["cur_user"] = $user;
-        header("Location: trangchu.php");
+        if ($user['role'] == 0){
+          header("Location: trangchu.php");
+        }else{
+          header("Location: ../admin/index.php");
+        }
       } else {
         $error = '</br><div style="color: red;">Incorrect username or password.</div>'; 
         
