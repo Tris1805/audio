@@ -200,10 +200,10 @@
                   </div>
                 </div> -->
 
-          </div>
-          <div id="pagination">
-
-            <?php include "pagination.php"; ?>
+                <div id="pagination">
+      
+                  <?php include "pagination.php"; ?>
+                </div>
           </div>
 
           <!-- <ul class="pagination">

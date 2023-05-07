@@ -26,16 +26,18 @@
       $query = "SELECT * FROM users WHERE username='$username'";
       $result = mysqli_query($conn, $query);
       $user = mysqli_fetch_assoc($result);
-      if (mysqli_num_rows($result) == 1 && password_verify($password, $user['password'])) {
+      if (mysqli_num_rows($result) == 1 && password_verify($password, $user['password']) && $user['isBlock'] != 1) {
         $_SESSION["cur_user"] = $user;
         if ($user['role'] == 0){
           header("Location: trangchu.php");
         }else{
           header("Location: ../admin/index.php");
         }
-      } else {
-        $error = '</br><div style="color: red;">Incorrect username or password.</div>'; 
+      } else if ($user['isBlock'] == 1){
+        $error = '</br><div style="color: red;">Your account has been locked.</div>';
         
+      }else{
+        $error = '</br><div style="color: red;">Incorrect username or password.</div>';
       }
     }
   

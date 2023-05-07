@@ -682,7 +682,19 @@ justify-content: center;
   align-items: center;
 }
 
-
+.form-search{
+  padding: 0;
+}
+.form-search input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  background: #f5f6fa;
+  border: 2px solid #efeef1;
+  border-radius: 6px;
+  font-size: 18px;
+  padding: 0 15px;
+}
 
 /* Responsive Media Query */
 @media (max-width: 1240px) {

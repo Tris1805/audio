@@ -64,7 +64,7 @@
                 <div class="bill-body">
                     <span class="customer-title">Tên khách hàng:</span>
                     <span class="bill-info">
-                        <?php echo $cur_user['username'] ?>
+                        <?php echo $row['cus_name'] ?>
                     </span>
                     <span class="customer-title">Số điện thoại:</span>
                     <span class="bill-info">

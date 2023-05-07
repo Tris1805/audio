@@ -17,6 +17,17 @@
   </head>
 
   <body>
+    <?php 
+      include "../components/connectDB.php";
+      $id  = $_GET['id'];
+      if(isset($_GET['isBlock'])){
+        $isBlock = $_GET['isBlock'];
+      }else {
+        $isBlock = 0;
+      }
+      $sql = "SELECT * FROM `users` WHERE `user_id` = '$id'";
+      $result = mysqli_query($conn, $sql);
+    ?>
     <div id="app">
 
       <div class="main-container">
@@ -84,15 +95,18 @@
                     <div class="form-container box">
                         <div class="edit-form">
                             
-                            <form>
+                            <form action="handleUser.php?action=edit" method="POST" enctype="multipart/form-data">
+                            <?php
+                              while ($row = mysqli_fetch_assoc($result)) {?>
                               <label for="user-id">ID</label>
-                              <input type="number" id="user-id" name="user-id" value="id" placeholder="id" readonly/><br />
+                              <input type="number" id="user-id" name="user-id" value="<?= $row['user_id'] ?>" placeholder="id" readonly/><br />
               
                               <label for="username">Username:</label>
                               <input
                                 type="text"
                                 id="username"
                                 name="username"
+                                value="<?= $row['username'] ?>"
                               /><br />
               
                               <label for="product-image">Password:</label>
@@ -100,6 +114,8 @@
                                 type="password"
                                 id="user-password"
                                 name="user-password"
+                                value="<?= $row['password'] ?>"
+                                readonly
                               /><br />
               
                               <label for="product-price">email:</label>
@@ -107,6 +123,7 @@
                                 type="text"
                                 id="user-mail"
                                 name="user-mail"
+                                value="<?= $row['email'] ?>"
                               /><br />
               
                               
@@ -115,17 +132,22 @@
                               type="text"
                               id="user-tel"
                               name="user-tel"
+                              value="<?= $row['phone'] ?>"
                               /><br />
-                              <label for="user-address">Khóa tài khoản:</label>
+                              <label for="user-block">Khóa tài khoản:</label>
                               <input
                                 type="checkbox"
-                                id="user-address"
-                                name="user-address"
+                                id="user-block"
+                                name="user-block"
+                                <?php if ($isBlock == 1){
+                                    echo "checked";
+                                } ?>
                               /><br />
                               
                               <button type="submit" id="saveChanges">Lưu</button>
                             </form>
                           </div>
+                          <?php } ?>
                     </div>
                 </div>
             </div>

@@ -49,12 +49,13 @@
 <body>
   <?php
   include '../components/connectDB.php';
+  $searchStr = $_POST['search'];
   $item_per_page = 8;
   $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
   $offset = ($cur_page - 1) * $item_per_page;
-  $sql = "SELECT * FROM `products`  LIMIT $offset, $item_per_page";
+  $sql = "SELECT * FROM `products` WHERE name LIKE '%$searchStr%' LIMIT $offset, $item_per_page"; 
   $result = mysqli_query($conn, $sql);
-  $tolal_products = mysqli_query($conn, "select * from products");
+  $tolal_products = mysqli_query($conn, "SELECT * FROM `products` WHERE name LIKE '%$searchStr%'");
   $tolal_products = $tolal_products->num_rows;
   $totalPages = ceil($tolal_products / $item_per_page);
   $query5 = mysqli_query($conn, "SELECT id FROM products ORDER BY id DESC LIMIT 1");
@@ -152,7 +153,7 @@
               <span class="dashboard">Quản Lý Sản Phẩm</span>
             </div>
             <div class="search-box">
-              <form action="searchAD.php" method="POST">
+            <form action="searchAD.php" method="POST">
                 <input type="text" placeholder="Search..." id="search-input" name='search' />
                 <button id="search-btn" type="submit"><i class="bx bx-search"></i></button>
               </form>

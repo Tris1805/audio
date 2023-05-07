@@ -16,7 +16,7 @@
         $searchResults .= '<div class="new-items">';
         $searchResults .= '<div>';
         $searchResults .= '<div class="new-items-img">';
-        $searchResults .=  sprintf('<img src="../%s" style="height: 210px; width: 210px;" />', $row['image']);
+        $searchResults .=  sprintf('<img src="%s" style="height: 210px; width: 210px;" />', $row['image']);
         $searchResults .= '</div>';
         $searchResults .= '<div class="new-items-data">';
         $searchResults .= '<a class="new-items-data--title" href=""><p>'. $row['name'] . '</p></a>';

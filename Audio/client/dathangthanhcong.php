@@ -61,10 +61,16 @@
                     <?php
 
                     $result2 = mysqli_query($conn, "SELECT * FROM `users` WHERE user_id = " . $cur_user['user_id'] . " ");
-                    $row2 = mysqli_fetch_array($result2);
-                    $row = mysqli_fetch_assoc($result);
+                    
 
 
+                    ?>
+                    <?php 
+                        if (mysqli_num_rows($result) == 0 || mysqli_num_rows($result2) == 0) {
+                            echo '<div class="bill-body"><p>Bạn chưa mua hàng.</p>  <a href="trangchu.php">Quay lại để mua hàng</a></div>';
+                        }else{
+                            $row2 = mysqli_fetch_array($result2);
+                            $row = mysqli_fetch_assoc($result);
                     ?>
                     <div class="bill-body">
                         <span class="customer-title">Tên khách hàng:</span>
@@ -115,7 +121,9 @@
                             $num++;
                         }
 
-    }
+        
+                }            
+            }
     ?>
                 </div>
             </div>
