@@ -97,9 +97,9 @@
     </div>
     <div class="main-content">
       <div class="new-product">
-        <form action="" id="search-form">
+        <form action="search.php#print-search" method="POST" id="search-form">
           <div class="search-bar">
-            <input id="search-keyword" type="text" name="search-keyword" placeholder="Gõ để tìm kiếm" maxlength="40"
+            <input id="search-input" type="text" name="search-input" placeholder="Gõ để tìm kiếm" maxlength="40"
               style="
                     border: 1px solid rgb(116, 116, 116);
                     border-radius: 38px;
@@ -110,7 +110,7 @@
                     padding: 30px;
                   " />
             <div class="search-icon">
-              <img class="search-icon-img" src="../assets/images/icons/search-icon.png" />
+              <button id="search-btn"><img class="search-icon-img" src="../assets/images/icons/search-icon.png" /></button>
             </div>
           </div>
         </form>
@@ -200,11 +200,11 @@
                   </div>
                 </div> -->
 
-                <div id="pagination">
-      
-                  <?php include "pagination.php"; ?>
-                </div>
-          </div>
+              </div>
+              <div id="pagination">
+    
+                <?php include "pagination.php"; ?>
+              </div>
 
           <!-- <ul class="pagination">
                   <li :class="{ disabled: !canPreviousPage }" @click="onPreviousPage()">«</li>
@@ -250,35 +250,23 @@
   });
 
 
-  $(document).ready(function () {
-    $('#search-keyword').keyup(function () {
-      // Lấy từ khóa tìm kiếm từ trường nhập liệu
-      var searchKeyword = $(this).val();
-
-      // Kiểm tra nếu trường tìm kiếm rỗng
-      if (searchKeyword == '') {
-
-        // window.location.href = 'trangchu.php'
-        window.history.pushState(null, null, 'trangchu.php');
-        // Hiển thị kết quả cũ
-        $.get('display_products.php', function (data) {
-          $('#print-search').html(data);
-        });
-        return false;
-      }
-
-      // Gửi yêu cầu tìm kiếm bằng AJAX
-      $.ajax({
-        url: 'search.php',
-        type: 'POST',
-        data: { searchKeyword: searchKeyword },
-        success: function (response) {
-          // Hiển thị kết quả tìm kiếm
-          $('#print-search').html(response);
-        }
-      });
+  var searchBtn = document.getElementById('search-btn');
+    searchBtn.addEventListener('click', function () {
+      var searchInput = document.getElementById('search-input').value;
+      searchProducts(searchInput, 1); // search first page
     });
-  });
+
+    function searchProducts(keyword, page) {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var result = xhr.responseText;
+          document.getElementById('search-results').innerHTML = result;
+        }
+      };
+      xhr.open('GET', 'search.php?keyword=' + keyword + '&page=' + page, true);
+      xhr.send();
+    }
 
   function searchProductsByPrice() {
     var minPriceInput = document.getElementById("min-price-input").value;

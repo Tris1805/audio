@@ -152,9 +152,11 @@
               <span class="dashboard">Quản Lý Sản Phẩm</span>
             </div>
             <div class="search-box">
-              <form action="searchAD.php" method="POST">
-                <input type="text" placeholder="Search..." id="search-input" name='search' />
-                <button id="search-btn" type="submit"><i class="bx bx-search"></i></button>
+              <form action="searchAD.php" method="POST" class="form-search">
+                <div class="flex-form" style="display: flex;">
+                  <input type="text" placeholder="Search..." id="search-input" name='search' style="height: 40px;" />
+                  <button id="search-btn-submit" type="submit" style="height: 38px;"><i class="bx bx-search"></i></button>
+                </div>
               </form>
               
             </div>
