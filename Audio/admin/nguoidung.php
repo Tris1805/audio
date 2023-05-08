@@ -188,11 +188,11 @@
 
  
   <script>
-    let sidebar = document.querySelector(".sidebar");
+    let sidebar1 = document.querySelector(".sidebar");
     let sidebarBtn = document.querySelector(".sidebarBtn");
     sidebarBtn.onclick = function () {
-      sidebar.classList.toggle("active");
-      if (sidebar.classList.contains("active")) {
+      sidebar1.classList.toggle("active");
+      if (sidebar1.classList.contains("active")) {
         sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
       } else sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
     };
@@ -203,7 +203,7 @@
     // Lặp qua tất cả các thẻ 'a' và thêm sự kiện click cho chúng
     links.forEach((link) => {
       link.addEventListener("click", (event) => {
-    
+
         // Loại bỏ lớp 'active' từ tất cả các thẻ 'a'
         links.forEach((link) => {
           link.classList.remove("active");

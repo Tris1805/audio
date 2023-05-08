@@ -31,7 +31,7 @@
   $totalPages = ceil($tolal_products / $item_per_page);
   ?>
   <div id="app">
-  <div class="header-container">
+    <div class="header-container">
       <div class="header-content">
         <div class="left"><a href="index.php">Ikus Audio</a></div>
         <div class="middle">
@@ -46,142 +46,146 @@
             ?>
 
             <div class="username-field" style="display: flex ; flex-direction: column; justify-content: center; ">
-            <span class="username_logged"> Xin chào, 
-              <?php echo $cur_user['username']; ?>
-            </span>
-            <span class="username_logged">
-              <a href="logout.php"  style="color: white;" >Log-out</a>
-            </span>
+              <span class="username_logged"> Xin chào,
+                <?php echo $cur_user['username']; ?>
+              </span>
+              <span class="username_logged">
+                <a href="logout.php" style="color: white;">Log-out</a>
+              </span>
             </div>
             <div class="navbar-btn login-icon"><a class="navbar-link" href="loggedIn.php"><img class="navbar-icon"
                   src="../assets/images/icons/account.png"></a>
             </div>
             <div class="navbar-btn cart"><a class="navbar-link" href="giohang.php"><img class="navbar-icon"
-                src="../assets/images/icons/shopping-cart.png"></a></div>
-            </div>
+                  src="../assets/images/icons/shopping-cart.png"></a></div>
+          </div>
 
-            <?php
+          <?php
           } else { ?>
-            <div class="navbar-btn login-icon"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
-                  src="../assets/images/icons/account.png"></a>
-            </div>
-          
+          <div class="navbar-btn login-icon"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
+                src="../assets/images/icons/account.png"></a>
+          </div>
+
           <div class="navbar-btn cart"><a class="navbar-link" href="dangnhap.php"><img class="navbar-icon"
                 src="../assets/images/icons/shopping-cart.png"></a></div>
-          </div>
-        <?php }
+        </div>
+      <?php }
           ?>
-      </div>
     </div>
-    <div class="main-container">
-      <div class="main-promo">
-        <img src="../assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
-      </div>
-      <div class="main-content">
-        <!-- <div class="main-tag" onclick="onTypeChange('full-sized')">FULL SIZED</div>
+  </div>
+  <div class="main-container">
+    <div class="main-promo">
+      <img src="../assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
+    </div>
+    <div class="main-content">
+      <!-- <div class="main-tag" onclick="onTypeChange('full-sized')">FULL SIZED</div>
         <div class="main-tag" onclick="onTypeChange('inear')">IN EAR</div>
         <div class="main-tag" onclick="onTypeChange('earbud')">EARBUD</div>
         <div class="main-tag" onclick="onTypeChange('true-wireless')">TRUE WIRELESS</div> -->
-        <div><a href="renderByType.php?type=full-sized" class="main-tag" id="full-sized-btn"
-            onclick="getProducts('full-sized')">FULL SIZED</a></div>
-        <div><a href="renderByType.php?type=inear" class="main-tag" id="in-ear-btn" onclick="getProducts('inear')">IN
-            EAR</a></div>
-        <div><a href="renderByType.php?type=earbud" class="main-tag" id="ear-bud-btn"
-            onclick="getProducts('earbud')">EARBUD</a></div>
-        <div><a href="renderByType.php?type=true-wireless" class="main-tag" id="true-wireless-btn"
-            onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
-      </div>
-      <div class="main-content">
-        <div class="new-product">
+      <div><a href="renderByType.php?type=full-sized#print-search" class="main-tag" id="full-sized-btn"
+          onclick="getProducts('full-sized')">FULL SIZED</a></div>
+      <div><a href="renderByType.php?type=inear#print-search" class="main-tag" id="in-ear-btn" onclick="getProducts('inear')">IN
+          EAR</a></div>
+      <div><a href="renderByType.php?type=earbud#print-search" class="main-tag" id="ear-bud-btn"
+          onclick="getProducts('earbud')">EARBUD</a></div>
+      <div><a href="renderByType.php?type=true-wireless#print-search" class="main-tag" id="true-wireless-btn"
+          onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
+    </div>
+    <div class="main-content">
+      <div class="new-product">
+        <form action="search.php#print-search" method="POST" id="search-form">
           <div class="search-bar">
-            <input id="search-input" type="search" name="s" placeholder="Gõ để tìm kiếm" maxlength="40" style="
-                  border: 1px solid rgb(116, 116, 116);
-                  border-radius: 38px;
-                  border-image: initial;
-                  background: none;
-                  width: 500px;
-                  height: 60px;
-                  padding: 30px;
-                " v-model="searchKey" />
+            <input id="search-input" type="text" name="search-input" placeholder="Gõ để tìm kiếm" maxlength="40" style="
+                    border: 1px solid rgb(116, 116, 116);
+                    border-radius: 38px;
+                    border-image: initial;
+                    background: none;
+                    width: 500px;
+                    height: 60px;
+                    padding: 30px;
+                  " />
             <div class="search-icon">
-              <img class="search-icon-img" src="../assets/images/icons/search-icon.png" />
+              <button id="search-btn" style="border: none; background-color: white"><img class="search-icon-img"
+                  src="../assets/images/icons/search-icon.png" /></button>
             </div>
           </div>
+        </form>
 
-          <div class="sort-container">
-            <div class="sort-option">SẮP XẾP THEO:</div>
-            <div class="sort-form">
-              <select name="product-status" id="product-status" @change="onSortChange($event)">
-                <option :value="productSort.NEWEST">Mới nhất</option>
-                <option :value="productSort.OLDEST">Cũ Nhất</option>
-                <option :value="productSort.PRICE_HIGH">Từ thấp tới cao</option>
-                <option :value="productSort.PRICE_LOW">Từ cao tới thấp</option>
-              </select>
-            </div>
+        <div class="sort-container">
+          <div class="sort-option">SẮP XẾP THEO:</div>
+          <div class="sort-form">
+            <select name="product-status" id="product-status" @change="onSortChange($event)">
+              <option :value="productSort.NEWEST">Mới nhất</option>
+              <option :value="productSort.OLDEST">Cũ Nhất</option>
+              <option :value="productSort.PRICE_HIGH">Từ thấp tới cao</option>
+              <option :value="productSort.PRICE_LOW">Từ cao tới thấp</option>
+            </select>
           </div>
         </div>
       </div>
-      <div class="main-content">
-        <div class="new-product">
-          <div class="left-menu">
-            <div class="brand-filter">
-              <div class="brand-filter-title">THƯƠNG HIỆU</div>
-              <div class="brand-container">
-                <label class="container" style="display: flex; justify-content: center;">
-                  <a href="renderByBrand.php?brand=Apple#print-search" class="brand-chooser">APPLE</a>
-                </label>
-                <label class="container" style="display: flex; justify-content: center;">
-                  <a href="renderByBrand.php?brand=Focal#print-search" class="brand-chooser">Focal</a>
-                </label>
-                <label class="container" style="display: flex; justify-content: center;">
-                  <a href="renderByBrand.php?brand=HiFiMan#print-search" class="brand-chooser">HiFiMan</a>
-                </label>
-                <label class="container" style="display: flex; justify-content: center;">
-                  <a href="renderByBrand.php?brand=MOONDROP#print-search" class="brand-chooser">MOONDROP</a>
-                </label>
-                <label class="container" style="display: flex; justify-content: center;">
-                  <a href="renderByBrand.php?brand=SONY#print-search" class="brand-chooser">SONY</a>
-                </label>
-              </div>
+    </div>
+    <div class="main-content">
+      <div class="new-product">
+        <div class="left-menu">
+          <div class="brand-filter">
+            <div class="brand-filter-title">THƯƠNG HIỆU</div>
+            <div class="brand-container">
+              <label class="container" style="display: flex; justify-content: center;">
+                <a href="renderByBrand.php?brand=Apple#print-search" class="brand-chooser">APPLE</a>
+              </label>
+              <label class="container" style="display: flex; justify-content: center;">
+                <a href="renderByBrand.php?brand=Focal#print-search" class="brand-chooser">Focal</a>
+              </label>
+              <label class="container" style="display: flex; justify-content: center;">
+                <a href="renderByBrand.php?brand=HiFiMan#print-search" class="brand-chooser">HiFiMan</a>
+              </label>
+              <label class="container" style="display: flex; justify-content: center;">
+                <a href="renderByBrand.php?brand=MOONDROP#print-search" class="brand-chooser">MOONDROP</a>
+              </label>
+              <label class="container" style="display: flex; justify-content: center;">
+                <a href="renderByBrand.php?brand=SONY#print-search" class="brand-chooser">SONY</a>
+              </label>
             </div>
-            <div class="brand-filter price-filter">
-              <div class="brand-filter-title">KHOẢNG GIÁ</div>
-              <div class="price-container">
-                Chọn khoảng giá mong muốn.
-                <div class="price-input-container"
-                  style="display: flex; justify-content: space-around; align-items: center">
-                  <input type="text" name="" id="min-price-input" class="price-input" placeholder="0" maxlength="15" />
-                  <span>-</span>
-                  <input type="text" name="" id="max-price-input" class="price-input" style="float: right"
-                    placeholder="10000000" maxlength="15" /> <br />
-                </div>
-                <label class="container" style="display: flex; justify-content: center; width: 100%;"><a href="#"
-                    class="sort-by-price--btn" onclick="searchProductsByPrice()">Tìm kiếm</a></label>
-              </div>
-            </div>
-
           </div>
-          <div class="product-list">
-            <div class="item-container" id="print-search">
+          <div class="brand-filter price-filter">
+            <div class="brand-filter-title">KHOẢNG GIÁ</div>
+            <div class="price-container">
+              Chọn khoảng giá mong muốn.
+              <div class="price-input-container"
+                style="display: flex; justify-content: space-around; align-items: center">
+                <input type="text" name="" id="min-price-input" class="price-input" placeholder="0" maxlength="15" />
+                <span>-</span>
+                <input type="text" name="" id="max-price-input" class="price-input" style="float: right"
+                  placeholder="10,000,000" maxlength="15" /> <br />
+              </div>
+              <label class="container" style="display: flex; justify-content: center; width: 100%;"><a href="#"
+                  class="sort-by-price--btn" onclick="searchProductsByPrice()">Tìm kiếm</a></label>
+            </div>
+          </div>
 
-              <?php
-              while ($row = mysqli_fetch_assoc($result)) {
+        </div>
+        <div class="product-list">
+          <div class="item-container" id="print-search">
 
-                echo '<div class="new-items">';
-                echo '<div>';
-                echo '<div class="new-items-img">';
-                echo sprintf('<a href="chitietsanpham.php?id=%s"><img src="%s" style="height: 210px; width: 210px;" alt=""/></a>', $row['id'], $row['image']);
-                echo '</div>';
-                echo '<div class="new-items-data">';
-                echo sprintf('<a class="new-items-data--title" href="chitietsanpham.php?id=%s"><p>%s</p></a>', $row['id'], $row['name']);
-                echo sprintf('<div class="newprice">%s</div>', number_format($row['price'], 0, '', ','));
-                echo "</div>";
-                echo "</div>";
-                echo "</div>";
-              }
-              ?>
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) {
 
-              <!-- <div @click="onProductClick(product)">
+              echo '<div class="new-items">';
+              echo '<div>';
+              echo '<div class="new-items-img">';
+              echo sprintf('<a href="chitietsanpham.php?id=%s"><img src="%s" style="height: 210px; width: 210px;" alt=""/></a>', $row['id'], $row['image']);
+              echo '</div>';
+              echo '<div class="new-items-data">';
+              echo sprintf('<a class="new-items-data--title" href="chitietsanpham.php?id=%s"><p>%s</p></a>', $row['id'], $row['name']);
+              echo sprintf('<div class="newprice" style="text-align: right;
+              padding-right: 2px;">%sđ</div>', number_format($row['price'], 0, '', ','));
+              echo "</div>";
+              echo "</div>";
+              echo "</div>";
+            }
+            ?>
+
+            <!-- <div @click="onProductClick(product)">
                   <div class="new-items-img">
                     <img :src="product.image" style="height: 210px; width: 210px;" />
                   </div>
@@ -193,31 +197,31 @@
                   </div>
                 </div> -->
 
-            </div>
-            <ul class="pagination">
-              <?php
-              for ($i = 1; $i <= $totalPages; $i++) {
-                if ($i != $cur_page) {
-                  ?>
-                  <li class=""><a href="?brand=<?= $brand ?>&cur_page=<?= $i ?>"> <?= $i ?></a></li>
-                <?php } else { ?>
-                  <li class=""><a href="?brand=<?= $brand ?>&cur_page=<?= $i ?>" class="active"> <?= $i ?></a></li>
-                <?php } ?>
+          </div>
+          <ul class="pagination">
+            <?php
+            for ($i = 1; $i <= $totalPages; $i++) {
+              if ($i != $cur_page) {
+                ?>
+                <li class=""><a href="?brand=<?= $brand ?>&cur_page=<?= $i ?>"> <?= $i ?></a></li>
+              <?php } else { ?>
+                <li class=""><a href="?brand=<?= $brand ?>&cur_page=<?= $i ?>" class="active"> <?= $i ?></a></li>
               <?php } ?>
-            </ul>
+            <?php } ?>
+          </ul>
 
-            </ul>
-            <!-- <ul class="pagination">
+          </ul>
+          <!-- <ul class="pagination">
                   <li :class="{ disabled: !canPreviousPage }" @click="onPreviousPage()">«</li>
                   <li v-for="page in pages" @click="onPageChange(page)" :class="{ active: page === currentPage }">{{ page }}
                   </li>
                   <li :class="{ disabled: !canNextPage }" @click="onNextPage()">»</li> -->
-            <!-- </ul> -->
-          </div>
+          <!-- </ul> -->
         </div>
       </div>
     </div>
-    <?php include "../components/footer.php"; ?>
+  </div>
+  <?php include "../components/footer.php"; ?>
   </div>
 </body>
 <script src="utils/data.js"></script>
@@ -273,7 +277,7 @@
     minPrice = parseInt(minPriceInput.replace(/\D/g, ""));
     var maxPriceInput = document.getElementById("max-price-input").value;
     maxPrice = parseInt(maxPriceInput.replace(/\D/g, ""));
-    var url = "searchByPrice.php?min=" + minPrice + "&max=" + maxPrice + "$page=1";
+    var url = "searchByPrice.php?min=" + minPrice + "&max=" + maxPrice + "$page=1#print-search";
     window.location.href = url;
   }
   // $(window).on("load", function () {

@@ -183,7 +183,7 @@
     links.forEach((link) => {
       link.addEventListener("click", (event) => {
         // Hủy bỏ hành động mặc định của thẻ 'a'
-        event.preventDefault();
+        // event.preventDefault();
         // Loại bỏ lớp 'active' từ tất cả các thẻ 'a'
         links.forEach((link) => {
           link.classList.remove("active");

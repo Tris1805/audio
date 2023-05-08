@@ -42,7 +42,8 @@
             $searchResults .= '</div>';
             $searchResults .= '<div class="new-items-data">';
             $searchResults .= '<a class="new-items-data--title" href=""><p>' . $row['name'] . '</p></a>';
-            $searchResults .= sprintf('<div class="newprice">%sđ</div>', number_format($row['price'], 0, '', ','));
+            $searchResults .= sprintf('<div class="newprice" style="text-align: right;
+            padding-right: 2px;">%sđ</div>', number_format($row['price'], 0, '', ','));
             $searchResults .= "</div>";
             $searchResults .= "</div>";
             $searchResults .= "</div>";
@@ -111,31 +112,35 @@
         <div class="main-tag" onclick="onTypeChange('inear')">IN EAR</div>
         <div class="main-tag" onclick="onTypeChange('earbud')">EARBUD</div>
         <div class="main-tag" onclick="onTypeChange('true-wireless')">TRUE WIRELESS</div> -->
-            <div><a href="renderByType.php?type=full-sized" class="main-tag" id="full-sized-btn"
+            <div><a href="renderByType.php?type=full-sized#print-search " class="main-tag" id="full-sized-btn"
                     onclick="getProducts('full-sized')">FULL SIZED</a></div>
-            <div><a href="renderByType.php?type=inear" class="main-tag" id="in-ear-btn"
+            <div><a href="renderByType.php?type=inear#print-search " class="main-tag" id="in-ear-btn"
                     onclick="getProducts('inear')">IN EAR</a></div>
-            <div><a href="renderByType.php?type=earbud" class="main-tag" id="ear-bud-btn"
+            <div><a href="renderByType.php?type=earbud#print-search " class="main-tag" id="ear-bud-btn"
                     onclick="getProducts('earbud')">EARBUD</a></div>
-            <div><a href="renderByType.php?type=true-wireless" class="main-tag" id="true-wireless-btn"
+            <div><a href="renderByType.php?type=true-wireless#print-search " class="main-tag" id="true-wireless-btn"
                     onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
         </div>
         <div class="main-content">
             <div class="new-product">
-                <div class="search-bar">
-                    <input id="search-input" type="search" name="s" placeholder="Gõ để tìm kiếm" maxlength="40" style="
-                  border: 1px solid rgb(116, 116, 116);
-                  border-radius: 38px;
-                  border-image: initial;
-                  background: none;
-                  width: 500px;
-                  height: 60px;
-                  padding: 30px;
-                " v-model="searchKey" />
-                    <div class="search-icon">
-                        <img class="search-icon-img" src="../assets/images/icons/search-icon.png" />
+                <form action="search.php#print-search" method="POST" id="search-form">
+                    <div class="search-bar">
+                        <input id="search-input" type="text" name="search-input" placeholder="Gõ để tìm kiếm"
+                            maxlength="40" style=" 
+                    border: 1px solid rgb(116, 116, 116);
+                    border-radius: 38px;
+                    border-image: initial;
+                    background: none;
+                    width: 500px;
+                    height: 60px;
+                    padding: 30px;
+                  " />
+                        <div class="search-icon">
+                            <button id="search-btn" style="border: none; background-color: white"><img
+                                    class="search-icon-img" src="../assets/images/icons/search-icon.png" /></button>
+                        </div>
                     </div>
-                </div>
+                </form>
 
                 <div class="sort-container">
                     <div class="sort-option">SẮP XẾP THEO:</div>
@@ -183,7 +188,7 @@
                                     maxlength="15" />
                                 <span>-</span>
                                 <input type="text" name="" id="max-price-input" class="price-input" style="float: right"
-                                    placeholder="10000000" maxlength="15" /> <br />
+                                    placeholder="10,000,000" maxlength="15" /> <br />
                             </div>
                             <label class="container" style="display: flex; justify-content: center; width: 100%;"><a
                                     href="#" class="sort-by-price--btn" onclick="searchProductsByPrice()">Tìm
@@ -272,7 +277,7 @@
     function searchProductsByPrice() {
         var minPrice = document.getElementById("min-price-input").value;
         var maxPrice = document.getElementById("max-price-input").value;
-        var url = "?min=" + minPrice + "&max=" + maxPrice + "$page=1";
+        var url = "searchByPrice.php?min=" + minPrice + "&max=" + maxPrice + "$page=1#print-search";
         window.location.href = url;
     }
 </script>

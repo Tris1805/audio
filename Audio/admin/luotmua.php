@@ -7,29 +7,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin</title>
   <link rel="stylesheet" href="../assets/css/admin_style.css" />
+  <!-- <link rel="stylesheet" href="../assets/css/style.css" /> -->
   <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,300,0,0" />
-  <link rel="stylesheet" href="../assets/css/calendar.css" />
+  <style>
+    .pagination {
+      display: flex;
+      list-style-type: none;
+      justify-content: center;
+    }
+
+    .pagination li a {
+      color: black;
+      padding: 12px 19px;
+      text-decoration: none;
+      margin: 5px;
+    }
+
+    .pagination li a.active {
+      background-color: black;
+      color: white;
+      /*Circle Design with CSS*/
+      border-radius: 50%;
+    }
+
+    /* add background color when user hovers on inactive class */
+    .pagination li:hover:not(.active) a {
+      background-color: #ddd;
+      border-radius: 50%;
+    }
+
+    /* disabled item */
+    .pagination li.disabled {
+      color: gray;
+      border-radius: 50%;
+    }
+  </style>
 </head>
 
 <body>
-  <?php 
-    include "../components/connectDB.php";
-    if ($_GET['action'] == 'check') {
-      $id = $_POST['product-id'];
-      
-      $item_per_page = 8;
-      $cur_page = !empty($_GET['cur_page']) ? $_GET['cur_page'] : 1;
-      $offset = ($cur_page - 1) * $item_per_page;
-      $sql = "SELECT * FROM `inventory` WHERE product_id = '$id' LIMIT $offset, $item_per_page";
-      $result = mysqli_query($conn, $sql);
-      $tolal_products = mysqli_query($conn, "SELECT * FROM inventory WHERE product_id = '$id'");
-      $tolal_products = $tolal_products->num_rows;
-      $totalPages = ceil($tolal_products / $item_per_page);
-  
+  <?php
+  include "../components/connectDB.php";
+  $item_per_page = 10;
+  $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
+  $offset = ($cur_page - 1) * $item_per_page;
+  $sql = "SELECT * FROM `bill`  LIMIT $offset, $item_per_page";
+  $result = mysqli_query($conn, $sql);
+  $tolal_products = mysqli_query($conn, "SELECT * FROM bill ");
+  $tolal_products = $tolal_products->num_rows;
+  $totalPages = ceil($tolal_products / $item_per_page);
   ?>
   <div id="app">
+    <!-- <?php include "../components/header.php"; ?> -->
     <div class="main-container">
       <div class="main-content">
         <div class="sidebar">
@@ -39,24 +69,29 @@
           </div>
           <ul class="nav-links">
             <li>
-              <a href="index.php">
+              <a href="./index.php">
                 <i class="bx bx-grid-alt"></i>
                 <span class="links_name">Thống kê</span>
               </a>
             </li>
             <li>
-              <a href="sanpham.php">
+              <a href="./sanpham.php">
                 <i class="bx bx-box"></i>
                 <span class="links_name">Sản phẩm</span>
               </a>
             </li>
             <li>
-              <a href="luotmua.php">
+              <a href="./luotmua.php" class="active">
                 <i class="bx bx-list-ul"></i>
                 <span class="links_name">Lượt mua</span>
               </a>
             </li>
-            <!--
+            <!-- <li>
+                <a href="#">
+                  <i class="bx bx-pie-chart-alt-2"></i>
+                  <span class="links_name">Analytics</span>
+                </a>
+              </li>
               <li>
                 <a href="#">
                   <i class="bx bx-coin-stack"></i>
@@ -70,16 +105,9 @@
                 </a>
               </li> -->
             <li>
-              <a href="nguoidung.php" class="">
+              <a href="./nguoidung.php">
                 <i class="bx bx-user"></i>
                 <span class="links_name">Người dùng</span>
-              </a>
-            </li>
-
-            <li>
-              <a href="#" class="active">
-                <i class="bx bx-pie-chart-alt-2"></i>
-                <span class="links_name">Truy vấn</span>
               </a>
             </li>
             <!-- <li>
@@ -108,11 +136,12 @@
             </li>
           </ul>
         </div>
+
         <section class="home-section">
           <nav>
             <div class="sidebar-button">
               <i class="bx bx-menu sidebarBtn"></i>
-              <span class="dashboard">Quản Lý Người Dùng</span>
+              <span class="dashboard">Tổng Kết Bán Hàng</span>
             </div>
             <div class="search-box">
               <input type="text" placeholder="Search..." />
@@ -127,83 +156,123 @@
 
           <div class="home-content">
             <div class="sales-boxes">
-              <div class="form-container box">
-                <div class="edit-form">
-                  <form action="handleTruyVan.php?action=check" method="POST"  enctype="multipart/form-data">
-                    <label for="product-id">Nhập ID cần kiểm tra</label>
-                    <input type="number" id="product-id" value="id" placeholder="id" name="product-id" /><br />
+              <div class="recent-stock box">
+                <div class="recent-stock-title">
+                  <div class="100%" style="width: 100%;">
+                    <div class="title">Thông tin người dùng</div>
+                    <div class="user-details-title">
+                      <div class="user-details-title-items id-title">ID</div>
+                      <div class="user-details-title-items username-title">
+                        Ngày
+                      </div>
+                      <div class="user-details-title-items mail-title">
+                        Payment
+                      </div>
+                      <div class="user-details-title-items address-title">
+                        Địa chỉ
+                      </div>
+                      <div class="user-details-title-items tel-title">Đơn giá</div>
+                    </div>
+                  </div>
+                  <?php
+                  $sum = 0;
+                  $tolal_products2 = mysqli_query($conn, "SELECT * FROM bill ");
+                  while ($row2 = mysqli_fetch_assoc($tolal_products2)){
+                    $sum += $row2['total'];
+                  }
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    
+                    ?>
+                    <div class="sales-details stock-details">
+                      <ul class="details id-item">
+                        <li><a href="#">
+                            <?= $row['id'] ?>
+                          </a></li>
+                        <!-- <li><a href="#">1</a></li> -->
+                      </ul>
+                      <ul class="details username-item">
+                        <li>
+                          <?= $row['created_day'] ?>
+                        </li>
+                        <!-- <li>TriBui</li> -->
 
-                    <button type="submit" id="saveChanges">Kiểm Tra</button>
-                  </form>
+                      </ul>
+                      <ul class="details mail-item">
+                        <li>
+                          <?= $row['payment'] ?>
+                        </li>
+                        <!-- <li>Tribui@gmail.com</li> -->
+
+                      </ul>
+                      <ul class="details address-item">
+                        <li>
+                          <?= $row['address'] ?>
+                        </li>
+                        <!-- <li>164 Đường Tây Thiên, Xã Bắc Ấn, TP Thiên Đường</li> -->
+
+                      </ul>
+                      <ul class="details tel-item">
+                        <li>
+                          <?= number_format($row['total'], 0, '', ',') ?>
+                        </li>
+                        <!-- <li>120000000</li> -->
+
+                      </ul>
+                    </div>
+                    <?php
+                    
+                  }
+                  ?>
+                  <div id="pagination">
+
+                    <?php include "../client/pagination.php"; ?>
+                  </div>
                 </div>
-              </div>
 
-            </div>
-
-            <div class="table_container">
-              <div class="bill-review">
-                <h2 title style="padding-bottom:5% ;">CHI TIẾT THAY ĐỔI</h2>
-                <br />
-                <div class="bill-body">
-
-                  <div class="line2"></div>
-                  <ul class="cart-table">
+                <!-- <div class="15%" style="width: 15%; margin-top: 2.7%;">
+                  <ul class="modify-user">
                     <li>
-                      <div style="display: flex; justify-content: left;">IDs</div>
-                      <div style="margin-left: 10%; width: 20%;">Ngày Thay Đổi
-                      </div>
-                      <div style="margin-left: 22%;">Thay Đổi</div>
-                      <!-- <div style="margin-left: 26%;">Thay Đổi</div> -->
-                      <div style="margin-left: 30%;">Loại</div>
+                      <a href=""><button class="edit-btn">Edit</button></a>
+                      <a href=""><button class="delete-btn">Delete</button></a>
                     </li>
+                    <li>
+                      <a href=""><button class="edit-btn">Edit</button></a>
+                      <a href=""><button class="delete-btn">Delete</button></a>
+                    </li> 
                   </ul>
-                  <?php while ($row = mysqli_fetch_assoc($result)) {?>
-                  <ul class="cart-table">
-                    <li style="margin-top: 5px; margin-bottom: 5px; width:100%">
-                      <div style="display: flex; justify-content: left;">
-                        <?php echo $row['product_id'];?>
-                      </div>
-                      <div style="margin-left: 11.5%; width: 25%;">
-                        <?php echo $row['updated_at'];?>
-                      </div>
-                      <div style="margin-left: 20%; width: 20%">
-                        <?php echo $row['quantity'];?>
-                      </div>
-                      <!-- <div style="margin-left: 20%; width: 20%">
-                        <?php echo $row['quantity'];?>
-                      </div> -->
-                      <div style="width: 20%; text-align: right ">
-                        <p style="margin-left: 20%; position: relative; right: 0"><?php echo strtoupper($row['order_type']);?></p>
-                      <div>
-                        
-                    </li>
-                  </ul>
-                  <?php }
-                  }?>
-                </div>
+                </div> -->
               </div>
 
             </div>
+            <h3 class="Total-summary">TỔNG THU NHẬP:
+              <?= number_format($sum, 0, '', ',') ?>
+            </h3>
+          </div>
+
         </section>
       </div>
     </div>
   </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
-    let sidebar = document.querySelector(".sidebar");
+    let sidebar1 = document.querySelector(".sidebar");
     let sidebarBtn = document.querySelector(".sidebarBtn");
     sidebarBtn.onclick = function () {
-      sidebar.classList.toggle("active");
-      if (sidebar.classList.contains("active")) {
+      sidebar1.classList.toggle("active");
+      if (sidebar1.classList.contains("active")) {
         sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
       } else sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
     };
+
     // Lấy tất cả các thẻ 'a' trong danh sách liên kết
     const links = document.querySelectorAll(".nav-links a");
+
     // Lặp qua tất cả các thẻ 'a' và thêm sự kiện click cho chúng
     links.forEach((link) => {
       link.addEventListener("click", (event) => {
-        // Hủy bỏ hành động mặc định của thẻ 'a'
-        // event.preventDefault();
+
         // Loại bỏ lớp 'active' từ tất cả các thẻ 'a'
         links.forEach((link) => {
           link.classList.remove("active");
@@ -213,6 +282,7 @@
         window.location.href = this.href;
       });
     });
+
     const editButton = document.querySelector(".edit-btn");
     const editForm = document.querySelector(".edit-form");
     const cancelEditBtn = document.querySelector(".cancel-edit-form");
@@ -220,24 +290,29 @@
     const content = document.querySelector(".sales-boxes");
     const deleleButton = document.querySelector(".delete-btn");
     const deleteForm = document.querySelector(".delete-form");
+
     editButton.addEventListener("click", function () {
       editForm.style.display = "block";
       content.classList.add("make-blur");
     });
+
     deleleButton.addEventListener("click", function () {
       deleteForm.style.display = "block";
       content.classList.add("make-blur");
     });
+
     // Thêm sự kiện "submit" vào form để lưu thông tin sản phẩm
     editForm.addEventListener("submit", function (event) {
       // Xử lý lưu thông tin sản phẩm
       event.preventDefault(); // Ngăn chặn gửi form đi
     });
+
     // Thêm sự kiện "submit" vào form để xoa thông tin sản phẩm
     deleteForm.addEventListener("submit", function (event) {
       // Xử lý lưu thông tin sản phẩm
       event.preventDefault(); // Ngăn chặn gửi form đi
     });
+
     // Thêm sự kiện "click" vào nút "Lưu" để lưu thông tin sản phẩm
     const saveEditButton = editForm.querySelector('button[type="submit"]');
     saveEditButton.addEventListener("click", function () {
@@ -245,6 +320,7 @@
       editForm.style.display = "none"; // Ẩn form edit sản phẩm
       content.classList.remove("make-blur");
     });
+
     const saveDeleteButton = deleteForm.querySelector(
       'button[type="submit"]'
     );
@@ -253,31 +329,39 @@
       deleteForm.style.display = "none";
       content.classList.remove("make-blur");
     });
+
     // Bắt sự kiện khi người dùng ấn nút X
     cancelEditBtn.addEventListener("click", () => {
       editForm.style.display = "none";
       content.classList.remove("make-blur");
     });
+
     cancelDeleteBtn.addEventListener("click", () => {
       deleteForm.style.display = "none";
       content.classList.remove("make-blur");
     });
+  </script>
+  <script>
+    $(document).ready(function () {
+      // Bắt sự kiện khi người dùng chọn trang
+      $('body').on('click', '.pagination li a', function (e) {
+        e.preventDefault();
+        var page = $(this).attr('data-page');
+        loadData(page);
+      });
 
-
-          //   Calendar
-    //     const prevBtn = document.querySelector('.prev');
-    //     const nextBtn = document.querySelector('.next');
-    //     const days = document.querySelectorAll('.days li');
-
-    //     let currentDate = new Date();
-
-    //   function renderCalendar() {
-    //     const monthYear = document.querySelector('.month li:last-child');
-    //     const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-    //     const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-    //     const firstDayIndex = firstDay.getDay();
-    //     const lastDayIndex = lastDay.getDay();
-    //     const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();}
+      // Hàm tải nội dung mới
+      function loadData(page) {
+        $.ajax({
+          url: './luotmua.php',
+          type: 'POST',
+          data: { page: page },
+          success: function (response) {
+            $('#app').html(response);
+          }
+        });
+      }
+    });
   </script>
 </body>
 

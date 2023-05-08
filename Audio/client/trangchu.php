@@ -86,13 +86,13 @@
         <div class="main-tag" onclick="onTypeChange('inear')">IN EAR</div>
         <div class="main-tag" onclick="onTypeChange('earbud')">EARBUD</div>
         <div class="main-tag" onclick="onTypeChange('true-wireless')">TRUE WIRELESS</div> -->
-      <div><a href="renderByType.php?type=full-sized" class="main-tag" id="full-sized-btn"
+      <div><a href="renderByType.php?type=full-sized#print-search" class="main-tag" id="full-sized-btn"
           onclick="getProducts('full-sized')">FULL SIZED</a></div>
-      <div><a href="renderByType.php?type=inear" class="main-tag" id="in-ear-btn" onclick="getProducts('inear')">IN
+      <div><a href="renderByType.php?type=inear#print-search" class="main-tag" id="in-ear-btn" onclick="getProducts('inear')">IN
           EAR</a></div>
-      <div><a href="renderByType.php?type=earbud" class="main-tag" id="ear-bud-btn"
+      <div><a href="renderByType.php?type=earbud#print-search" class="main-tag" id="ear-bud-btn"
           onclick="getProducts('earbud')">EARBUD</a></div>
-      <div><a href="renderByType.php?type=true-wireless" class="main-tag" id="true-wireless-btn"
+      <div><a href="renderByType.php?type=true-wireless#print-search" class="main-tag" id="true-wireless-btn"
           onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
     </div>
     <div class="main-content">
@@ -273,7 +273,7 @@
     minPrice = parseInt(minPriceInput.replace(/\D/g, ""));
     var maxPriceInput = document.getElementById("max-price-input").value;
     maxPrice = parseInt(maxPriceInput.replace(/\D/g, ""));
-    var url = "searchByPrice.php?min=" + minPrice + "&max=" + maxPrice + "$page=1";
+    var url = "searchByPrice.php?min=" + minPrice + "&max=" + maxPrice + "$page=1#print-search";
     window.location.href = url;
   }
   // $(window).on("load", function () {
