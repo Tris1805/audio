@@ -110,7 +110,7 @@
                     padding: 30px;
                   " />
             <div class="search-icon">
-              <button id="search-btn"><img class="search-icon-img" src="../assets/images/icons/search-icon.png" /></button>
+              <button id="search-btn" style="border: none; background-color: white"><img class="search-icon-img" src="../assets/images/icons/search-icon.png" /></button>
             </div>
           </div>
         </form>

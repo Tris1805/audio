@@ -223,6 +223,10 @@ html {
   position: relative;
 }
 
+#search-btn {
+  border: none;
+}
+
 .search-icon {
   position: absolute;
   top: 10px;
