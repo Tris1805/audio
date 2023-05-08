@@ -59,7 +59,6 @@
   $totalPages = ceil($tolal_products / $item_per_page);
   ?>
   <div id="app">
-    <!-- <?php include "../components/header.php"; ?> -->
     <div class="main-container">
       <div class="main-content">
         <div class="sidebar">
@@ -81,7 +80,7 @@
               </a>
             </li>
             <li>
-              <a href="./luotmua.php" class="active">
+              <a href="./luotmua.php">
                 <i class="bx bx-list-ul"></i>
                 <span class="links_name">Lượt mua</span>
               </a>
@@ -110,26 +109,14 @@
                 <span class="links_name">Người dùng</span>
               </a>
             </li>
-            <!-- <li>
-                <a href="#">
-                  <i class="bx bx-message"></i>
-                  <span class="links_name">Messages</span>
+            <li>
+                <a href="truyvan.php">
+                  <i class="bx bx-pie-chart-alt-2"></i>
+                  <span class="links_name">Truy vấn</span>
                 </a>
               </li>
-              <li>
-                <a href="#">
-                  <i class="bx bx-heart"></i>
-                  <span class="links_name">Favrorites</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="bx bx-cog"></i>
-                  <span class="links_name">Setting</span>
-                </a>
-              </li> -->
             <li class="log_out">
-              <a href="#">
+              <a href="../client/logout.php">
                 <i class="bx bx-log-out"></i>
                 <span class="links_name">Log out</span>
               </a>
@@ -177,11 +164,11 @@
                   <?php
                   $sum = 0;
                   $tolal_products2 = mysqli_query($conn, "SELECT * FROM bill ");
-                  while ($row2 = mysqli_fetch_assoc($tolal_products2)){
+                  while ($row2 = mysqli_fetch_assoc($tolal_products2)) {
                     $sum += $row2['total'];
                   }
                   while ($row = mysqli_fetch_assoc($result)) {
-                    
+
                     ?>
                     <div class="sales-details stock-details">
                       <ul class="details id-item">
@@ -220,7 +207,7 @@
                       </ul>
                     </div>
                     <?php
-                    
+
                   }
                   ?>
                   <div id="pagination">
@@ -244,7 +231,7 @@
               </div>
 
             </div>
-            <h3 class="Total-summary">TỔNG THU NHẬP:
+            <h3 class="Total-summary" style="padding-bottom: 20px">TỔNG THU NHẬP:
               <?= number_format($sum, 0, '', ',') ?>
             </h3>
           </div>
