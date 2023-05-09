@@ -93,14 +93,15 @@
                 } else if ($username == "" || $password == "" || $email == "" || $phone_number == "") {
                   echo '<div class="have_blank_field">All The Field Must Be Filled</div>';
                 } else {
-                  $query2 = "SELECT * FROM users";
-                  $result2 = mysqli_query($conn, $query2);
-                  $num_rows = mysqli_num_rows($result2);
-                  $id = $num_rows + 1;
+                  // $query2 = "SELECT * FROM users";
+                  // $result2 = mysqli_query($conn, $query2);
+                  // $num_rows = mysqli_num_rows($result2);
+                  // $id = $num_rows + 1;
                   $admin = 0;
+                  $isBlock = 0;
                   $password = password_hash($password, PASSWORD_DEFAULT);
-                  $stmt = $conn->prepare("INSERT INTO users (user_id, username, password, email, phone, role) VALUES (?, ?, ?, ?, ?, ?)");
-                  $stmt->bind_param("ssssss", $id,$username, $password, $email, $phone_number, $admin);    
+                  $stmt = $conn->prepare("INSERT INTO users (username, password, email, phone, role, isBlock) VALUES (?, ?, ?, ?, ?, ?)");
+                  $stmt->bind_param("ssssss", $username, $password, $email, $phone_number, $admin, $isBlock);    
 
                   if ($stmt->execute()) {
                     $query = "SELECT * FROM users WHERE username='$username'";
