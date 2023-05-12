@@ -16,8 +16,9 @@
   <?php
   include '../components/connectDB.php';
   session_start();
-  $searchStr = $_POST['search-input'];
-  $item_per_page = 8;
+  $searchStr = $_POST['search'];
+  // var_dump($_GET['search']);exit();
+  $item_per_page = 9;
   $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
   $offset = ($cur_page - 1) * $item_per_page;
   $sql = "SELECT * FROM `products` WHERE name LIKE '%$searchStr%' LIMIT $offset, $item_per_page";
@@ -25,8 +26,6 @@
   $tolal_products = mysqli_query($conn, "SELECT * FROM `products` WHERE name LIKE '%$searchStr%'");
   $tolal_products = $tolal_products->num_rows;
   $totalPages = ceil($tolal_products / $item_per_page);
-  $query5 = mysqli_query($conn, "SELECT id FROM products ORDER BY id DESC LIMIT 1");
-  $result5 = mysqli_fetch_array($query5);
   ?>
   <div id="app">
     <!-- <app-header></app-header> -->
@@ -77,24 +76,33 @@
       <img src="../assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
     </div>
     <div class="main-content">
-      <!-- <div class="main-tag" onclick="onTypeChange('full-sized')">FULL SIZED</div>
+      <?php
+      $sqlType = 'SELECT * FROM `type` WHERE 1';
+      $resultType = mysqli_query($conn, $sqlType);
+      while ($row = mysqli_fetch_assoc($resultType)) {
+
+        ?>
+        <!-- <div class="main-tag" onclick="onTypeChange('full-sized')">FULL SIZED</div>
         <div class="main-tag" onclick="onTypeChange('inear')">IN EAR</div>
         <div class="main-tag" onclick="onTypeChange('earbud')">EARBUD</div>
         <div class="main-tag" onclick="onTypeChange('true-wireless')">TRUE WIRELESS</div> -->
-      <div><a href="renderByType.php?type=full-sized#print-search" class="main-tag" id="full-sized-btn"
-          onclick="getProducts('full-sized')">FULL SIZED</a></div>
-      <div><a href="renderByType.php?type=inear#print-search" class="main-tag" id="in-ear-btn" onclick="getProducts('inear')">IN
+        <div><a href="renderByType.php?type=<?= $row['id'] ?>#print-search" class="main-tag" id="full-sized-btn"
+            onclick="getProducts('<?= $row['name'] ?>')"><?= strtoupper($row['name']) ?></a></div>
+        <!-- <div><a href="renderByType.php?type=inear#print-search" class="main-tag" id="in-ear-btn"
+          onclick="getProducts('inear')">IN
           EAR</a></div>
       <div><a href="renderByType.php?type=earbud#print-search" class="main-tag" id="ear-bud-btn"
           onclick="getProducts('earbud')">EARBUD</a></div>
       <div><a href="renderByType.php?type=true-wireless#print-search" class="main-tag" id="true-wireless-btn"
-          onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
+          onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div> -->
+      <?php } ?>
     </div>
     <div class="main-content">
       <div class="new-product">
         <form action="search.php#print-search" method="POST" id="search-form">
           <div class="search-bar">
-            <input id="search-input" type="text" name="search-input" placeholder="Gõ để tìm kiếm" maxlength="40" style="
+            <input id="search-input" value="<?= $searchStr ?>" type="text" name="search" placeholder="Gõ để tìm kiếm"
+              maxlength="40" style="
                     border: 1px solid rgb(116, 116, 116);
                     border-radius: 38px;
                     border-image: initial;
@@ -129,10 +137,15 @@
           <div class="brand-filter">
             <div class="brand-filter-title">THƯƠNG HIỆU</div>
             <div class="brand-container">
-              <label class="container" style="display: flex; justify-content: center;">
-                <a href="renderByBrand.php?brand=Apple#print-search" class="brand-chooser">APPLE</a>
-              </label>
-              <label class="container" style="display: flex; justify-content: center;">
+              <?php
+              $sqlBrand = 'SELECT * FROM `brand` WHERE 1';
+              $resultBrand = mysqli_query($conn, $sqlBrand);
+              while ($row = mysqli_fetch_assoc($resultBrand)) {
+                ?>
+                <label class="container" style="display: flex; justify-content: center;">
+                  <a href="renderByBrand.php?brand=<?= $row['id'] ?>#print-search" class="brand-chooser"><?= $row['name'] ?></a>
+                </label>
+                <!-- <label class="container" style="display: flex; justify-content: center;">
                 <a href="renderByBrand.php#print-search?brand=Focal#print-search" class="brand-chooser">Focal</a>
               </label>
               <label class="container" style="display: flex; justify-content: center;">
@@ -143,7 +156,8 @@
               </label>
               <label class="container" style="display: flex; justify-content: center;">
                 <a href="renderByBrand.php?brand=SONY#print-search" class="brand-chooser">SONY</a>
-              </label>
+              </label> -->
+              <?php } ?>
             </div>
           </div>
           <div class="brand-filter price-filter">
@@ -227,20 +241,22 @@
 <script src="scripts/chitietsanpham.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
+
   $(document).ready(function () {
     // Bắt sự kiện khi người dùng chọn trang
     $('body').on('click', '.pagination li a', function (e) {
       e.preventDefault();
       var page = $(this).attr('data-page');
-      loadData(page);
+      var searchStr = document.getElementById('search-input').value;
+      loadData(page, searchStr);
     });
 
     // Hàm tải nội dung mới
-    function loadData(page) {
+    function loadData(page, searchStr) {
       $.ajax({
-        url: 'trangchu.php',
+        url: 'search.php',
         type: 'POST',
-        data: { page: page },
+        data: { page: page, search: searchStr },
         success: function (response) {
           $('#app').html(response);
         }
@@ -249,35 +265,35 @@
   });
 
 
-  $(document).ready(function () {
-    $('#search-keyword').keyup(function () {
-      // Lấy từ khóa tìm kiếm từ trường nhập liệu
-      var searchKeyword = $(this).val();
+  // $(document).ready(function () {
+  //   $('#search-keyword').keyup(function () {
+  //     // Lấy từ khóa tìm kiếm từ trường nhập liệu
+  //     var searchKeyword = $(this).val();
 
-      // Kiểm tra nếu trường tìm kiếm rỗng
-      if (searchKeyword == '') {
+  //     // Kiểm tra nếu trường tìm kiếm rỗng
+  //     if (searchKeyword == '') {
 
-        // window.location.href = 'trangchu.php'
-        window.history.pushState(null, null, 'trangchu.php');
-        // Hiển thị kết quả cũ
-        $.get('display_products.php', function (data) {
-          $('#print-search').html(data);
-        });
-        return false;
-      }
+  //       // window.location.href = 'trangchu.php'
+  //       window.history.pushState(null, null, 'trangchu.php');
+  //       // Hiển thị kết quả cũ
+  //       $.get('display_products.php', function (data) {
+  //         $('#print-search').html(data);
+  //       });
+  //       return false;
+  //     }
 
-      // Gửi yêu cầu tìm kiếm bằng AJAX
-      $.ajax({
-        url: 'search.php',
-        type: 'POST',
-        data: { searchKeyword: searchKeyword },
-        success: function (response) {
-          // Hiển thị kết quả tìm kiếm
-          $('#print-search').html(response);
-        }
-      });
-    });
-  });
+  //     // Gửi yêu cầu tìm kiếm bằng AJAX
+  //     $.ajax({
+  //       url: 'search.php',
+  //       type: 'POST',
+  //       data: { searchKeyword: searchKeyword },
+  //       success: function (response) {
+  //         // Hiển thị kết quả tìm kiếm
+  //         $('#print-search').html(response);
+  //       }
+  //     });
+  //   });
+  // });
 
   function searchProductsByPrice() {
     var minPriceInput = document.getElementById("min-price-input").value;

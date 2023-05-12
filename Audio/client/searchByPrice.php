@@ -56,7 +56,7 @@
 
 
     // Close database connection
-    mysqli_close($conn);
+    // mysqli_close($conn);
     ?>
 
     <div id="app">
@@ -108,25 +108,23 @@
             <img src="../assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
         </div>
         <div class="main-content">
-            <!-- <div class="main-tag" onclick="onTypeChange('full-sized')">FULL SIZED</div>
-        <div class="main-tag" onclick="onTypeChange('inear')">IN EAR</div>
-        <div class="main-tag" onclick="onTypeChange('earbud')">EARBUD</div>
-        <div class="main-tag" onclick="onTypeChange('true-wireless')">TRUE WIRELESS</div> -->
-            <div><a href="renderByType.php?type=full-sized#print-search " class="main-tag" id="full-sized-btn"
-                    onclick="getProducts('full-sized')">FULL SIZED</a></div>
-            <div><a href="renderByType.php?type=inear#print-search " class="main-tag" id="in-ear-btn"
-                    onclick="getProducts('inear')">IN EAR</a></div>
-            <div><a href="renderByType.php?type=earbud#print-search " class="main-tag" id="ear-bud-btn"
-                    onclick="getProducts('earbud')">EARBUD</a></div>
-            <div><a href="renderByType.php?type=true-wireless#print-search " class="main-tag" id="true-wireless-btn"
-                    onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
+            <?php
+            $sqlType = 'SELECT * FROM `type`';
+            $resultType = mysqli_query($conn, $sqlType);
+            while ($row = mysqli_fetch_assoc($resultType)) {
+
+                ?>
+                <div><a href="renderByType.php?type=<?= $row['id'] ?>#print-search" class="main-tag" id="full-sized-btn"
+                        onclick="getProducts('<?= $row['name'] ?>')"><?= strtoupper($row['name']) ?></a></div>
+
+            <?php } ?>
         </div>
         <div class="main-content">
             <div class="new-product">
                 <form action="search.php#print-search" method="POST" id="search-form">
                     <div class="search-bar">
-                        <input id="search-input" type="text" name="search-input" placeholder="Gõ để tìm kiếm"
-                            maxlength="40" style=" 
+                        <input id="search-input" type="text" name="search" placeholder="Gõ để tìm kiếm" maxlength="40"
+                            style="
                     border: 1px solid rgb(116, 116, 116);
                     border-radius: 38px;
                     border-image: initial;
@@ -161,21 +159,28 @@
                     <div class="brand-filter">
                         <div class="brand-filter-title">THƯƠNG HIỆU</div>
                         <div class="brand-container">
-                            <label class="container" style="display: flex; justify-content: center;">
-                                <button class="brand-chooser">APPLE</button>
-                            </label>
-                            <label class="container" style="display: flex; justify-content: center;">
-                                <button class="brand-chooser">Focal</button>
-                            </label>
-                            <label class="container" style="display: flex; justify-content: center;">
-                                <button class="brand-chooser">HiFiMan</button>
-                            </label>
-                            <label class="container" style="display: flex; justify-content: center;">
-                                <button class="brand-chooser">MOONDROP</button>
-                            </label>
-                            <label class="container" style="display: flex; justify-content: center;">
-                                <button class="brand-chooser">SONY</button>
-                            </label>
+                            <?php
+                            $sqlBrand = 'SELECT * FROM `brand` WHERE 1';
+                            $resultBrand = mysqli_query($conn, $sqlBrand);
+                            while ($row = mysqli_fetch_assoc($resultBrand)) {
+                                ?>
+                                <label class="container" style="display: flex; justify-content: center;">
+                                    <a href="renderByBrand.php?brand=<?= $row['id'] ?>#print-search"
+                                        class="brand-chooser"><?= $row['name'] ?></a>
+                                </label>
+                                <!-- <label class="container" style="display: flex; justify-content: center;">
+                <a href="renderByBrand.php#print-search?brand=Focal#print-search" class="brand-chooser">Focal</a>
+              </label>
+              <label class="container" style="display: flex; justify-content: center;">
+                <a href="renderByBrand.php?brand=HiFiMan#print-search" class="brand-chooser">HiFiMan</a>
+              </label>
+              <label class="container" style="display: flex; justify-content: center;">
+                <a href="renderByBrand.php?brand=MOONDROP#print-search" class="brand-chooser">MOONDROP</a>
+              </label>
+              <label class="container" style="display: flex; justify-content: center;">
+                <a href="renderByBrand.php?brand=SONY#print-search" class="brand-chooser">SONY</a>
+              </label> -->
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="brand-filter price-filter">

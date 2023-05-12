@@ -89,7 +89,12 @@
           </h2>
           <h6 class="brand-name">
             THƯƠNG HIỆU <a href="#">
-              <?php echo $row['brand'] ?>
+              <?php
+              $sqlBrand = 'SELECT * FROM `brand` WHERE id = ' . $row['brand_id'];
+              $resultBrand = mysqli_query($conn, $sqlBrand);
+              $rowBrand = mysqli_fetch_assoc($resultBrand);
+              echo $rowBrand['name'];
+              ?>
             </a>
           </h6>
           <span class="item-price">
@@ -114,14 +119,29 @@
             <input id="quantity_inventory" value="<?php echo $rowQuan['quantity'] ?>" style="margin-left: 5%"
               type="hidden">
             <span style="margin-left: 5%">Còn lại:
-              <?php echo $rowQuan['quantity'] ?>
+              <?php
+              if ($rowQuan['quantity'] > 0) {
+                echo $rowQuan['quantity'];
+              } else {
+                echo '<p style="color: red; display: inline-block">Hết hàng</p>';
+
+                // exit();
+              }
+              ?>
             </span>
 
             <input type="hidden" name="product_id" value="<?php echo $row['id'] ?>" />
             <input type="hidden" name="product_name" value="<?php echo $row['name'] ?>" />
             <input type="hidden" name="product_price" value="<?php echo $row['price'] ?>" />
-            <input type="submit" class="buy-btn" value="THÊM VÀO GIỎ HÀNG" />
-            
+            <?php
+            if ($rowQuan['quantity'] > 0) {
+              echo '<input type="submit" class="buy-btn" value="THÊM VÀO GIỎ HÀNG"  />';
+            }else{
+              echo '<input type="submit" class="buy-btn" value="THÊM VÀO GIỎ HÀNG"  disabled/>';
+            }
+            ?>
+            <!-- <input type="submit" class="buy-btn" value="THÊM VÀO GIỎ HÀNG"  /> -->
+
           </form>
           <br />
           <div class="more-detail" style="text-align:justify;">

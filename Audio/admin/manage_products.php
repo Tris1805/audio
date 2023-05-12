@@ -126,18 +126,33 @@
                       <label for="product-type">Chủng Loại:</label>
                       <select type="text" id="product-type" name="product-type">
                       <?php 
-                        switch($row['type']){
-                          case 'earbud':
-                            echo "<option value='earbud' selected>Earbud</option>";
+                        $sqlType = 'SELECT * FROM `type` WHERE id = ' . $row['type_id'] ;
+                        $resultType = mysqli_query($conn, $sqlType);
+                        $rowType= mysqli_fetch_assoc($resultType);
+                        switch($rowType['id']){
+                          case 3:
+                            echo "<option value='3' selected>Earbud</option>";
+                            echo "<option value='1' >Full-sized</option>";
+                            echo "<option value='2' >Inear</option>";
+                            echo "<option value='4' >True-wireless</option>";
                             break;
-                          case 'inear':
-                            echo "<option value='earbud' selected>Inear</option>";
+                          case 2:
+                            echo "<option value='3' >Earbud</option>";
+                            echo "<option value='1' >Full-sized</option>";
+                            echo "<option value='2' selected>Inear</option>";
+                            echo "<option value='4' >True-wireless</option>";
                             break;
-                          case 'full-sized':
-                            echo "<option value='full-sized' selected>Fullsized</option>";
+                          case 1:
+                            echo "<option value='3' >Earbud</option>";
+                            echo "<option value='1' selected>Full-sized</option>";
+                            echo "<option value='2' >Inear</option>";
+                            echo "<option value='4' >True-wireless</option>";
                             break;
-                          case 'true-wireless':
-                            echo "<option value='true-wireless' selected>True Wireless</option>";
+                          case 4:
+                            echo "<option value='3' >Earbud</option>";
+                            echo "<option value='1' >Full-sized</option>";
+                            echo "<option value='2' >Inear</option>";
+                            echo "<option value='4' selected>True-wireless</option>";
                             break; 
                         }
                             
@@ -148,21 +163,44 @@
                       <label for="product-brand">Thương Hiệu:</label>
                       <select type="text" id="product-brand" name="product-brand">
                       <?php 
-                        switch($row['brand']){
-                          case 'Apple':
-                            echo "<option value='Apple' selected>Apple</option>";
+                          $sqlBrand = 'SELECT * FROM `brand` WHERE id = ' . $row['brand_id'] ;
+                          $resultBrand = mysqli_query($conn, $sqlBrand);
+                          $rowBrand = mysqli_fetch_assoc($resultBrand);
+                        switch($rowBrand['id']){
+                          case 1:
+                            echo "<option value='1' selected>Apple</option>";
+                            echo "<option value='2'>MOONDROP</option>";
+                            echo "<option value='3'>SONY</option>";
+                            echo "<option value='4'>Focal</option>";
+                            echo "<option value='5'>HiFiMan</option>";
                             break;
-                          case 'Focal':
-                            echo "<option value='Focal' selected>Focal</option>";
+                          case 4:
+                            echo "<option value='1' >Apple</option>";
+                            echo "<option value='2'>MOONDROP</option>";
+                            echo "<option value='3'>SONY</option>";
+                            echo "<option value='4' selected>Focal</option>";
+                            echo "<option value='5'>HiFiMan</option>";
                             break;
-                          case 'HiFiMan':
-                            echo "<option value='HiFiMan' selected>HiFiMan</option>";
+                          case 5:
+                            echo "<option value='5' selected>HiFiMan</option>";
+                            echo "<option value='1' >Apple</option>";
+                            echo "<option value='2'>MOONDROP</option>";
+                            echo "<option value='3'>SONY</option>";
+                            echo "<option value='4' >Focal</option>";
                             break;
-                          case 'SONY':
-                            echo "<option value='SONY' selected>SONY</option>";
+                          case 3:
+                            echo "<option value='3' selected>SONY</option>";
+                            echo "<option value='5' >HiFiMan</option>";
+                            echo "<option value='1' >Apple</option>";
+                            echo "<option value='2'>MOONDROP</option>";
+                            echo "<option value='4' >Focal</option>";
                             break;
-                          case 'MOONDROP':
-                            echo "<option value='MOONDROP' selected>MOONDROP</option>";
+                          case 2:
+                            echo "<option value='2' selected>MOONDROP</option>";
+                            echo "<option value='3' >SONY</option>";
+                            echo "<option value='5' >HiFiMan</option>";
+                            echo "<option value='1' >Apple</option>";
+                            echo "<option value='4' >Focal</option>";
                             break;  
                         }
                             

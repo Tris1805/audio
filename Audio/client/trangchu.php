@@ -24,7 +24,7 @@
   // }
   
   // $sql = "SELECT count(id) as total FROM products";
-  $item_per_page = 8;
+  $item_per_page = 9;
   $cur_page = !empty($_POST['page']) ? $_POST['page'] : 1;
   $offset = ($cur_page - 1) * $item_per_page;
   $sql = "SELECT * FROM `products`  LIMIT $offset, $item_per_page";
@@ -81,26 +81,34 @@
     <div class="main-promo">
       <img src="../assets/images/banners/productBanner2.jpg" style="margin-top: 100px" />
     </div>
+    
     <div class="main-content">
+    <?php
+      $sqlType = 'SELECT * FROM `type` WHERE 1';
+      $resultType = mysqli_query($conn, $sqlType);
+      while  ($row = mysqli_fetch_assoc($resultType)){
+        
+    ?>
       <!-- <div class="main-tag" onclick="onTypeChange('full-sized')">FULL SIZED</div>
         <div class="main-tag" onclick="onTypeChange('inear')">IN EAR</div>
         <div class="main-tag" onclick="onTypeChange('earbud')">EARBUD</div>
         <div class="main-tag" onclick="onTypeChange('true-wireless')">TRUE WIRELESS</div> -->
-      <div><a href="renderByType.php?type=full-sized#print-search" class="main-tag" id="full-sized-btn"
-          onclick="getProducts('full-sized')">FULL SIZED</a></div>
-      <div><a href="renderByType.php?type=inear#print-search" class="main-tag" id="in-ear-btn" onclick="getProducts('inear')">IN
+      <div><a href="renderByType.php?type=<?= $row['id'] ?>#print-search" class="main-tag" id="full-sized-btn"
+          onclick="getProducts('<?= $row['name'] ?>')"><?= strtoupper($row['name']) ?></a></div>
+      <!-- <div><a href="renderByType.php?type=inear#print-search" class="main-tag" id="in-ear-btn"
+          onclick="getProducts('inear')">IN
           EAR</a></div>
       <div><a href="renderByType.php?type=earbud#print-search" class="main-tag" id="ear-bud-btn"
           onclick="getProducts('earbud')">EARBUD</a></div>
       <div><a href="renderByType.php?type=true-wireless#print-search" class="main-tag" id="true-wireless-btn"
-          onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div>
+          onclick="getProducts('true-wireless')">TRUE WIRELESS</a></div> -->
+          <?php } ?>
     </div>
     <div class="main-content">
       <div class="new-product">
         <form action="search.php#print-search" method="POST" id="search-form">
           <div class="search-bar">
-            <input id="search-input" type="text" name="search-input" placeholder="Gõ để tìm kiếm" maxlength="40"
-              style="
+            <input id="search-input" type="text" name="search" placeholder="Gõ để tìm kiếm" maxlength="40" style="
                     border: 1px solid rgb(116, 116, 116);
                     border-radius: 38px;
                     border-image: initial;
@@ -110,7 +118,8 @@
                     padding: 30px;
                   " />
             <div class="search-icon">
-              <button id="search-btn" style="border: none; background-color: white"><img class="search-icon-img" src="../assets/images/icons/search-icon.png" /></button>
+              <button id="search-btn" style="border: none; background-color: white"><img class="search-icon-img"
+                  src="../assets/images/icons/search-icon.png" /></button>
             </div>
           </div>
         </form>
@@ -134,10 +143,15 @@
           <div class="brand-filter">
             <div class="brand-filter-title">THƯƠNG HIỆU</div>
             <div class="brand-container">
-              <label class="container" style="display: flex; justify-content: center;">
-                <a href="renderByBrand.php?brand=Apple#print-search" class="brand-chooser">APPLE</a>
-              </label>
-              <label class="container" style="display: flex; justify-content: center;">
+              <?php
+              $sqlBrand = 'SELECT * FROM `brand` WHERE 1';
+              $resultBrand = mysqli_query($conn, $sqlBrand);
+              while ($row = mysqli_fetch_assoc($resultBrand)) {
+                ?>
+                <label class="container" style="display: flex; justify-content: center;">
+                  <a href="renderByBrand.php?brand=<?= $row['id'] ?>#print-search" class="brand-chooser"><?= $row['name'] ?></a>
+                </label>
+                <!-- <label class="container" style="display: flex; justify-content: center;">
                 <a href="renderByBrand.php#print-search?brand=Focal#print-search" class="brand-chooser">Focal</a>
               </label>
               <label class="container" style="display: flex; justify-content: center;">
@@ -148,7 +162,8 @@
               </label>
               <label class="container" style="display: flex; justify-content: center;">
                 <a href="renderByBrand.php?brand=SONY#print-search" class="brand-chooser">SONY</a>
-              </label>
+              </label> -->
+              <?php } ?>
             </div>
           </div>
           <div class="brand-filter price-filter">
@@ -172,7 +187,9 @@
 
             <?php
             while ($row = mysqli_fetch_assoc($result)) {
-
+              if ($row['display']==1){
+                continue;
+              }
               echo '<div class="new-items">';
               echo '<div>';
               echo '<div class="new-items-img">';
@@ -200,11 +217,11 @@
                   </div>
                 </div> -->
 
-              </div>
-              <div id="pagination">
-    
-                <?php include "pagination.php"; ?>
-              </div>
+          </div>
+          <div id="pagination">
+
+            <?php include "pagination.php"; ?>
+          </div>
 
           <!-- <ul class="pagination">
                   <li :class="{ disabled: !canPreviousPage }" @click="onPreviousPage()">«</li>
@@ -251,22 +268,22 @@
 
 
   var searchBtn = document.getElementById('search-btn');
-    searchBtn.addEventListener('click', function () {
-      var searchInput = document.getElementById('search-input').value;
-      searchProducts(searchInput, 1); // search first page
-    });
+  searchBtn.addEventListener('click', function () {
+    var searchInput = document.getElementById('search-input').value;
+    searchProducts(searchInput, 1); // search first page
+  });
 
-    function searchProducts(keyword, page) {
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          var result = xhr.responseText;
-          document.getElementById('search-results').innerHTML = result;
-        }
-      };
-      xhr.open('GET', 'search.php?keyword=' + keyword + '&page=' + page, true);
-      xhr.send();
-    }
+  function searchProducts(keyword, page) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var result = xhr.responseText;
+        document.getElementById('search-results').innerHTML = result;
+      }
+    };
+    xhr.open('GET', 'search.php?keyword=' + keyword + '&page=' + page, true);
+    xhr.send();
+  }
 
   function searchProductsByPrice() {
     var minPriceInput = document.getElementById("min-price-input").value;

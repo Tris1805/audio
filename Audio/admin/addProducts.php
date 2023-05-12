@@ -138,20 +138,20 @@
 
                       <label for="product-type">Chủng Loại:</label>
                       <select type="text" id="product-type" name="product-type">
-                        <option value="earbud">Earbud</option>
-                        <option value="inear">Inear</option>
-                        <option value="full-sized">Fullsized</option>
-                        <option value="true-wireless">True Wireless</option>
+                        <option value="3">Earbud</option>
+                        <option value="2">Inear</option>
+                        <option value="1">Fullsized</option>
+                        <option value="4">True Wireless</option>
                       </select>
                       <br />
 
                       <label for="product-brand">Thương Hiệu:</label>
                       <select type="text" id="product-brand" name="product-brand">
-                        <option value="Apple">Apple</option>
-                        <option value="Focal">Focal</option>
-                        <option value="HiFiMan">HiFiMan</option>
-                        <option value="SONY">SONY</option>
-                        <option value="MOONDROP">MOONDROP</option>
+                        <option value="1">Apple</option>
+                        <option value="4">Focal</option>
+                        <option value="5">HiFiMan</option>
+                        <option value="3">SONY</option>
+                        <option value="2">MOONDROP</option>
                       </select>
                       <br />
 

@@ -2,7 +2,6 @@
 include "../components/connectDB.php";
 switch ($_GET['action']) {
     case "edit":
-
         $id = $_POST['product-id'];
         $name = $_POST['product-name'];
         $price = $_POST['product-price'];
@@ -15,11 +14,11 @@ switch ($_GET['action']) {
         $number = intval($numberString);
         if (isset($_FILES['fileToUpload']) && $_FILES['fileToUpload']['name'] == '') {
             //No file selected
-            $sql = sprintf("UPDATE `products` SET `name` = '%s', `price` = '%f', `type`='%s', `brand`='%s', `description`='%s' WHERE `products`.`id` = %d;", $name, $number, $type, $brand, $des,$id);
+            $sql = "UPDATE `products` SET `name`='".$name."',`price`='".$number."', `description`='".$des."',`brand_id`='".$brand."',`type_id`='".$type."' WHERE id = ".$id;
         } else {
             $hinh = '';
             uploadHinh($hinh);
-            $sql = sprintf("UPDATE `products` SET `name` = '%s', `price` = '%f', `type`='%s', `brand`='%s', `description`='%s', `image` = '%s' WHERE `products`.`id` = %d;", $name, $number,$type, $brand, $des, $hinh, $id);
+            $sql = "UPDATE `products` SET `name`='".$name."',`price`='".$number."',`image`='".$hinh."', `description`='".$des."',`brand_id`='".$brand."',`type_id`='".$type."' WHERE id = ".$id;
         }
         if ($conn->query($sql) === TRUE) {
             echo "The record editted successfully";
@@ -38,6 +37,16 @@ switch ($_GET['action']) {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
         break;
+    case 'hide':
+        $id = $_GET['id'];
+        $sqlDel = "UPDATE `products` SET `display` = 1 WHERE `id` = " . $id;
+        if ($conn->query($sqlDel) === TRUE) {
+            echo "The record editted successfully";
+            header("Location: ../admin/sanpham.php");
+        } else {
+            echo "Error: " . $sqlDel . "<br>" . $conn->error;
+        }
+        break;
     case 'add':
         $id = $_POST['product-id'];
         $name = $_POST['product-name'];
@@ -48,13 +57,16 @@ switch ($_GET['action']) {
         $number = intval($numberString);
         $product_type = $_POST['product-type'];
         $product_brand = $_POST['product-brand'];
+        $date_format = 'Y-m-d';
+        $current_time = time();
+        $current_time_formatted = date($date_format, $current_time);
         if (isset($_FILES['fileToUpload']) && $_FILES['fileToUpload']['name'] == '') {
             //No file selected
-            $sql = "INSERT INTO `products`(`id`, `name`, `price`, `type`, `brand`, `date`, `description`) VALUES ('" . $id . "', '" . $name . "', '" . $number . "', '" . $product_type . "', '" . $product_brand . "', '0', '');";
+            $sql = "INSERT INTO `products`(`id`, `name`, `price`, `date`, `description`,`brand_id`, `type_id` ) VALUES ('" . $id . "', '" . $name . "', '" . $number . "', '".$current_time_formatted."', '', '" . $product_type . "', '" . $product_brand . "');";
         } else {
             $hinh = '';
             uploadHinh($hinh);
-            $sql = "INSERT INTO `products`(`id`, `name`, `price`, `type`, `brand`, `date`, `image`, `description`) VALUES ('" . $id . "', '" . $name . "', '" . $number . "', '" . $product_type . "', '" . $product_brand . "', '0', '" . $hinh . "', '');";
+            $sql = "INSERT INTO `products`(`id`, `name`, `price`,  `date`, `image`, `description`, `brand_id`,`type_id`) VALUES ('" . $id . "', '" . $name . "', '" . $number . "', '".$current_time_formatted."', '" . $hinh . "', '', '" . $product_type . "', '" . $product_brand . "');";
         }
         if ($conn->query($sql) === TRUE) {
             echo "The record edited successfully";

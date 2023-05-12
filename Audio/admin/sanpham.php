@@ -216,6 +216,20 @@
                       $sql = "SELECT * FROM inventory WHERE product_id = '" . $row['id'] . "' ORDER BY updated_at DESC LIMIT 1";
                       $result2 = mysqli_query($conn, $sql);
                       $row2 = mysqli_fetch_assoc($result2);
+                      $sql3 = "SELECT * FROM bill_details WHERE product_id = '" . $row['id'] . "'";
+                      $result3 = mysqli_query($conn, $sql3);
+                      $row3 = mysqli_fetch_assoc($result3);
+                      if ($row3>0){
+                        $display = '<a class="deleteCF" href="handleProducts.php?action=hide&id=' . $row['id'] . '" ><button onclick="return confirm(\'Sản phẩm đang có đơn nên chỉ ẩn đi!\');" class="delete-btn">Delete</button></a>';
+                      }else{
+                        $display = '<a class="deleteCF" href="handleProducts.php?action=delete&id=' . $row['id'] . '" ><button onclick="return confirm(\'Are you sure?\');" class="delete-btn">Delete</button></a>';
+
+                      }
+                      if($row2 != null){
+                        $printQuan = '<li>' . $row2['quantity'] . '</li>';
+                      }else{
+                        $printQuan = '<li>Vui lòng thêm số lượng sản phẩm</li>';
+                      }
                       echo '<div class="recent-stock-item">';
                       echo ' <div class="80%" style="width: 80%;">';
                       echo '<div class="sales-details stock-details">';
@@ -238,7 +252,7 @@
                       echo sprintf('<li>%s</li>', number_format($row['price'], 0, '', ','));
                       echo "</ul>";
                       echo '<ul class="details stock-item">';
-                      echo '<li>' . $row2['quantity'] . '</li>';
+                      echo $printQuan;
                       echo "</ul>";
                       echo "</div>";
                       echo "</div>";
@@ -246,7 +260,7 @@
                                 <ul class="modify-item">
                                   <li>
                                   <a href="manage_products.php?action=edit&id=' . $row['id'] . '" ><button class="edit-btn">Edit</button></a>      
-                                  <a class="deleteCF" href="handleProducts.php?action=delete&id=' . $row['id'] . '" ><button onclick="return confirm(\'Are you sure?\');" class="delete-btn">Delete</button></a>     
+                                  '.$display.'     
                                   </li>
                                   
                                 </ul>
