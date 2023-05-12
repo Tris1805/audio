@@ -155,7 +155,7 @@
               <form action="searchAD.php" method="POST" class="form-search">
                 <div class="flex-form" style="display: flex;">
                   <input type="text" placeholder="Search..." id="search-input" name='search' style="height: 40px;" />
-                  <button id="search-btn-submit" type="submit" style=""><img src="../assets/images/icons/white-loupe.png" style="width: 70%; height: 69%" alt="search"></button>
+                  <button id="search-btn-submit" type="submit" style=""><img src="../assets/images/icons/white-loupe.png" style="width: 45%; height: 45%" alt="search"></button>
                 </div>
               </form>
               

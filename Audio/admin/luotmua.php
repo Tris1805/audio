@@ -85,24 +85,6 @@
                 <span class="links_name">Lượt mua</span>
               </a>
             </li>
-            <!-- <li>
-                <a href="#">
-                  <i class="bx bx-pie-chart-alt-2"></i>
-                  <span class="links_name">Analytics</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="bx bx-coin-stack"></i>
-                  <span class="links_name">Stock</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="bx bx-book-alt"></i>
-                  <span class="links_name">Total order</span>
-                </a>
-              </li> -->
             <li>
               <a href="./nguoidung.php">
                 <i class="bx bx-user"></i>
@@ -149,13 +131,13 @@
                     <div class="title">Thông tin người dùng</div>
                     <div class="user-details-title">
                       <div class="user-details-title-items id-title">ID</div>
-                      <div class="user-details-title-items username-title">
+                      <div class="user-details-title-items username-title" style="width: 10%">
                         Ngày
                       </div>
-                      <div class="user-details-title-items mail-title">
+                      <div class="user-details-title-items mail-title" style="width: 3%">
                         Payment
                       </div>
-                      <div class="user-details-title-items address-title">
+                      <div class="user-details-title-items address-title" style="width: 25%">
                         Địa chỉ
                       </div>
                       <div class="user-details-title-items tel-title">Đơn giá</div>
@@ -175,34 +157,32 @@
                         <li><a href="#">
                             <?= $row['id'] ?>
                           </a></li>
-                        <!-- <li><a href="#">1</a></li> -->
+                       
                       </ul>
                       <ul class="details username-item">
                         <li>
                           <?= $row['created_day'] ?>
                         </li>
-                        <!-- <li>TriBui</li> -->
-
+                       
                       </ul>
-                      <ul class="details mail-item">
+                      <ul class="details payment-item">
                         <li>
                           <?= $row['payment'] ?>
                         </li>
-                        <!-- <li>Tribui@gmail.com</li> -->
-
+                        
                       </ul>
                       <ul class="details address-item">
                         <li>
                           <?= $row['address'] ?>
                         </li>
-                        <!-- <li>164 Đường Tây Thiên, Xã Bắc Ấn, TP Thiên Đường</li> -->
+                        
 
                       </ul>
                       <ul class="details tel-item">
                         <li>
                           <?= number_format($row['total'], 0, '', ',') ?>
                         </li>
-                        <!-- <li>120000000</li> -->
+                     
 
                       </ul>
                     </div>

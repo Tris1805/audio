@@ -405,7 +405,7 @@ nav .profile-details i {
 .stock-details {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
 }
 
@@ -548,6 +548,14 @@ nav .profile-details i {
 
 .mail-item {
   width: 14%;
+}
+
+.payment-item{
+  width: 3%;
+}
+
+.address-item {
+  width: 25%;
 }
 
 .status-item {
