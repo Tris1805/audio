@@ -9,10 +9,10 @@ Làm form người dùng
 
 12/5/23
 
-client/index starfield trỏ nhầm vào aria
+client/index starfield trỏ nhầm vào aria  (done)
 
-Tag liên hệ trong trang lienhe.php chưa được gán cho chính nó (khi đang ở trang liên hệ mà chọn liên hệ sẽ bị lỗi)
+Tag liên hệ trong trang lienhe.php chưa được gán cho chính nó (khi đang ở trang liên hệ mà chọn liên hệ sẽ bị lỗi) (done)
 
-logo giỏ hàng trong trang lienhe.php cũng lỗi
+logo giỏ hàng trong trang lienhe.php cũng lỗi (done)
 
-logo giỏ hàng và liên hệ ở trang loggedIn.php cũng lỗi
+logo giỏ hàng và liên hệ ở trang loggedIn.php cũng lỗi (done)

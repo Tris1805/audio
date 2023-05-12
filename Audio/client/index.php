@@ -179,7 +179,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="new-items"><a href="chitietsanpham.php?id=20">
+                    <div class="new-items"><a href="chitietsanpham.php?id=19">
                             <div class="new-items-img"><img src="../assets/images/products/moondrop_starfield.png"
                                     alt="">
                             </div>
