@@ -5,3 +5,14 @@ Gắn link vào logo Ikus in admin(done)
 Fix ấn thêm vào giỏ hàng, bị nhảy sang ngay giỏ hàng, kh nên nhảy, ở lại trang đó để khách lựa tiếp (done)
 
 Làm form người dùng
+
+
+12/5/23
+
+client/index starfield trỏ nhầm vào aria
+
+Tag liên hệ trong trang lienhe.php chưa được gán cho chính nó (khi đang ở trang liên hệ mà chọn liên hệ sẽ bị lỗi)
+
+logo giỏ hàng trong trang lienhe.php cũng lỗi
+
+logo giỏ hàng và liên hệ ở trang loggedIn.php cũng lỗi
