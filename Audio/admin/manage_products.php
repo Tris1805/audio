@@ -112,7 +112,7 @@
 
                       <label for="product-price">Đơn giá:</label>
                       <input type="text" id="product-price" name="product-price"
-                        value="<?php echo number_format($row['price'], 0, '', ',') ?>" /><br />
+                        value="<?php echo number_format($row['price']) ?>" /><br />
 
                       <label for="product-quantity">Số lượng:</label>
                       <input type="number" id="product-quantity" name="product-quantity"
@@ -207,7 +207,19 @@
                       ?>
                       </select>
                       <br />
+                      <label for="product-display">Hiển thị:</label>
+                      <select type="text" id="product-display" name="product-display">
+                        <?php 
+                          if ($row['display']==1){
+                            echo "<option value='1' >Hiển thị</option>";
+                            echo "<option value='0' selected>Ẩn</option>";
 
+                          }else{
+                            echo "<option value='1' selected>Hiển thị</option>";
+                            echo "<option value='0' >Ẩn</option>";
+                          }
+                        ?>
+                      </select>
                       <button type="submit" id="saveChanges">Lưu</button>
                     </form>
                     <?php
@@ -237,18 +249,18 @@
     const links = document.querySelectorAll(".nav-links a");
 
     // Lặp qua tất cả các thẻ 'a' và thêm sự kiện click cho chúng
-    links.forEach((link) => {
-      link.addEventListener("click", (event) => {
-      ();
-        // Loại bỏ lớp 'active' từ tất cả các thẻ 'a'
-        links.forEach((link) => {
-          link.classList.remove("active");
-        });
-        // Thêm lớp 'active' cho thẻ 'a' đang được chọn
-        link.classList.add("active");
-        window.location.href = this.href;
-      });
-    });
+    // links.forEach((link) => {
+    //   link.addEventListener("click", (event) => {
+    //   ();
+    //     // Loại bỏ lớp 'active' từ tất cả các thẻ 'a'
+    //     links.forEach((link) => {
+    //       link.classList.remove("active");
+    //     });
+    //     // Thêm lớp 'active' cho thẻ 'a' đang được chọn
+    //     link.classList.add("active");
+    //     window.location.href = this.href;
+    //   });
+    // });
     const priceInput1 = document.getElementById("product-price");
     priceInput1.addEventListener("input", function () {
       const value = parseInt(this.value.replace(/\D/g, ""));

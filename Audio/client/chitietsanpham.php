@@ -209,14 +209,14 @@
     var quantity_ven = parseInt(document.getElementById('quantity_inventory').value);
     var quantity_buy = parseInt(document.getElementById('quantity_buy').value);
 
-    if (quantity_buy <= quantity_ven) {
+    if (quantity_buy <= quantity_ven && quantity_buy > 0) {
       // Nếu số lượng mua nhỏ hơn hoặc bằng số lượng hàng trong kho
       // Thực hiện submit form
       document.getElementById('goToCart').submit();
     } else {
       // Nếu số lượng mua lớn hơn số lượng hàng trong kho
       // Hiển thị thông báo lỗi
-      alert('Kho không đủ hàng, vui lòng nhập số lượng nhỏ hơn hoặc bằng số lượng còn lại');
+      alert('Kho không đủ hàng hoặc nhập sai định dạng, vui lòng nhập số lượng nhỏ hơn hoặc bằng số lượng còn lại');
     }
   });
 

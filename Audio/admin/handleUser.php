@@ -20,6 +20,16 @@
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
             break;
+        case "huydon":
+            $id = $_GET['id'];
+            $sql = "DELETE FROM `bill` WHERE id = " .$id;
+            if ($conn->query($sql) === TRUE) {
+                echo "The record editted successfully";
+                header("Location: ../admin/nguoidung.php");
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+            break;
     }
 
 ?>

@@ -8,17 +8,18 @@ switch ($_GET['action']) {
         $type = $_POST['product-type'];
         $brand = $_POST['product-brand'];
         $des  = $_POST['product-description'];
+        $display  = $_POST['product-display'];
         $numberString = str_replace(',', '', $price);
 
         // Chuyển đổi chuỗi thành số nguyên
         $number = intval($numberString);
         if (isset($_FILES['fileToUpload']) && $_FILES['fileToUpload']['name'] == '') {
             //No file selected
-            $sql = "UPDATE `products` SET `name`='".$name."',`price`='".$number."', `description`='".$des."',`brand_id`='".$brand."',`type_id`='".$type."' WHERE id = ".$id;
+            $sql = "UPDATE `products` SET `name`='".$name."',`price`='".$number."', `description`='".$des."',`brand_id`='".$brand."',`type_id`='".$type."',`display`='".$display."' WHERE id = ".$id;
         } else {
             $hinh = '';
             uploadHinh($hinh);
-            $sql = "UPDATE `products` SET `name`='".$name."',`price`='".$number."',`image`='".$hinh."', `description`='".$des."',`brand_id`='".$brand."',`type_id`='".$type."' WHERE id = ".$id;
+            $sql = "UPDATE `products` SET `name`='".$name."',`price`='".$number."',`image`='".$hinh."', `description`='".$des."',`brand_id`='".$brand."',`type_id`='".$type."',`display`='".$display."' WHERE id = ".$id;
         }
         if ($conn->query($sql) === TRUE) {
             echo "The record editted successfully";

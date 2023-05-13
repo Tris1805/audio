@@ -25,8 +25,8 @@
   $succes = "";
   if (!empty($_SESSION["cur_user"])) {
     $cur_user = $_SESSION["cur_user"];
-    
-  }else {
+
+  } else {
     $error = "Bạn chưa đăng nhập";
   }
   if (isset($_GET['action'])) {
@@ -51,9 +51,9 @@
     switch ($_GET['action']) {
       case "add":
         update_cart(true);
-        if(basename($_SERVER['PHP_SELF']) == "giohang.php"){
+        if (basename($_SERVER['PHP_SELF']) == "giohang.php") {
           header("Location: ./trangchu.php#print-search");
-        }else{
+        } else {
           update_cart(true);
           header("Location: ./giohang.php");
         }
@@ -90,7 +90,7 @@
   
           // Sử dụng hàm date() để định dạng thời gian hiện tại theo chuỗi định dạng
           $current_time_formatted = date($date_format, $current_time);
-          $insertBill = mysqli_query($conn, "INSERT INTO `bill`(`id`, `user_id`, `address`, `note`, `created_day`, `last_updated`, `payment`, `total`, `cus_name`) VALUES (null,'".$cur_user["user_id"]."','" . $_POST['dia-chi-dich'] . "','" . $_POST['ghi-chu-dich'] . "','" . $current_time_formatted . "','" . $current_time_formatted . "','" . $_POST['payment'] . "','" . $total . "', '" . $_POST['ho-ten-dich'] . "')");
+          $insertBill = mysqli_query($conn, "INSERT INTO `bill`(`id`, `user_id`, `address`, `note`, `created_day`, `last_updated`, `payment`, `total`, `cus_name`, `status`) VALUES (null,'" . $cur_user["user_id"] . "','" . $_POST['dia-chi-dich'] . "','" . $_POST['ghi-chu-dich'] . "','" . $current_time_formatted . "','" . $current_time_formatted . "','" . $_POST['payment'] . "','" . $total . "', '" . $_POST['ho-ten-dich'] . "', '1')");
           $billID = $conn->insert_id;
           // if (!empty($_SESSION["cur_user"])){
           //   $cur_user = $_SESSION["cur_user"];
@@ -230,7 +230,7 @@
             </div>
             <div class="main-payment-method main-payment-info">
               <span class="customer-info-title">Phuong thuc thanh toan</span>
-              <form action="" id="payment-method" >
+              <form action="" id="payment-method">
                 <input type="radio" class="payment-checkbox" name="payment" id="cod" value="cod" checked />COD
                 <img style="height: 30px" src="../assets/images/icons/COD.png" alt="" />
                 <br />
@@ -272,8 +272,17 @@
                             <?php echo sprintf('<div class="">%sđ</div>', number_format($row['price'], 0, '', ',')) ?>
                             </span>
                             <div>
-                              SL: <input type="text" class="quantity_order_confirm" name="quantity[<?php echo $row['id'] ?>]"
-                                value="<?php echo $_SESSION['giohang'][$row['id']] ?>" onchange="updateTotal()"></div>
+                              SL: <input type="number" class="quantity_order_confirm" id="quantity_order_confirm" min="1"
+                                name="quantity[<?php echo $row['id'] ?>]" value="<?php echo $_SESSION['giohang'][$row['id']] ?>"
+                                onchange="updateTotal()"></div>
+                          <?php
+                          $sqlStock = "SELECT * FROM inventory WHERE product_id =" . $row['id'];
+                          $productStock = mysqli_query($conn, $sqlStock);
+                          $rowStock = mysqli_fetch_assoc($productStock);
+                          ?>
+                            <div style="display:none;">
+                              SL: <input type="text" class="quantity_order_stock" id="quantity_order_stock" name=""
+                                value="<?php echo $rowStock['quantity'] ?>"></div>
                           </div>
                           <a href="giohang.php?action=delete&id=<?php echo $row['id'] ?>">
                             <div class="delete-item">
@@ -375,9 +384,17 @@
     document.getElementById("so-dien-thoai-dich").value = soDienThoai;
     document.getElementById("ghi-chu-dich").value = ghiChu;
     document.getElementById("payment").value = valuePayment;
+    var quantity_buy = parseInt(document.getElementById('quantity_order_confirm').value);
+    var quantity_ven = parseInt(document.getElementById('quantity_order_stock').value);
+    if (quantity_buy <= quantity_ven && quantity_buy > 0) {
+       // Ngăn chặn hành vi submit form mặc định
 
+      document.getElementById("form-dich").submit();
+    } else {
+      alert('Kho không đủ hàng hoặc nhập sai định dạng, vui lòng nhập số lượng nhỏ hơn hoặc bằng số lượng còn lại');
+      event.preventDefault();
+    }
     // Submit form đích để gửi dữ liệu đi
-    document.getElementById("form-dich").submit();
   }
 </script>
 

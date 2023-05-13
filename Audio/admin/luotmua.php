@@ -57,6 +57,21 @@
   $tolal_products = mysqli_query($conn, "SELECT * FROM bill ");
   $tolal_products = $tolal_products->num_rows;
   $totalPages = ceil($tolal_products / $item_per_page);
+  if (isset($_POST['status']) && isset($_POST['id'])) {
+    $status = $_POST['status'];
+    $id = $_POST['id'];
+    var_dump($status, $id);
+    $sql = "UPDATE bill SET status = '$status' WHERE id = '$id'";
+    if ($conn->query($sql) === TRUE) {
+      // Cập nhật thành công
+      echo "Cập nhật trạng thái thành công!";
+      header("Location: luotmua.php");
+    } else {
+      // Xảy ra lỗi khi cập nhật
+      echo "Lỗi: " . $conn->error;
+    }
+    exit;
+  }
   ?>
   <div id="app">
     <div class="main-container">
@@ -92,11 +107,11 @@
               </a>
             </li>
             <li>
-                <a href="truyvan.php">
-                  <i class="bx bx-pie-chart-alt-2"></i>
-                  <span class="links_name">Truy vấn</span>
-                </a>
-              </li>
+              <a href="truyvan.php">
+                <i class="bx bx-pie-chart-alt-2"></i>
+                <span class="links_name">Truy vấn</span>
+              </a>
+            </li>
             <li class="log_out">
               <a href="../client/logout.php">
                 <i class="bx bx-log-out"></i>
@@ -141,6 +156,8 @@
                         Địa chỉ
                       </div>
                       <div class="user-details-title-items tel-title">Đơn giá</div>
+                      <div class="user-details-title-items tel-title">Tình trạng</div>
+                      <div class="user-details-title-items tel-title">Hủy đơn</div>
                     </div>
                   </div>
                   <?php
@@ -154,36 +171,58 @@
                     ?>
                     <div class="sales-details stock-details">
                       <ul class="details id-item">
-                        <li><a href="#">
+                        <li><a href="#" class="id-update" data-id="<?= $row['id'] ?>">
                             <?= $row['id'] ?>
-                          </a></li>
-                       
+                          </a>
+                        </li>
+
                       </ul>
                       <ul class="details username-item">
                         <li>
                           <?= $row['created_day'] ?>
                         </li>
-                       
+
                       </ul>
                       <ul class="details payment-item">
                         <li>
                           <?= $row['payment'] ?>
                         </li>
-                        
+
                       </ul>
                       <ul class="details address-item">
                         <li>
                           <?= $row['address'] ?>
                         </li>
-                        
+
 
                       </ul>
                       <ul class="details tel-item">
                         <li>
                           <?= number_format($row['total'], 0, '', ',') ?>
                         </li>
-                     
 
+
+                      </ul>
+                      <ul class="details tel-item">
+                        <li>
+                          <select type="text" id="bill-status" name="bill-status">
+                            <option value="1" <?php if ($row['status'] == 1)
+                              echo 'selected'; ?>>Chưa xử lý</option>
+                            <option value="2" <?php if ($row['status'] == 2)
+                              echo 'selected'; ?>>Đang xử lý</option>
+                            <option value="3" <?php if ($row['status'] == 3)
+                              echo 'selected'; ?>>Hoàn thành</option>
+                          </select>
+                        </li>
+                      </ul>
+                      <ul class="details tel-item">
+                        <li>
+                          <a href='./handleUser.php?action=huydon&id=<?= $row['id'] ?>'
+                            onclick="return confirm('Are you sure?');">
+                            Hủy đơn
+                          </a>
+
+                        </li>
                       </ul>
                     </div>
                     <?php
@@ -328,6 +367,33 @@
           }
         });
       }
+    });
+
+
+  </script>
+  <script>
+    $(document).ready(function () {
+
+      $('#bill-status').change(function () {
+        var selectedValue = $(this).val();
+        var id = $('.id-update').data('id');
+
+
+        $.ajax({
+          url: 'update_status.php',
+          method: 'POST',
+          data: { status: selectedValue, id: id },
+          success: function (response) {
+            // Xử lý thành công
+            console.log(response);
+          },
+          error: function (xhr, status, error) {
+            // Xử lý lỗi
+            console.log(error);
+          }
+        });
+        alert("Đã lưu thay đổi");
+      });
     });
   </script>
 </body>
