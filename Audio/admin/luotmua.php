@@ -205,7 +205,7 @@
                       </ul>
                       <ul class="details tel-item">
                         <li>
-                          <select type="text" id="bill-status" name="bill-status">
+                          <select type="text" class="bill-status" name="bill-status" data-id="<?php echo $row['id']; ?>">
                             <option value="1" <?php if ($row['status'] == 1)
                               echo 'selected'; ?>>Chưa xử lý</option>
                             <option value="2" <?php if ($row['status'] == 2)
@@ -372,12 +372,33 @@
 
   </script>
   <script>
+    // $(document).ready(function () {
+
+    //   $('#bill-status').change(function () {
+    //     var selectedValue = $(this).val();
+    //     var id = $('.id-update').data('id');
+
+
+    //     $.ajax({
+    //       url: 'update_status.php',
+    //       method: 'POST',
+    //       data: { status: selectedValue, id: id },
+    //       success: function (response) {
+    //         // Xử lý thành công
+    //         console.log(response);
+    //       },
+    //       error: function (xhr, status, error) {
+    //         // Xử lý lỗi
+    //         console.log(error);
+    //       }
+    //     });
+    //     alert("Đã lưu thay đổi");
+    //   });
+    // });
     $(document).ready(function () {
-
-      $('#bill-status').change(function () {
+      $('.bill-status').change(function () {
         var selectedValue = $(this).val();
-        var id = $('.id-update').data('id');
-
+        var id = $(this).data('id');
 
         $.ajax({
           url: 'update_status.php',
@@ -395,6 +416,7 @@
         alert("Đã lưu thay đổi");
       });
     });
+
   </script>
 </body>
 
