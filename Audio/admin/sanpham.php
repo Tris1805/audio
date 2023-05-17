@@ -255,10 +255,33 @@
                       echo '<li>' . $row['name'] . '</li>';
                       echo '</ul>';
                       echo '<ul class="details type-item">';
-                      echo '<li>'. $row['type_id'] . '</li>';
+                      switch ($row['type_id']){
+                        case 1:
+                          echo '<li>Full-sized</li>';break;
+                        case 2:
+                          echo '<li>Inear</li>';break;
+                        case 3:
+                          echo '<li>Earbud</li>';break;
+                        case 4:
+                          echo '<li>True-wireless</li>';break;
+
+                      }
+                      
                       echo '</ul>';
                       echo '<ul class="details brand-item">';
-                      echo '<li>'. $row['brand_id'] . '</li>';
+                      switch ($row['brand_id']){
+                        case 1:
+                          echo '<li>Apple</li>';break;
+                        case 2:
+                          echo '<li>MOONDROP</li>';break;
+                        case 3:
+                          echo '<li>SONY</li>';break;
+                        case 4:
+                          echo '<li>Focal</li>';break;
+                        case 5:
+                          echo '<li>HifiMan</li>';break;
+
+                      }
                       echo '</ul>';
                       echo '<ul class="details price-item">';
                       echo sprintf('<li>%s</li>', number_format($row['price'], 0, '', ','));
