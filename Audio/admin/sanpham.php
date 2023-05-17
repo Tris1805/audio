@@ -201,6 +201,12 @@
                       <div class="stock-details-title-items name-title">
                         Tên sản phẩm
                       </div>
+                      <div class="stock-details-title-items type-title">
+                        Loại
+                      </div>
+                      <div class="stock-details-title-items brand-title">
+                        Brand
+                      </div>
                       <div class="stock-details-title-items price-title">
                         Đơn giá
                       </div>
@@ -247,6 +253,12 @@
                       echo '</ul>';
                       echo '<ul class="details name-item">';
                       echo '<li>' . $row['name'] . '</li>';
+                      echo '</ul>';
+                      echo '<ul class="details type-item">';
+                      echo '<li>'. $row['type_id'] . '</li>';
+                      echo '</ul>';
+                      echo '<ul class="details brand-item">';
+                      echo '<li>'. $row['brand_id'] . '</li>';
                       echo '</ul>';
                       echo '<ul class="details price-item">';
                       echo sprintf('<li>%s</li>', number_format($row['price'], 0, '', ','));

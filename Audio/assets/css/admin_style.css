@@ -506,6 +506,14 @@ nav .profile-details i {
   text-align: center;
 }
 
+.brand-title {
+ width: 15%;
+}
+
+.type-title {
+ width: 15%;
+}
+
 .image-item {
   width: 15%;
 }
@@ -548,6 +556,14 @@ nav .profile-details i {
 
 .mail-item {
   width: 14%;
+}
+
+.brand-item {
+  width: 15%;
+}
+ 
+.type-item {
+  width: 15%;
 }
 
 .payment-item{

@@ -95,7 +95,7 @@
               </a>
             </li>
             <li>
-              <a href="./luotmua.php">
+              <a href="./luotmua.php" class="active">
                 <i class="bx bx-list-ul"></i>
                 <span class="links_name">Lượt mua</span>
               </a>
