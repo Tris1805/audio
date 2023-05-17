@@ -218,7 +218,7 @@
                       <ul class="details tel-item">
                         <li>
                           <a href='./handleUser.php?action=huydon&id=<?= $row['id'] ?>'
-                            onclick="return confirm('Are you sure?');">
+                            onclick="return confirm('Are you sure?');" style="color: red; font-size: 16px">
                             Hủy đơn
                           </a>
 

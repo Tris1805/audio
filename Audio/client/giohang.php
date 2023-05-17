@@ -229,7 +229,7 @@
             <?php } ?>
             </div>
             <div class="main-payment-method main-payment-info">
-              <span class="customer-info-title">Phuong thuc thanh toan</span>
+              <span class="customer-info-title">Phương thức thanh toán:</span>
               <form action="" id="payment-method">
                 <input type="radio" class="payment-checkbox" name="payment" id="cod" value="cod" checked />COD
                 <img style="height: 30px" src="../assets/images/icons/COD.png" alt="" />

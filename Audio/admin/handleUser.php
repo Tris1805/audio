@@ -25,7 +25,7 @@
             $sql = "DELETE FROM `bill` WHERE id = " .$id;
             if ($conn->query($sql) === TRUE) {
                 echo "The record editted successfully";
-                header("Location: ../admin/nguoidung.php");
+                header("Location: ../admin/luotmua.php");
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
