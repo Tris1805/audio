@@ -61,13 +61,14 @@ switch ($_GET['action']) {
         $date_format = 'Y-m-d';
         $current_time = time();
         $current_time_formatted = date($date_format, $current_time);
+        $des = $_POST['product-description'];
         if (isset($_FILES['fileToUpload']) && $_FILES['fileToUpload']['name'] == '') {
             //No file selected
             $sql = "INSERT INTO `products`(`id`, `name`, `price`, `date`, `description`,`brand_id`, `type_id` ) VALUES ('" . $id . "', '" . $name . "', '" . $number . "', '".$current_time_formatted."', '', '" . $product_type . "', '" . $product_brand . "');";
         } else {
             $hinh = '';
             uploadHinh($hinh);
-            $sql = "INSERT INTO `products`(`id`, `name`, `price`,  `date`, `image`, `description`, `brand_id`,`type_id`) VALUES ('" . $id . "', '" . $name . "', '" . $number . "', '".$current_time_formatted."', '" . $hinh . "', '', '" . $product_type . "', '" . $product_brand . "');";
+            $sql = "INSERT INTO `products`(`id`, `name`, `price`,  `date`, `image`, `description`, `brand_id`,`type_id`) VALUES ('" . $id . "', '" . $name . "', '" . $number . "', '".$current_time_formatted."', '" . $hinh . "', '".$des."', '" . $product_type . "', '" . $product_brand . "');";
         }
         if ($conn->query($sql) === TRUE) {
             echo "The record edited successfully";
